@@ -1,4 +1,4 @@
-package com.joi.school.fitness.home;
+package com.joi.school.fitness.mine;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -8,7 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class CoreFragment extends Fragment {
+public class MineFragment extends Fragment {
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,

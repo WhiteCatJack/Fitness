@@ -9,10 +9,10 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
-import com.joi.school.fitness.home.CoreFragment;
-import com.joi.school.fitness.home.ForumFragment;
+import com.joi.school.fitness.core.CoreFragment;
+import com.joi.school.fitness.forum.ForumFragment;
 import com.joi.school.fitness.home.HomeFragment;
-import com.joi.school.fitness.home.MineFragment;
+import com.joi.school.fitness.mine.MineFragment;
 
 public class MainActivity extends AppCompatActivity {
 

@@ -1,4 +1,4 @@
-package com.joi.school.fitness.home;
+package com.joi.school.fitness.core;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -8,7 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class ForumFragment extends Fragment {
+public class CoreFragment extends Fragment {
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
