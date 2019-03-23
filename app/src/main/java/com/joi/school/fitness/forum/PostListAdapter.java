@@ -1,6 +1,5 @@
 package com.joi.school.fitness.forum;
 
-import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -11,6 +10,7 @@ import android.widget.TextView;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.joi.school.fitness.R;
 import com.joi.school.fitness.forum.datasource.Post;
+import com.joi.school.fitness.util.FrescoUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -70,8 +70,9 @@ public class PostListAdapter extends RecyclerView.Adapter<PostListAdapter.ViewHo
         }
 
         public void build(Post post) {
-            Uri uri = Uri.parse(post.getAuthor().getAvatarUrl());
-            avatarImageView.setImageURI(uri);
+            if (post.getAuthor() != null) {
+                FrescoUtils.setImageUrl(avatarImageView, post.getAuthor().getAvatarUrl());
+            }
             titleTextView.setText(post.getTitle());
             contentTextView.setText(post.getContent());
         }
