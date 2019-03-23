@@ -4,4 +4,15 @@
     <string name="title_core">Core</string>
     <string name="title_forum">Forum</string>
     <string name="title_mine">Mine</string>
+
+    <string name="title_new_post">New post</string>
+    <string name="toast_new_post_success">You have created a new post!</string>
+    <string name="hint_new_post_title">Please input title here.</string>
+    <string name="hint_new_post_content">Please input content here.</string>
+
+    <string name="warning_not_sign_in">Not signed in! Please sign in first.</string>
+    <string name="button_sign_in">Sign in</string>
+    <string name="hint_sign_username">Please input username here.</string>
+    <string name="button_sign_up">Sign up</string>
+    <string name="hint_sign_password">Please input password here.</string>
 </resources>

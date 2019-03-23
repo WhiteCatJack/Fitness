@@ -6,7 +6,6 @@ import android.support.annotation.StringDef;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
 import com.joi.school.fitness.core.CoreFragment;
@@ -14,9 +13,9 @@ import com.joi.school.fitness.forum.ForumFragment;
 import com.joi.school.fitness.home.HomeFragment;
 import com.joi.school.fitness.mine.MineFragment;
 
-public class MainActivity extends AppCompatActivity {
+public class HomeActivity extends BaseActivity {
 
-    private static final String TAG = "MainActivity";
+    private static final String TAG = "HomeActivity";
 
     public static final String FRAGMENT_TAG_HOME = "fragment_tag_home";
     public static final String FRAGMENT_TAG_CORE = "fragment_tag_core";
