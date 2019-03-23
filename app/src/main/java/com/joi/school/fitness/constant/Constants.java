@@ -1,4 +1,4 @@
-package com.joi.school.fitness;
+package com.joi.school.fitness.constant;
 
 /**
  * Description.

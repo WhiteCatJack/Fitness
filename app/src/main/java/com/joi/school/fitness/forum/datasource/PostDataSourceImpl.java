@@ -2,7 +2,7 @@ package com.joi.school.fitness.forum.datasource;
 
 import android.support.annotation.Nullable;
 
-import com.joi.school.fitness.Constants;
+import com.joi.school.fitness.constant.Constants;
 
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.listener.FindListener;
