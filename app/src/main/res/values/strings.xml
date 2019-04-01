@@ -18,4 +18,15 @@
     <string name="button_sign_up_link">No account yet? Create one</string>
     <string name="hint_sign_password">Please input password here.</string>
     <string name="button_sign_out">Sign out</string>
+
+    <string name="title_core_sport_recommend">Sport Recommend</string>
+    <string name="title_core_meal_recommend">Meal Recommend</string>
+    <string name="title_core_assessment">In 30-Day Assessment</string>
+
+    <string name="title_core_no_physical_statistic_hint">No physical statistic!</string>
+    <string name="title_physical_statistic">Physical statistic</string>
+    <string name="button_physical_statistic_link">Go to make a physical statistic</string>
+    <string name="title_set_physical_statistic">Set physical statistic</string>
+
+
 </resources>

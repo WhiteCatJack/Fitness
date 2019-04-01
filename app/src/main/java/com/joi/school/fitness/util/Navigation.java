@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import com.joi.school.fitness.constant.Constants;
 import com.joi.school.fitness.forum.datasource.Post;
 import com.joi.school.fitness.forum.postdetail.PostActivity;
+import com.joi.school.fitness.mine.body.SetPhysicalStatisticActivity;
 
 /**
  * Description.
@@ -22,5 +23,12 @@ public class Navigation {
         Intent intent = new Intent(context, PostActivity.class);
         intent.putExtra(Constants.INTENT_KEY_POST, post);
         context.startActivity(intent);
+    }
+
+    public static void goToSetPhysicalStatisticActivity(@NonNull Context context) {
+        if (context == null) {
+            return;
+        }
+        context.startActivity(new Intent(context, SetPhysicalStatisticActivity.class));
     }
 }

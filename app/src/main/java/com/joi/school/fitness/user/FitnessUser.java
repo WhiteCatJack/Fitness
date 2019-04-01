@@ -11,6 +11,10 @@ import cn.bmob.v3.BmobUser;
 public class FitnessUser extends BmobUser {
     private String avatarUrl;
     private String nick;
+    // 个性签名
+    private String personalizedSignature;
+    // 最新身体数据
+    private PhysicalStatistic latestPhysicalStatistic;
 
     public String getAvatarUrl() {
         return avatarUrl;
@@ -26,5 +30,21 @@ public class FitnessUser extends BmobUser {
 
     public void setNick(String nick) {
         this.nick = nick;
+    }
+
+    public String getPersonalizedSignature() {
+        return personalizedSignature;
+    }
+
+    public void setPersonalizedSignature(String personalizedSignature) {
+        this.personalizedSignature = personalizedSignature;
+    }
+
+    public PhysicalStatistic getLatestPhysicalStatistic() {
+        return latestPhysicalStatistic;
+    }
+
+    public void setLatestPhysicalStatistic(PhysicalStatistic latestPhysicalStatistic) {
+        this.latestPhysicalStatistic = latestPhysicalStatistic;
     }
 }

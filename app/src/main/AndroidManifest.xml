@@ -38,6 +38,11 @@
         <activity android:name=".sign.SignInActivity" />
         <activity android:name=".forum.postdetail.PostActivity"
             android:label="@string/title_post"/>
+        <activity android:name=".core.sport.SportRecommendActivity" />
+        <activity android:name=".core.assessment.AssessmentActivity" />
+        <activity android:name=".core.meal.MealRecommendActivity" />
+        <activity android:name=".mine.body.SetPhysicalStatisticActivity"
+            android:label="@string/title_set_physical_statistic"/>
     </application>
 
 </manifest>

@@ -32,7 +32,7 @@ public class ForumFragment extends Fragment implements IForumContract.View {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View layout = inflater.inflate(R.layout.fragment_forum, null);
+        View layout = inflater.inflate(R.layout.fragment_forum, container, false);
         mPostListView = layout.findViewById(R.id.rv_list);
         mNewPostButton = layout.findViewById(R.id.fab_new_post);
 

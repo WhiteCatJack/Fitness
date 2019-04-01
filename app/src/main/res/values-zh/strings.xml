@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">健康达人</string>
+    <string name="title_home">首页</string>
+    <string name="title_core">核心</string>
+    <string name="title_forum">社区</string>
+    <string name="title_mine">我</string>
+
+    <string name="title_new_post">发表</string>
+    <string name="toast_new_post_success">你刚刚作了一个新的发表！</string>
+    <string name="hint_new_post_title">题目</string>
+    <string name="hint_new_post_content">内容</string>
+    <string name="title_post">发表</string>
+
+    <string name="warning_not_sign_in">请先登录。</string>
+    <string name="button_sign_in">登录</string>
+    <string name="hint_sign_username">账号</string>
+    <string name="button_sign_up">注册</string>
+    <string name="button_sign_up_link">还没有账号？来注册一个。</string>
+    <string name="hint_sign_password">密码</string>
+    <string name="button_sign_out">注销</string>
+
+    <string name="title_core_sport_recommend">运动推荐</string>
+    <string name="title_core_meal_recommend">菜品推荐</string>
+    <string name="title_core_assessment">30天评估</string>
+
+    <string name="title_core_no_physical_statistic_hint">没有身体数据！</string>
+    <string name="title_physical_statistic">身体数据</string>
+    <string name="button_physical_statistic_link">去设置身体数据</string>
+    <string name="title_set_physical_statistic">设置身体数据</string>
+</resources>
