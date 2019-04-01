@@ -24,7 +24,7 @@ public class SignInActivity extends BaseActivity {
     private EditText mUsernameEditText;
     private EditText mPasswordEditText;
     private TextView mSignInButton;
-    private TextView mSignUpButton;
+    private TextView mSignUpLink;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -45,7 +45,7 @@ public class SignInActivity extends BaseActivity {
         mUsernameEditText = findViewById(R.id.et_username);
         mPasswordEditText = findViewById(R.id.et_password);
         mSignInButton = findViewById(R.id.bt_sign_in);
-        mSignUpButton = findViewById(R.id.bt_sign_up);
+        mSignUpLink = findViewById(R.id.link_sign_up);
 
         mSignInButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -68,7 +68,7 @@ public class SignInActivity extends BaseActivity {
                 });
             }
         });
-        mSignUpButton.setOnClickListener(new View.OnClickListener() {
+        mSignUpLink.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(SignInActivity.this, SignUpActivity.class));
