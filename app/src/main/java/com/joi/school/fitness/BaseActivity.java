@@ -1,5 +1,6 @@
 package com.joi.school.fitness;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
@@ -13,6 +14,7 @@ import es.dmoral.toasty.Toasty;
  * @author 泽乾
  * createAt 2019/3/22 0022 17:24
  */
+@SuppressLint("Registered")
 public class BaseActivity extends AppCompatActivity {
 
     @Override

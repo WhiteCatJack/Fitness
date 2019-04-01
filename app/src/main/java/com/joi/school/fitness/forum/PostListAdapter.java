@@ -24,6 +24,7 @@ import java.util.List;
 public class PostListAdapter extends RecyclerView.Adapter<PostListAdapter.ViewHolder> {
 
     private List<Post> mData = new ArrayList<>();
+    private OnItemClickListener mOnItemClickListener;
 
     public PostListAdapter(@NonNull List<Post> data) {
         if (data != null) {
@@ -54,6 +55,7 @@ public class PostListAdapter extends RecyclerView.Adapter<PostListAdapter.ViewHo
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
+        View layout;
         SimpleDraweeView avatarImageView;
         TextView titleTextView;
         TextView contentTextView;
@@ -64,17 +66,34 @@ public class PostListAdapter extends RecyclerView.Adapter<PostListAdapter.ViewHo
         }
 
         private void bindViews(View itemView) {
+            layout = itemView.findViewById(R.id.cv_layout);
             avatarImageView = itemView.findViewById(R.id.iv_avatar);
             titleTextView = itemView.findViewById(R.id.tv_title);
             contentTextView = itemView.findViewById(R.id.tv_content);
         }
 
-        public void build(Post post) {
+        void build(final Post post) {
+            layout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (mOnItemClickListener != null) {
+                        mOnItemClickListener.onItemClick(post);
+                    }
+                }
+            });
             if (post.getAuthor() != null) {
                 FrescoUtils.setImageUrl(avatarImageView, post.getAuthor().getAvatarUrl());
             }
             titleTextView.setText(post.getTitle());
             contentTextView.setText(post.getContent());
         }
+    }
+
+    void setOnItemClickListener(OnItemClickListener listener) {
+        mOnItemClickListener = listener;
+    }
+
+    public interface OnItemClickListener {
+        void onItemClick(Post post);
     }
 }

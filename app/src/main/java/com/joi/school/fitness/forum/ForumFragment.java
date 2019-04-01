@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import com.joi.school.fitness.R;
 import com.joi.school.fitness.forum.datasource.Post;
 import com.joi.school.fitness.forum.newpost.NewPostActivity;
+import com.joi.school.fitness.util.Navigation;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,6 +53,12 @@ public class ForumFragment extends Fragment implements IForumContract.View {
         mPresenter.getAll();
 
         mPostListAdapter = new PostListAdapter(mPostDataList);
+        mPostListAdapter.setOnItemClickListener(new PostListAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(Post post) {
+                Navigation.goToPostActivity(getContext(), post);
+            }
+        });
         mPostListView.setAdapter(mPostListAdapter);
     }
 

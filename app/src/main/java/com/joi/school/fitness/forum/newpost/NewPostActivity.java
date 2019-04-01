@@ -34,7 +34,6 @@ public class NewPostActivity extends BaseActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_post);
-        getSupportActionBar().setTitle(getString(R.string.title_new_post));
 
         initViews();
     }

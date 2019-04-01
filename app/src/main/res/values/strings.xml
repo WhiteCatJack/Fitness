@@ -9,6 +9,7 @@
     <string name="toast_new_post_success">You have created a new post!</string>
     <string name="hint_new_post_title">Please input title here.</string>
     <string name="hint_new_post_content">Please input content here.</string>
+    <string name="title_post">post</string>
 
     <string name="warning_not_sign_in">Not signed in! Please sign in first.</string>
     <string name="button_sign_in">Sign in</string>

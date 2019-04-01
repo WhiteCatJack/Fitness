@@ -31,9 +31,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".forum.newpost.NewPostActivity" />
+        <activity
+            android:name=".forum.newpost.NewPostActivity"
+            android:label="@string/title_new_post" />
         <activity android:name=".sign.SignUpActivity" />
         <activity android:name=".sign.SignInActivity" />
+        <activity android:name=".forum.postdetail.PostActivity"
+            android:label="@string/title_post"/>
     </application>
 
 </manifest>
