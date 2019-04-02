@@ -8,6 +8,7 @@ import com.joi.school.fitness.constant.Constants;
 import com.joi.school.fitness.forum.datasource.Post;
 import com.joi.school.fitness.forum.postdetail.PostActivity;
 import com.joi.school.fitness.mine.body.SetPhysicalStatisticActivity;
+import com.joi.school.fitness.mine.setinfo.SetMyInformationActivity;
 
 /**
  * Description.
@@ -30,5 +31,12 @@ public class Navigation {
             return;
         }
         context.startActivity(new Intent(context, SetPhysicalStatisticActivity.class));
+    }
+
+    public static void goToSetMyInformationActivity(@NonNull Context context) {
+        if (context == null) {
+            return;
+        }
+        context.startActivity(new Intent(context, SetMyInformationActivity.class));
     }
 }

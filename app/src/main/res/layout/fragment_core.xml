@@ -143,7 +143,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="24dp"
                 android:gravity="center"
-                android:text="@string/button_sign_up_link"
+                android:text="@string/button_physical_statistic_link"
                 android:textColor="@color/text_level1_color"
                 android:textSize="16dp" />
         </LinearLayout>

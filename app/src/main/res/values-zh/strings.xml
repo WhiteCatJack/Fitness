@@ -28,4 +28,7 @@
     <string name="title_physical_statistic">身体数据</string>
     <string name="button_physical_statistic_link">去设置身体数据</string>
     <string name="title_set_physical_statistic">设置身体数据</string>
+
+    <string name="title_set_my_information">设置个人信息</string>
+    <string name="title_set_my_info_avatar">设置头像</string>
 </resources>

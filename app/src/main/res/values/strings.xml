@@ -28,5 +28,9 @@
     <string name="button_physical_statistic_link">Go to make a physical statistic</string>
     <string name="title_set_physical_statistic">Set physical statistic</string>
 
+    <string name="title_set_my_information">Set my information</string>
+    <string name="title_set_my_info_avatar">Set avatar</string>
+    <string name="title_set_my_info_nickname">Set nickname</string>
+    <string name="title_set_my_info_personalized_signature">Set personalized signature</string>
 
 </resources>

@@ -43,6 +43,9 @@
         <activity android:name=".core.meal.MealRecommendActivity" />
         <activity android:name=".mine.body.SetPhysicalStatisticActivity"
             android:label="@string/title_set_physical_statistic"/>
+        <activity android:name=".user.UserProfileActivity" />
+        <activity android:name=".mine.setinfo.SetMyInformationActivity"
+            android:label="@string/title_set_my_information"/>
     </application>
 
 </manifest>

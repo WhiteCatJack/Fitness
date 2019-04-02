@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <com.joi.school.fitness.view.NormalCellView
+            android:id="@+id/cell_set_my_avatar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:labelText="@string/title_set_my_info_avatar" />
+
+        <com.joi.school.fitness.view.NormalCellView
+            android:id="@+id/cell_set_my_nickname"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:labelText="@string/title_set_my_info_nickname" />
+
+        <com.joi.school.fitness.view.NormalCellView
+            android:id="@+id/cell_set_my_personalized_signature"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:labelText="@string/title_set_my_info_personalized_signature" />
+    </LinearLayout>
+</ScrollView>
