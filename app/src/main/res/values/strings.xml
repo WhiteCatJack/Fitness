@@ -44,7 +44,10 @@
     <string name="unknown_error">Unknown error</string>
 
     <string name="title_sport_recommend">Sport recommend</string>
-    <string name="hint_new_sport_recommend">We have been recommend a new sport to you! Do you like it?</string>
+    <string name="hint_new_recommend">We have been recommend a new thing to you! Do you like it?</string>
+
+    <string name="title_meal_recommend">Meal recommend</string>
+    <string name="title_meal_scan">Meal scan</string>
 
     <string name="yes">yes</string>
     <string name="no">no</string>

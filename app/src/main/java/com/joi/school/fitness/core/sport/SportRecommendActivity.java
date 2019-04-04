@@ -89,10 +89,11 @@ public class SportRecommendActivity extends BaseActivity {
         builder.setView(layout);
         final AlertDialog dialog = builder.create();
 
-        SimpleDraweeView sportImageView = layout.findViewById(R.id.iv_sport_image);
-        TextView sportNameView = layout.findViewById(R.id.tv_sport_name);
+        SimpleDraweeView sportImageView = layout.findViewById(R.id.iv_image);
+        TextView sportNameView = layout.findViewById(R.id.tv_label);
         View yesView = layout.findViewById(R.id.tv_yes);
         View noView = layout.findViewById(R.id.tv_no);
+
         yesView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

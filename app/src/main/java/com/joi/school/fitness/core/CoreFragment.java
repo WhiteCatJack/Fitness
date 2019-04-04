@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.joi.school.fitness.R;
+import com.joi.school.fitness.core.meal.MealRecommendActivity;
 import com.joi.school.fitness.core.sport.SportRecommendActivity;
 import com.joi.school.fitness.user.UserEngine;
 import com.joi.school.fitness.util.Navigation;
@@ -45,7 +46,7 @@ public class CoreFragment extends Fragment {
         mMealRecommendView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                startActivity(new Intent(getContext(), MealRecommendActivity.class));
             }
         });
         mAssessmentView.setOnClickListener(new View.OnClickListener() {

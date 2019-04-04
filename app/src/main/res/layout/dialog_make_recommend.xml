@@ -15,7 +15,7 @@
         android:orientation="vertical">
 
         <com.facebook.drawee.view.SimpleDraweeView
-            android:id="@+id/iv_sport_image"
+            android:id="@+id/iv_image"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:placeholderImage="@color/colorPrimary"
@@ -28,7 +28,7 @@
             android:padding="8dp">
 
             <TextView
-                android:id="@+id/tv_sport_name"
+                android:id="@+id/tv_label"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="@color/text_level1_color"
@@ -38,7 +38,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/hint_new_sport_recommend"
+                android:text="@string/hint_new_recommend"
                 android:textColor="@color/text_level2_color"
                 android:textSize="14dp" />
 

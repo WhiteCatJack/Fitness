@@ -42,6 +42,9 @@ dependencies {
     // Fresco 图片库
     implementation 'com.facebook.fresco:fresco:1.13.0'
 
+    // 百度图像识别
+    implementation 'com.baidu.aip:java-sdk:4.8.0'
+
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
