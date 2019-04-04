@@ -47,6 +47,7 @@ class PostDataSourceImpl extends PostDataSource {
         new BmobQuery<Post>()
                 .setSkip(start == 0 ? 0 : start - 1)
                 .setLimit(amount)
+                .order("-createdAt")
                 .findObjects(listener);
     }
 

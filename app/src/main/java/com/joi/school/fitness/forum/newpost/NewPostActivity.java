@@ -1,5 +1,6 @@
 package com.joi.school.fitness.forum.newpost;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -26,6 +27,7 @@ import es.dmoral.toasty.Toasty;
  */
 public class NewPostActivity extends BaseActivity {
 
+    private ProgressDialog progressDialog;
     private EditText mTitleEditText;
     private EditText mContentEditText;
     private FloatingActionButton mComleteButton;
@@ -35,6 +37,7 @@ public class NewPostActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_post);
 
+        progressDialog = new ProgressDialog(this);
         initViews();
     }
 
@@ -46,10 +49,12 @@ public class NewPostActivity extends BaseActivity {
         mComleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                progressDialog.show();
                 Post post = getPost();
                 PostDataSource.getImpl().newPost(post, new SaveListener<String>() {
                     @Override
                     public void done(String postId, BmobException e) {
+                        progressDialog.dismiss();
                         if (e == null) {
                             Toasty.success(getApplicationContext(), getString(R.string.toast_new_post_success), Toast.LENGTH_SHORT, true).show();
                             finish();

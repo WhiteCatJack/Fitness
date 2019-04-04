@@ -1,27 +1,28 @@
 package com.joi.school.fitness.core.meal;
 
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.joi.school.fitness.BaseActivity;
 import com.joi.school.fitness.R;
+import com.joi.school.fitness.base.BiCallback;
+import com.joi.school.fitness.util.AndroidUtils;
 import com.joi.school.fitness.util.BaiduAuth;
 import com.joi.school.fitness.util.FrescoUtils;
 import com.joi.school.fitness.util.HttpUtil;
 
-import java.io.ByteArrayOutputStream;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +30,7 @@ import java.util.List;
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
+import es.dmoral.toasty.Toasty;
 
 /**
  * Description.
@@ -38,10 +40,13 @@ import cn.bmob.v3.listener.FindListener;
  */
 public class MealRecommendActivity extends BaseActivity {
 
-    private static final int MEAL_SCAN_REQUEST_CODE = 1;
+    private static final int MEAL_SCAN_GALLERY_REQUEST_CODE = 1;
+    private static final int MEAL_SCAN_CAMERA_REQUEST_CODE = 2;
 
     private List<Meal> likeList = new ArrayList<>();
     private List<Meal> unlikeList = new ArrayList<>();
+
+    private ProgressDialog mProgress;
     private TextView mTestButton;
     private TextView mTestScanButton;
 
@@ -56,10 +61,12 @@ public class MealRecommendActivity extends BaseActivity {
         mTestButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                mProgress.show();
                 BmobQuery<Meal> query = new BmobQuery<>();
                 query.findObjects(new FindListener<Meal>() {
                     @Override
                     public void done(List<Meal> list, BmobException e) {
+                        mProgress.dismiss();
                         if (e == null) {
                             buildRecommendDialog(getMealRandomly(preDo(list)));
                         } else {
@@ -72,35 +79,64 @@ public class MealRecommendActivity extends BaseActivity {
         mTestScanButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent takePhotoIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                if (takePhotoIntent.resolveActivity(getPackageManager()) != null) {
-                    startActivityForResult(takePhotoIntent, MEAL_SCAN_REQUEST_CODE);
+                showChoiceDialog();
+            }
+        });
+
+        mProgress = new ProgressDialog(this);
+    }
+
+    private void showChoiceDialog() {
+        String[] choices = {getString(R.string.from_camera), getString(R.string.from_file_system)};
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setItems(choices, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                switch (which) {
+                    case 0:
+                        AndroidUtils.requestCameraPhoto(MealRecommendActivity.this, MEAL_SCAN_CAMERA_REQUEST_CODE);
+                        break;
+                    case 1:
+                        AndroidUtils.requestFileSystemPhoto(MealRecommendActivity.this, MEAL_SCAN_GALLERY_REQUEST_CODE);
+                        break;
                 }
             }
         });
+        builder.create().show();
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == MEAL_SCAN_REQUEST_CODE && resultCode == RESULT_OK) {
-            /*缩略图信息是储存在返回的intent中的Bundle中的，
-             * 对应Bundle中的键为data，因此从Intent中取出
-             * Bundle再根据data取出来Bitmap即可*/
-            Bundle extras = data.getExtras();
-            Bitmap bitmap = (Bitmap) extras.get("data");
-            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-            bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
-            byte[] byteArray = byteArrayOutputStream.toByteArray();
-            String encoded = Base64.encodeToString(byteArray, Base64.DEFAULT);
-            doMealRecognition(encoded);
+        if (resultCode == RESULT_OK) {
+            BiCallback<String> callback = new BiCallback<String>() {
+                @Override
+                public void done(String base64) {
+                    doMealRecognition(base64);
+                }
+
+                @Override
+                public void error(String message) {
+                    Toasty.warning(getApplicationContext(), message, Toast.LENGTH_SHORT, true).show();
+                }
+            };
+            switch (requestCode) {
+                case MEAL_SCAN_GALLERY_REQUEST_CODE:
+                    AndroidUtils.readGalleryPhoto(MealRecommendActivity.this, data, callback);
+                    break;
+                case MEAL_SCAN_CAMERA_REQUEST_CODE:
+                    AndroidUtils.readCameraPhoto(data, callback);
+                    break;
+            }
         }
     }
+
 
     private Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             switch (msg.what) {
-                case MEAL_SCAN_REQUEST_CODE:
+                case MEAL_SCAN_GALLERY_REQUEST_CODE:
+                    mProgress.dismiss();
                     String result = (String) msg.obj;
                     AlertDialog.Builder builder = new AlertDialog.Builder(MealRecommendActivity.this);
                     builder.setMessage(result);
@@ -112,6 +148,7 @@ public class MealRecommendActivity extends BaseActivity {
     };
 
     private void doMealRecognition(final String base64) {
+        mProgress.show();
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -126,7 +163,7 @@ public class MealRecommendActivity extends BaseActivity {
                     e.printStackTrace();
                 }
                 Message message = new Message();
-                message.what = MEAL_SCAN_REQUEST_CODE;
+                message.what = MEAL_SCAN_GALLERY_REQUEST_CODE;
                 message.obj = result;
                 mHandler.sendMessage(message);
             }

@@ -1,6 +1,7 @@
 package com.joi.school.fitness.core.sport;
 
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -30,21 +31,25 @@ public class SportRecommendActivity extends BaseActivity {
 
     private List<Sport> likeList = new ArrayList<>();
     private List<Sport> unlikeList = new ArrayList<>();
+    private ProgressDialog progress;
     private TextView mTestButton;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        progress = new ProgressDialog(this);
         setContentView(R.layout.activity_sport_recommend);
 
         mTestButton = findViewById(R.id.bt_test_sport_recommend);
         mTestButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                progress.show();
                 BmobQuery<Sport> query = new BmobQuery<>();
                 query.findObjects(new FindListener<Sport>() {
                     @Override
                     public void done(List<Sport> list, BmobException e) {
+                        progress.dismiss();
                         if (e == null) {
                             buildRecommendDialog(getSportRandomly(preDo(list)));
                         } else {

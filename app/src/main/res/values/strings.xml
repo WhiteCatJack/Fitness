@@ -52,4 +52,7 @@
     <string name="yes">yes</string>
     <string name="no">no</string>
 
+    <string name="from_camera">From camera</string>
+    <string name="from_file_system">From file system</string>
+
 </resources>
