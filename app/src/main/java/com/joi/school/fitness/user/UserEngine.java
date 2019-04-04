@@ -7,7 +7,7 @@ import cn.bmob.v3.BmobUser;
 /**
  * Description.
  *
- * @author 泽乾
+ * @author Joi
  * createAt 2019/4/1 0001 16:20
  */
 public class UserEngine {
@@ -19,7 +19,7 @@ public class UserEngine {
 
     public static boolean hasPysicalStatistic() {
         if (getCurrentUser() != null) {
-            return getCurrentUser().getLatestPhysicalStatistic() != null;
+            return getCurrentUser().getLatestStatistic() != null;
         }
         return false;
     }

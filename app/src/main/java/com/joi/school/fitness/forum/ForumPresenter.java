@@ -9,7 +9,7 @@ import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
 
 /**
- * @author 泽乾
+ * @author Joi
  * createAt 2019/3/23 0023 15:44
  */
 public class ForumPresenter implements IForumContract.Presenter {

@@ -12,7 +12,7 @@ import com.joi.school.fitness.view.NormalCellView;
 /**
  * Description.
  *
- * @author 泽乾
+ * @author Joi
  * createAt 2019/4/1 0001 20:00
  */
 public class SetMyInformationActivity extends BaseActivity {

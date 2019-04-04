@@ -13,7 +13,7 @@ import com.joi.school.fitness.mine.setinfo.SetMyInformationActivity;
 /**
  * Description.
  *
- * @author 泽乾
+ * @author Joi
  * createAt 2019/4/1 0001 14:37
  */
 public class Navigation {

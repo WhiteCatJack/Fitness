@@ -16,7 +16,7 @@ import com.facebook.drawee.view.SimpleDraweeView;
 import com.joi.school.fitness.R;
 
 /**
- * @author 泽乾
+ * @author Joi
  * createAt 2019/4/2 0002 15:13
  */
 public class NormalCellView extends FrameLayout {

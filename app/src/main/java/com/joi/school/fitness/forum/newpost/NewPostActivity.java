@@ -21,7 +21,7 @@ import es.dmoral.toasty.Toasty;
 /**
  * 发帖UI.
  *
- * @author 泽乾
+ * @author Joi
  * createAt 2019/3/22 0022 11:25
  */
 public class NewPostActivity extends BaseActivity {

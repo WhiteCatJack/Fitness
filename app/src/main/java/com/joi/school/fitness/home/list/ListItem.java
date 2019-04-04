@@ -3,7 +3,7 @@ package com.joi.school.fitness.home.list;
 /**
  * 列表视图Bean.
  *
- * @author 泽乾
+ * @author Joi
  * createAt 2019/3/19 0019 14:05
  */
 public class ListItem {

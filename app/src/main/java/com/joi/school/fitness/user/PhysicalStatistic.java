@@ -5,7 +5,7 @@ import cn.bmob.v3.BmobObject;
 /**
  * Description.
  *
- * @author 泽乾
+ * @author Joi
  * createAt 2019/3/22 0022 17:19
  */
 public class PhysicalStatistic extends BmobObject {
@@ -51,7 +51,7 @@ public class PhysicalStatistic extends BmobObject {
         return vitalCapacity;
     }
 
-    public void setVitalCapacity(double vitalCapacity) {
+    public void setLungCapacity(double vitalCapacity) {
         this.vitalCapacity = vitalCapacity;
     }
 }

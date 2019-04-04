@@ -11,7 +11,7 @@ import cn.bmob.v3.BmobUser;
 import es.dmoral.toasty.Toasty;
 
 /**
- * @author 泽乾
+ * @author Joi
  * createAt 2019/3/22 0022 17:24
  */
 @SuppressLint("Registered")

@@ -11,7 +11,7 @@ import cn.bmob.v3.listener.SaveListener;
 /**
  * 帖子数据.
  *
- * @author 泽乾
+ * @author Joi
  * createAt 2019/3/22 0022 10:42
  */
 class PostDataSourceImpl extends PostDataSource {

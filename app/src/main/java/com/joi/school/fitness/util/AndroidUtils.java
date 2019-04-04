@@ -7,7 +7,7 @@ import cn.bmob.v3.Bmob;
 /**
  * Description.
  *
- * @author 泽乾
+ * @author Joi
  * createAt 2019/4/1 0001 20:06
  */
 public class AndroidUtils {

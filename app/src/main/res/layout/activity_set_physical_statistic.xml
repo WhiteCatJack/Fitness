@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/title_set_physical_statistic_height"
+        android:textColor="@color/text_level2_color"
+        android:textSize="14dp" />
+
+    <EditText
+        android:id="@+id/et_height"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:textColor="@color/text_level1_color"
+        android:textSize="17dp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/title_set_physical_statistic_weight"
+        android:textColor="@color/text_level2_color"
+        android:textSize="14dp" />
+
+    <EditText
+        android:id="@+id/et_weight"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:textColor="@color/text_level1_color"
+        android:textSize="17dp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/title_set_physical_statistic_heart_rate"
+        android:textColor="@color/text_level2_color"
+        android:textSize="14dp" />
+
+    <EditText
+        android:id="@+id/et_heart_rate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:textColor="@color/text_level1_color"
+        android:textSize="17dp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/title_set_physical_statistic_lung_capacity"
+        android:textColor="@color/text_level2_color"
+        android:textSize="14dp" />
+
+    <EditText
+        android:id="@+id/et_lung_capacity"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:textColor="@color/text_level1_color"
+        android:textSize="17dp" />
+
+    <android.support.v7.widget.AppCompatButton
+        android:id="@+id/bt_submit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:layout_marginBottom="24dp"
+        android:background="@color/colorPrimaryDark"
+        android:padding="12dp"
+        android:text="@string/title_set_physical_statistic_submit"
+        android:textColor="@color/text_level1_color_inverse"
+        android:textSize="17dp" />
+</LinearLayout>

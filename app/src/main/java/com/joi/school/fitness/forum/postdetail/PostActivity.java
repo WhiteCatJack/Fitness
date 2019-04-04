@@ -14,7 +14,7 @@ import com.joi.school.fitness.forum.datasource.Post;
 /**
  * Description.
  *
- * @author 泽乾
+ * @author Joi
  * createAt 2019/4/1 0001 14:30
  */
 public class PostActivity extends BaseActivity {

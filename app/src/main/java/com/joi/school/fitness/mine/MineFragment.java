@@ -74,6 +74,6 @@ public class MineFragment extends Fragment {
         }
         FrescoUtils.setImageUrl(mMyAvatarView, user.getAvatarUrl());
         mMyNickNameTextView.setText(user.getNick());
-        mMyPersonalizedSignatureTextView.setText(user.getPersonalizedSignature());
+        mMyPersonalizedSignatureTextView.setText(user.getSignature());
     }
 }

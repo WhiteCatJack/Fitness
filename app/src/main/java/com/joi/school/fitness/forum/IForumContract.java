@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * Description.
  *
- * @author 泽乾
+ * @author Joi
  * createAt 2019/3/23 0023 15:44
  */
 public interface IForumContract {

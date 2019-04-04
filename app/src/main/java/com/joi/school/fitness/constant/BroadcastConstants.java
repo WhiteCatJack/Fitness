@@ -3,7 +3,7 @@ package com.joi.school.fitness.constant;
 /**
  * Description.
  *
- * @author 泽乾
+ * @author Joi
  * createAt 2019/3/23 0023 21:40
  */
 public class BroadcastConstants {

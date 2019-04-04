@@ -5,16 +5,16 @@ import cn.bmob.v3.BmobUser;
 /**
  * Description.
  *
- * @author 泽乾
+ * @author Joi
  * createAt 2019/3/22 0022 17:19
  */
 public class FitnessUser extends BmobUser {
     private String avatarUrl;
     private String nick;
     // 个性签名
-    private String personalizedSignature;
+    private String signature;
     // 最新身体数据
-    private PhysicalStatistic latestPhysicalStatistic;
+    private PhysicalStatistic latestStatistic;
 
     public String getAvatarUrl() {
         return avatarUrl;
@@ -32,19 +32,19 @@ public class FitnessUser extends BmobUser {
         this.nick = nick;
     }
 
-    public String getPersonalizedSignature() {
-        return personalizedSignature;
+    public String getSignature() {
+        return signature;
     }
 
-    public void setPersonalizedSignature(String personalizedSignature) {
-        this.personalizedSignature = personalizedSignature;
+    public void setSignature(String signature) {
+        this.signature = signature;
     }
 
-    public PhysicalStatistic getLatestPhysicalStatistic() {
-        return latestPhysicalStatistic;
+    public PhysicalStatistic getLatestStatistic() {
+        return latestStatistic;
     }
 
-    public void setLatestPhysicalStatistic(PhysicalStatistic latestPhysicalStatistic) {
-        this.latestPhysicalStatistic = latestPhysicalStatistic;
+    public void setLatestStatistic(PhysicalStatistic latestStatistic) {
+        this.latestStatistic = latestStatistic;
     }
 }

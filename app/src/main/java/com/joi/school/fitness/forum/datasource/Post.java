@@ -7,7 +7,7 @@ import cn.bmob.v3.BmobObject;
 /**
  * Post JavaBean.
  *
- * @author 泽乾
+ * @author Joi
  * createAt 2019/3/22 0022 10:37
  */
 public class Post extends BmobObject {

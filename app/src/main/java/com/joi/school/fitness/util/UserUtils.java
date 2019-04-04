@@ -12,7 +12,7 @@ import cn.bmob.v3.BmobUser;
 /**
  * Description.
  *
- * @author 泽乾
+ * @author Joi
  * createAt 2019/3/23 0023 21:43
  */
 public class UserUtils {

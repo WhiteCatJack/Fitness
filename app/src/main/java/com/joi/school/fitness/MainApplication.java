@@ -9,7 +9,7 @@ import cn.bmob.v3.Bmob;
 import cn.bmob.v3.BmobConfig;
 
 /**
- * @author 泽乾
+ * @author Joi
  * createAt 2019/3/22 0022 16:21
  */
 public class MainApplication extends Application {

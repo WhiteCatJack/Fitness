@@ -9,7 +9,7 @@ import com.facebook.drawee.view.SimpleDraweeView;
 /**
  * Description.
  *
- * @author 泽乾
+ * @author Joi
  * createAt 2019/3/23 0023 20:11
  */
 public class FrescoUtils {

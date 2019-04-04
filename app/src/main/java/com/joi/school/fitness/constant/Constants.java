@@ -3,7 +3,7 @@ package com.joi.school.fitness.constant;
 /**
  * Description.
  *
- * @author 泽乾
+ * @author Joi
  * createAt 2019/3/22 0022 10:59
  */
 public class Constants {

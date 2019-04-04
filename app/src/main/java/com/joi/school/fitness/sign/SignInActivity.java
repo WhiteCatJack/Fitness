@@ -16,7 +16,7 @@ import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.SaveListener;
 
 /**
- * @author 泽乾
+ * @author Joi
  * createAt 2019/3/22 0022 17:22
  */
 public class SignInActivity extends BaseActivity {

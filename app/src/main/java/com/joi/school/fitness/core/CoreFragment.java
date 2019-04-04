@@ -1,5 +1,6 @@
 package com.joi.school.fitness.core;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -9,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.joi.school.fitness.R;
+import com.joi.school.fitness.core.sport.SportRecommendActivity;
 import com.joi.school.fitness.user.UserEngine;
 import com.joi.school.fitness.util.Navigation;
 
@@ -37,7 +39,7 @@ public class CoreFragment extends Fragment {
         mSportRecommendView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                startActivity(new Intent(getContext(), SportRecommendActivity.class));
             }
         });
         mMealRecommendView.setOnClickListener(new View.OnClickListener() {

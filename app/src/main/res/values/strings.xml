@@ -33,4 +33,20 @@
     <string name="title_set_my_info_nickname">Set nickname</string>
     <string name="title_set_my_info_personalized_signature">Set personalized signature</string>
 
+    <string name="title_set_physical_statistic_height">Your height(cm):</string>
+    <string name="title_set_physical_statistic_weight">Your weight(kg):</string>
+    <string name="title_set_physical_statistic_heart_rate">Your heart rate(bpm):</string>
+    <string name="title_set_physical_statistic_lung_capacity">Your lung capacity(ml):</string>
+    <string name="title_set_physical_statistic_submit">Submit</string>
+
+    <string name="hint_set_physical_statistic_complete">You have been created a new physical statistic record.</string>
+
+    <string name="unknown_error">Unknown error</string>
+
+    <string name="title_sport_recommend">Sport recommend</string>
+    <string name="hint_new_sport_recommend">We have been recommend a new sport to you! Do you like it?</string>
+
+    <string name="yes">yes</string>
+    <string name="no">no</string>
+
 </resources>
