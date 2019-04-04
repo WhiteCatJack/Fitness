@@ -48,6 +48,7 @@ class PostDataSourceImpl extends PostDataSource {
                 .setSkip(start == 0 ? 0 : start - 1)
                 .setLimit(amount)
                 .order("-createdAt")
+                .include("author")
                 .findObjects(listener);
     }
 

@@ -10,6 +10,7 @@ import com.joi.school.fitness.BaseActivity;
 import com.joi.school.fitness.R;
 import com.joi.school.fitness.constant.Constants;
 import com.joi.school.fitness.forum.datasource.Post;
+import com.joi.school.fitness.util.FrescoUtils;
 
 /**
  * Description.
@@ -21,9 +22,10 @@ public class PostActivity extends BaseActivity {
 
     private Post mPost;
 
-    private SimpleDraweeView avatarImageView;
-    private TextView titleTextView;
-    private TextView contentTextView;
+    private SimpleDraweeView mAvatarImageView;
+    private TextView mNicknameTextView;
+    private TextView mTitleTextView;
+    private TextView mContentTextView;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -39,14 +41,19 @@ public class PostActivity extends BaseActivity {
     }
 
     private void setPostData() {
-        titleTextView.setText(mPost.getTitle());
-        contentTextView.setText(mPost.getContent());
+        if (mPost.getAuthor() != null) {
+            FrescoUtils.setImageUrl(mAvatarImageView, mPost.getAuthor().getAvatarUrl());
+            mNicknameTextView.setText(mPost.getAuthor().getNick());
+        }
+        mTitleTextView.setText(mPost.getTitle());
+        mContentTextView.setText(mPost.getContent());
     }
 
     private void initView() {
-        avatarImageView = findViewById(R.id.iv_avatar);
-        titleTextView = findViewById(R.id.tv_title);
-        contentTextView = findViewById(R.id.tv_content);
+        mAvatarImageView = findViewById(R.id.iv_avatar);
+        mNicknameTextView = findViewById(R.id.tv_nick);
+        mTitleTextView = findViewById(R.id.tv_title);
+        mContentTextView = findViewById(R.id.tv_content);
     }
 
     private boolean getDataFromIntent() {

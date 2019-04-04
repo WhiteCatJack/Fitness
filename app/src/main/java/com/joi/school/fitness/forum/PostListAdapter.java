@@ -57,6 +57,7 @@ public class PostListAdapter extends RecyclerView.Adapter<PostListAdapter.ViewHo
     class ViewHolder extends RecyclerView.ViewHolder {
         View layout;
         SimpleDraweeView avatarImageView;
+        TextView nicknameTextView;
         TextView titleTextView;
         TextView contentTextView;
 
@@ -68,6 +69,7 @@ public class PostListAdapter extends RecyclerView.Adapter<PostListAdapter.ViewHo
         private void bindViews(View itemView) {
             layout = itemView.findViewById(R.id.cv_layout);
             avatarImageView = itemView.findViewById(R.id.iv_avatar);
+            nicknameTextView = itemView.findViewById(R.id.tv_nick);
             titleTextView = itemView.findViewById(R.id.tv_title);
             contentTextView = itemView.findViewById(R.id.tv_content);
         }
@@ -83,6 +85,7 @@ public class PostListAdapter extends RecyclerView.Adapter<PostListAdapter.ViewHo
             });
             if (post.getAuthor() != null) {
                 FrescoUtils.setImageUrl(avatarImageView, post.getAuthor().getAvatarUrl());
+                nicknameTextView.setText(post.getAuthor().getNick());
             }
             titleTextView.setText(post.getTitle());
             contentTextView.setText(post.getContent());
