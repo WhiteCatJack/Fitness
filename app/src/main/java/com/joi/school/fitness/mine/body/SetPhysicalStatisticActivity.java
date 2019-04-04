@@ -45,10 +45,16 @@ public class SetPhysicalStatisticActivity extends BaseActivity {
         mHeartRateEditText = findViewById(R.id.et_heart_rate);
         mLungCapacityEditText = findViewById(R.id.et_lung_capacity);
         mSubmitButton = findViewById(R.id.bt_submit);
+        // 测试用
+        mHeightEditText.setText("180");
+        mWeightEditText.setText("75");
+        mHeartRateEditText.setText("90");
+        mLungCapacityEditText.setText("5200");
 
         mSubmitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                showLoadingDialog();
                 final PhysicalStatistic physicalStatistic = new PhysicalStatistic();
                 physicalStatistic.setUser(UserEngine.getCurrentUser());
                 physicalStatistic.setHeight(Double.valueOf(mHeightEditText.getText().toString()));
@@ -60,11 +66,12 @@ public class SetPhysicalStatisticActivity extends BaseActivity {
                     public void done(String id, BmobException e) {
                         physicalStatistic.setObjectId(id);
 
-                        FitnessUser fitnessUser = UserEngine.getCurrentUser();
+                        FitnessUser fitnessUser = new FitnessUser();
                         fitnessUser.setLatestStatistic(physicalStatistic);
-                        fitnessUser.update(new UpdateListener() {
+                        fitnessUser.update(UserEngine.getCurrentUser().getObjectId(), new UpdateListener() {
                             @Override
                             public void done(BmobException e) {
+                                dismissLoadingDialog();
                                 if (e != null){
                                     Toasty.error(getApplicationContext(), R.string.unknown_error, Toast.LENGTH_SHORT, true).show();
                                     return;

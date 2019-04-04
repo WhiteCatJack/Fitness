@@ -50,7 +50,7 @@ public class MineFragment extends Fragment {
         mSignOutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                UserUtils.signOut(getContext().getApplicationContext());
+                UserUtils.signOut(getContext());
             }
         });
         mSetPhysicalStatisticButton.setOnClickListener(new View.OnClickListener() {

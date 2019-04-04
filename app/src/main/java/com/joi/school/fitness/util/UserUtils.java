@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.content.LocalBroadcastManager;
 
 import com.joi.school.fitness.constant.BroadcastConstants;
+import com.joi.school.fitness.sign.SignInActivity;
 
 import cn.bmob.v3.BmobUser;
 
@@ -17,13 +18,16 @@ import cn.bmob.v3.BmobUser;
  */
 public class UserUtils {
 
-    public static void signOut(@NonNull Context applicationContext) {
-        if (applicationContext == null) {
+    public static void signOut(@NonNull Context context) {
+        if (context == null) {
             return;
         }
         BmobUser.logOut();
+
+        context.startActivity(new Intent(context, SignInActivity.class));
+
         Intent intent = new Intent();
         intent.setAction(BroadcastConstants.BROADCAST_USER_SIGN_OUT);
-        LocalBroadcastManager.getInstance(applicationContext).sendBroadcast(intent);
+        LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
     }
 }

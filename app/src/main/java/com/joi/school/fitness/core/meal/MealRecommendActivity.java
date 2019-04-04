@@ -1,7 +1,6 @@
 package com.joi.school.fitness.core.meal;
 
 import android.app.AlertDialog;
-import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -46,7 +45,6 @@ public class MealRecommendActivity extends BaseActivity {
     private List<Meal> likeList = new ArrayList<>();
     private List<Meal> unlikeList = new ArrayList<>();
 
-    private ProgressDialog mProgress;
     private TextView mTestButton;
     private TextView mTestScanButton;
 
@@ -61,12 +59,12 @@ public class MealRecommendActivity extends BaseActivity {
         mTestButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mProgress.show();
+                showChoiceDialog();
                 BmobQuery<Meal> query = new BmobQuery<>();
                 query.findObjects(new FindListener<Meal>() {
                     @Override
                     public void done(List<Meal> list, BmobException e) {
-                        mProgress.dismiss();
+                        dismissLoadingDialog();
                         if (e == null) {
                             buildRecommendDialog(getMealRandomly(preDo(list)));
                         } else {
@@ -82,8 +80,6 @@ public class MealRecommendActivity extends BaseActivity {
                 showChoiceDialog();
             }
         });
-
-        mProgress = new ProgressDialog(this);
     }
 
     private void showChoiceDialog() {
@@ -136,7 +132,7 @@ public class MealRecommendActivity extends BaseActivity {
         public void handleMessage(Message msg) {
             switch (msg.what) {
                 case MEAL_SCAN_GALLERY_REQUEST_CODE:
-                    mProgress.dismiss();
+                    dismissLoadingDialog();
                     String result = (String) msg.obj;
                     AlertDialog.Builder builder = new AlertDialog.Builder(MealRecommendActivity.this);
                     builder.setMessage(result);
@@ -148,7 +144,7 @@ public class MealRecommendActivity extends BaseActivity {
     };
 
     private void doMealRecognition(final String base64) {
-        mProgress.show();
+        showLoadingDialog();
         new Thread(new Runnable() {
             @Override
             public void run() {
