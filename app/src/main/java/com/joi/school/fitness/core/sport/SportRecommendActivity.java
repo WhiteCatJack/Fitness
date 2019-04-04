@@ -13,6 +13,7 @@ import com.joi.school.fitness.BaseActivity;
 import com.joi.school.fitness.R;
 import com.joi.school.fitness.util.FrescoUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import cn.bmob.v3.BmobQuery;
@@ -27,6 +28,8 @@ import cn.bmob.v3.listener.FindListener;
  */
 public class SportRecommendActivity extends BaseActivity {
 
+    private List<Sport> likeList = new ArrayList<>();
+    private List<Sport> unlikeList = new ArrayList<>();
     private TextView mTestButton;
 
     @Override
@@ -43,7 +46,7 @@ public class SportRecommendActivity extends BaseActivity {
                     @Override
                     public void done(List<Sport> list, BmobException e) {
                         if (e == null) {
-                            buildRecommendDialog(getSportRandomly(list));
+                            buildRecommendDialog(getSportRandomly(preDo(list)));
                         } else {
 
                         }
@@ -51,6 +54,18 @@ public class SportRecommendActivity extends BaseActivity {
                 });
             }
         });
+    }
+
+    private List<Sport> preDo(List<Sport> netData) {
+        for (Sport unlike : unlikeList) {
+            for (int i = 0; i < netData.size(); i++) {
+                if (unlike.getObjectId().equals(netData.get(i).getObjectId())) {
+                    netData.remove(i);
+                }
+            }
+        }
+        netData.addAll(likeList);
+        return netData;
     }
 
     @Deprecated
@@ -63,7 +78,7 @@ public class SportRecommendActivity extends BaseActivity {
         return list.get(randomIndex);
     }
 
-    private void buildRecommendDialog(@NonNull Sport sport) {
+    private void buildRecommendDialog(@NonNull final Sport sport) {
         if (sport == null) {
             return;
         }
@@ -81,12 +96,14 @@ public class SportRecommendActivity extends BaseActivity {
         yesView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                likeList.add(sport);
                 dialog.dismiss();
             }
         });
         noView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                unlikeList.add(sport);
                 dialog.dismiss();
             }
         });

@@ -1,12 +1,14 @@
 package com.joi.school.fitness.core.sport;
 
+import cn.bmob.v3.BmobObject;
+
 /**
  * Description.
  *
  * @author Joi
  * createAt 2019/4/4 0004 10:35
  */
-public class Sport {
+public class Sport extends BmobObject {
     private String sportKind;
     private int difficulty;
     private String sportImageUrl;
