@@ -1,8 +1,8 @@
 package com.joi.school.fitness.core.meal;
 
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -39,8 +39,8 @@ import es.dmoral.toasty.Toasty;
  */
 public class MealRecommendActivity extends BaseActivity {
 
-    private static final int MEAL_SCAN_GALLERY_REQUEST_CODE = 1;
-    private static final int MEAL_SCAN_CAMERA_REQUEST_CODE = 2;
+    private static final int MEAL_SCAN_FILE_SYSTEM_PHOTO_REQUEST_CODE = 1;
+    private static final int MEAL_SCAN_CAMERA_PHOTO_REQUEST_CODE = 2;
 
     private List<Meal> likeList = new ArrayList<>();
     private List<Meal> unlikeList = new ArrayList<>();
@@ -59,7 +59,6 @@ public class MealRecommendActivity extends BaseActivity {
         mTestButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showChoiceDialog();
                 BmobQuery<Meal> query = new BmobQuery<>();
                 query.findObjects(new FindListener<Meal>() {
                     @Override
@@ -77,37 +76,19 @@ public class MealRecommendActivity extends BaseActivity {
         mTestScanButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showChoiceDialog();
+                AndroidUtils.showPhotoChoiceDialog(MealRecommendActivity.this,
+                        MEAL_SCAN_CAMERA_PHOTO_REQUEST_CODE, MEAL_SCAN_FILE_SYSTEM_PHOTO_REQUEST_CODE);
             }
         });
-    }
-
-    private void showChoiceDialog() {
-        String[] choices = {getString(R.string.from_camera), getString(R.string.from_file_system)};
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setItems(choices, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                switch (which) {
-                    case 0:
-                        AndroidUtils.requestCameraPhoto(MealRecommendActivity.this, MEAL_SCAN_CAMERA_REQUEST_CODE);
-                        break;
-                    case 1:
-                        AndroidUtils.requestFileSystemPhoto(MealRecommendActivity.this, MEAL_SCAN_GALLERY_REQUEST_CODE);
-                        break;
-                }
-            }
-        });
-        builder.create().show();
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == RESULT_OK) {
-            BiCallback<String> callback = new BiCallback<String>() {
+            BiCallback<Bitmap> callback = new BiCallback<Bitmap>() {
                 @Override
-                public void done(String base64) {
-                    doMealRecognition(base64);
+                public void done(Bitmap bitmap) {
+                    doMealRecognition(AndroidUtils.convertBitmapToBase64(bitmap));
                 }
 
                 @Override
@@ -116,11 +97,9 @@ public class MealRecommendActivity extends BaseActivity {
                 }
             };
             switch (requestCode) {
-                case MEAL_SCAN_GALLERY_REQUEST_CODE:
-                    AndroidUtils.readGalleryPhoto(MealRecommendActivity.this, data, callback);
-                    break;
-                case MEAL_SCAN_CAMERA_REQUEST_CODE:
-                    AndroidUtils.readCameraPhoto(data, callback);
+                case MEAL_SCAN_FILE_SYSTEM_PHOTO_REQUEST_CODE:
+                case MEAL_SCAN_CAMERA_PHOTO_REQUEST_CODE:
+                    AndroidUtils.readPhotoFromIntent(this, data, callback);
                     break;
             }
         }
@@ -131,7 +110,7 @@ public class MealRecommendActivity extends BaseActivity {
         @Override
         public void handleMessage(Message msg) {
             switch (msg.what) {
-                case MEAL_SCAN_GALLERY_REQUEST_CODE:
+                case MEAL_SCAN_FILE_SYSTEM_PHOTO_REQUEST_CODE:
                     dismissLoadingDialog();
                     String result = (String) msg.obj;
                     AlertDialog.Builder builder = new AlertDialog.Builder(MealRecommendActivity.this);
@@ -159,7 +138,7 @@ public class MealRecommendActivity extends BaseActivity {
                     e.printStackTrace();
                 }
                 Message message = new Message();
-                message.what = MEAL_SCAN_GALLERY_REQUEST_CODE;
+                message.what = MEAL_SCAN_FILE_SYSTEM_PHOTO_REQUEST_CODE;
                 message.obj = result;
                 mHandler.sendMessage(message);
             }

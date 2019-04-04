@@ -15,16 +15,56 @@
             android:layout_height="wrap_content"
             app:labelText="@string/title_set_my_info_avatar" />
 
-        <com.joi.school.fitness.view.NormalCellView
-            android:id="@+id/cell_set_my_nickname"
+        <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:labelText="@string/title_set_my_info_nickname" />
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:textColorHint="@color/text_level2_color">
 
-        <com.joi.school.fitness.view.NormalCellView
-            android:id="@+id/cell_set_my_personalized_signature"
+            <EditText
+                android:id="@+id/et_nick"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/title_set_my_info_nickname"
+                android:textColor="@color/text_level1_color"
+                android:textColorHint="@color/text_level2_color" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/bt_change_nick"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:labelText="@string/title_set_my_info_personalized_signature" />
+            android:background="@color/colorPrimaryDark"
+            android:padding="12dp"
+            android:text="@string/submit"
+            android:textColor="@color/text_level1_color_inverse"
+            android:textSize="17dp" />
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:textColorHint="@color/text_level2_color">
+
+            <EditText
+                android:id="@+id/et_personalized_signature"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/title_set_my_info_personalized_signature"
+                android:textColor="@color/text_level1_color"
+                android:textColorHint="@color/text_level2_color" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/bt_change_personalized_signature"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimaryDark"
+            android:padding="12dp"
+            android:text="@string/submit"
+            android:textColor="@color/text_level1_color_inverse"
+            android:textSize="17dp" />
     </LinearLayout>
 </ScrollView>

@@ -73,7 +73,7 @@
         android:layout_marginBottom="24dp"
         android:background="@color/colorPrimaryDark"
         android:padding="12dp"
-        android:text="@string/title_set_physical_statistic_submit"
+        android:text="@string/submit"
         android:textColor="@color/text_level1_color_inverse"
         android:textSize="17dp" />
 </LinearLayout>

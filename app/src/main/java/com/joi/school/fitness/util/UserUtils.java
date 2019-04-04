@@ -30,4 +30,10 @@ public class UserUtils {
         intent.setAction(BroadcastConstants.BROADCAST_USER_SIGN_OUT);
         LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
     }
+
+    public static void infoChanged(@NonNull Context context){
+        Intent intent = new Intent();
+        intent.setAction(BroadcastConstants.BROADCAST_USER_INFO_CHANGED);
+        LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
+    }
 }

@@ -39,7 +39,7 @@
     <string name="title_set_physical_statistic_weight">体重（千克）：</string>
     <string name="title_set_physical_statistic_heart_rate">心率（每分钟跳动次数）：</string>
     <string name="title_set_physical_statistic_lung_capacity">肺活量（毫升）：</string>
-    <string name="title_set_physical_statistic_submit">提交</string>
+    <string name="submit">提交</string>
 
     <string name="hint_set_physical_statistic_complete">您新建了一个新的身体参数记录！</string>
 
