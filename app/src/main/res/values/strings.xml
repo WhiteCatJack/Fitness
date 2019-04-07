@@ -39,6 +39,8 @@
     <string name="title_set_physical_statistic_lung_capacity">Your lung capacity(ml):</string>
     <string name="submit">Submit</string>
 
+    <string name="title_comment">Comment</string>
+
     <string name="hint_set_physical_statistic_complete">You have been created a new physical statistic record.</string>
 
     <string name="unknown_error">Unknown error</string>
@@ -54,5 +56,10 @@
 
     <string name="from_camera">From camera</string>
     <string name="from_file_system">From file system</string>
+
+    <string name="title_upload_completed_exercise">Upload completed exercise</string>
+    <string name="hint_upload_completed_exercise_complete">You have been upload a new exercise record.</string>
+    <string name="hint_upload_meal_complete">You have been upload your meal.</string>
+
 
 </resources>

@@ -2,6 +2,8 @@ package com.joi.school.fitness.user;
 
 import android.support.annotation.Nullable;
 
+import com.joi.school.fitness.tools.bean.FitnessUser;
+
 import cn.bmob.v3.BmobUser;
 
 /**

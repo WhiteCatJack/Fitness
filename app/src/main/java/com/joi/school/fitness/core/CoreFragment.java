@@ -13,7 +13,7 @@ import com.joi.school.fitness.R;
 import com.joi.school.fitness.core.meal.MealRecommendActivity;
 import com.joi.school.fitness.core.sport.SportRecommendActivity;
 import com.joi.school.fitness.user.UserEngine;
-import com.joi.school.fitness.util.Navigation;
+import com.joi.school.fitness.tools.util.Navigation;
 
 public class CoreFragment extends Fragment {
 

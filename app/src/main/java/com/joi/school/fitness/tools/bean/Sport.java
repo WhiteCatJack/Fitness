@@ -1,4 +1,4 @@
-package com.joi.school.fitness.core.sport;
+package com.joi.school.fitness.tools.bean;
 
 import cn.bmob.v3.BmobObject;
 
@@ -12,6 +12,7 @@ public class Sport extends BmobObject {
     private String sportKind;
     private int difficulty;
     private String sportImageUrl;
+    private double calories;
 
     public String getSportKind() {
         return sportKind;
@@ -35,5 +36,13 @@ public class Sport extends BmobObject {
 
     public void setSportImageUrl(String sportImageUrl) {
         this.sportImageUrl = sportImageUrl;
+    }
+
+    public double getCalories() {
+        return calories;
+    }
+
+    public void setCalories(double calories) {
+        this.calories = calories;
     }
 }

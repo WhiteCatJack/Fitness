@@ -13,9 +13,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.joi.school.fitness.R;
-import com.joi.school.fitness.forum.datasource.Post;
+import com.joi.school.fitness.tools.bean.Post;
 import com.joi.school.fitness.forum.newpost.NewPostActivity;
-import com.joi.school.fitness.util.Navigation;
+import com.joi.school.fitness.tools.util.Navigation;
 
 import java.util.ArrayList;
 import java.util.List;

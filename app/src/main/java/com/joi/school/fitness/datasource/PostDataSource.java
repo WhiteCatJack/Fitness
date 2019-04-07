@@ -1,7 +1,9 @@
-package com.joi.school.fitness.forum.datasource;
+package com.joi.school.fitness.datasource;
 
 import android.support.annotation.IntRange;
 import android.support.annotation.Nullable;
+
+import com.joi.school.fitness.tools.bean.Post;
 
 import cn.bmob.v3.listener.FindListener;
 import cn.bmob.v3.listener.SaveListener;

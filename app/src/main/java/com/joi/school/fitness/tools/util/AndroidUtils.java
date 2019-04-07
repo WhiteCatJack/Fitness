@@ -1,4 +1,4 @@
-package com.joi.school.fitness.util;
+package com.joi.school.fitness.tools.util;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -17,7 +17,6 @@ import android.util.Base64;
 import android.widget.Toast;
 
 import com.joi.school.fitness.R;
-import com.joi.school.fitness.base.BiCallback;
 
 import java.io.ByteArrayOutputStream;
 
@@ -106,21 +105,16 @@ public class AndroidUtils {
         return data;
     }
 
-    public static void readPhotoFromIntent(final Activity activity, final Intent data, final BiCallback<Bitmap> callback) {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                Uri imageUri = getFileUriFromIntent(data);
-                if (imageUri != null) {
-                    Bitmap bitmap;
-                    try {
-                        callback.done(BitmapFactory.decodeStream(activity.getContentResolver().openInputStream(imageUri)));
-                    } catch (Exception e) {
-                        callback.error(e.getMessage());
-                    }
-                }
+    public static Bitmap readPhotoFromIntent(final Activity activity, final Intent data) {
+        Uri imageUri = getFileUriFromIntent(data);
+        Bitmap bitmap = null;
+        if (imageUri != null) {
+            try {
+                bitmap = BitmapFactory.decodeStream(activity.getContentResolver().openInputStream(imageUri));
+            } catch (Exception ignore) {
             }
-        }).start();
+        }
+        return bitmap;
     }
 
     public static String convertBitmapToBase64(Bitmap bitmap) {
@@ -136,7 +130,7 @@ public class AndroidUtils {
         return BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
     }
 
-    public static void showUnknownErrorToast(){
+    public static void showUnknownErrorToast() {
         Toasty.error(getApplicationContext(), R.string.unknown_error, Toast.LENGTH_SHORT, true).show();
     }
 }

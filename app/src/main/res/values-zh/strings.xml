@@ -53,4 +53,7 @@
 
     <string name="yes">喜欢</string>
     <string name="no">不喜欢</string>
+    <string name="title_comment">评论</string>
+    <string name="from_camera">相机</string>
+    <string name="from_file_system">从相册选择</string>
 </resources>

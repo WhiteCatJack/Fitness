@@ -1,4 +1,4 @@
-package com.joi.school.fitness.util;
+package com.joi.school.fitness.tools.util;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;

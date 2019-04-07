@@ -18,12 +18,12 @@ import android.widget.Toast;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.joi.school.fitness.R;
 import com.joi.school.fitness.constant.BroadcastConstants;
-import com.joi.school.fitness.user.FitnessUser;
+import com.joi.school.fitness.tools.bean.FitnessUser;
 import com.joi.school.fitness.user.UserEngine;
-import com.joi.school.fitness.util.AndroidUtils;
-import com.joi.school.fitness.util.FrescoUtils;
-import com.joi.school.fitness.util.Navigation;
-import com.joi.school.fitness.util.UserUtils;
+import com.joi.school.fitness.tools.util.AndroidUtils;
+import com.joi.school.fitness.tools.util.FrescoUtils;
+import com.joi.school.fitness.tools.util.Navigation;
+import com.joi.school.fitness.tools.util.UserUtils;
 
 import es.dmoral.toasty.Toasty;
 

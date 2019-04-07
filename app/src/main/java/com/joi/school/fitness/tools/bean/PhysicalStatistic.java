@@ -1,4 +1,4 @@
-package com.joi.school.fitness.user;
+package com.joi.school.fitness.tools.bean;
 
 import cn.bmob.v3.BmobObject;
 

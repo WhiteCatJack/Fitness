@@ -5,12 +5,12 @@ import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.EditText;
 
-import com.joi.school.fitness.BaseActivity;
+import com.joi.school.fitness.tools.base.BaseActivity;
 import com.joi.school.fitness.R;
-import com.joi.school.fitness.user.FitnessUser;
-import com.joi.school.fitness.user.PhysicalStatistic;
+import com.joi.school.fitness.tools.bean.FitnessUser;
+import com.joi.school.fitness.tools.bean.PhysicalStatistic;
 import com.joi.school.fitness.user.UserEngine;
-import com.joi.school.fitness.util.AndroidUtils;
+import com.joi.school.fitness.tools.util.AndroidUtils;
 
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.SaveListener;

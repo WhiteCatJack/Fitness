@@ -1,6 +1,6 @@
-package com.joi.school.fitness.util;
+package com.joi.school.fitness.tools.util;
 
-import com.joi.school.fitness.base.BiCallback;
+import com.joi.school.fitness.tools.base.BiCallback;
 
 import java.io.File;
 

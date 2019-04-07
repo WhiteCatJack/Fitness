@@ -11,16 +11,18 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.facebook.drawee.view.SimpleDraweeView;
-import com.joi.school.fitness.BaseActivity;
 import com.joi.school.fitness.R;
-import com.joi.school.fitness.base.BiCallback;
-import com.joi.school.fitness.util.AndroidUtils;
-import com.joi.school.fitness.util.BaiduAuth;
-import com.joi.school.fitness.util.FrescoUtils;
-import com.joi.school.fitness.util.HttpUtil;
+import com.joi.school.fitness.tools.base.BaseActivity;
+import com.joi.school.fitness.tools.bean.HeatRecord;
+import com.joi.school.fitness.tools.bean.Meal;
+import com.joi.school.fitness.tools.util.AndroidUtils;
+import com.joi.school.fitness.tools.util.BaiduAuth;
+import com.joi.school.fitness.tools.util.FrescoUtils;
+import com.joi.school.fitness.tools.util.HttpUtil;
+import com.joi.school.fitness.tools.util.MealRecognitionUtils;
+import com.joi.school.fitness.user.UserEngine;
 
 import java.net.URLEncoder;
 import java.util.ArrayList;
@@ -29,6 +31,7 @@ import java.util.List;
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
+import cn.bmob.v3.listener.SaveListener;
 import es.dmoral.toasty.Toasty;
 
 /**
@@ -85,21 +88,15 @@ public class MealRecommendActivity extends BaseActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == RESULT_OK) {
-            BiCallback<Bitmap> callback = new BiCallback<Bitmap>() {
-                @Override
-                public void done(Bitmap bitmap) {
-                    doMealRecognition(AndroidUtils.convertBitmapToBase64(bitmap));
-                }
-
-                @Override
-                public void error(String message) {
-                    Toasty.warning(getApplicationContext(), message, Toast.LENGTH_SHORT, true).show();
-                }
-            };
             switch (requestCode) {
                 case MEAL_SCAN_FILE_SYSTEM_PHOTO_REQUEST_CODE:
                 case MEAL_SCAN_CAMERA_PHOTO_REQUEST_CODE:
-                    AndroidUtils.readPhotoFromIntent(this, data, callback);
+                    Bitmap bitmap = AndroidUtils.readPhotoFromIntent(this, data);
+                    if (bitmap != null) {
+                        doMealRecognition(AndroidUtils.convertBitmapToBase64(bitmap));
+                    } else {
+                        AndroidUtils.showUnknownErrorToast();
+                    }
                     break;
             }
         }
@@ -111,16 +108,37 @@ public class MealRecommendActivity extends BaseActivity {
         public void handleMessage(Message msg) {
             switch (msg.what) {
                 case MEAL_SCAN_FILE_SYSTEM_PHOTO_REQUEST_CODE:
-                    dismissLoadingDialog();
-                    String result = (String) msg.obj;
-                    AlertDialog.Builder builder = new AlertDialog.Builder(MealRecommendActivity.this);
-                    builder.setMessage(result);
-                    builder.create().show();
+                    mealRecognitionComplete((String) msg.obj);
                     break;
                 default:
             }
         }
     };
+
+    private void mealRecognitionComplete(String resultJson) {
+        dismissLoadingDialog();
+
+        Meal meal = MealRecognitionUtils.getResult(resultJson);
+        if (meal == null){
+            AndroidUtils.showUnknownErrorToast();
+            return;
+        }
+
+        HeatRecord heatRecord = new HeatRecord();
+        heatRecord.setUser(UserEngine.getCurrentUser());
+        heatRecord.setHeatChange(meal.getCalories());
+        heatRecord.save(new SaveListener<String>() {
+            @Override
+            public void done(String s, BmobException e) {
+                dismissLoadingDialog();
+                if (e == null) {
+                    Toasty.normal(getApplicationContext(), R.string.hint_upload_meal_complete).show();
+                } else {
+                    AndroidUtils.showUnknownErrorToast();
+                }
+            }
+        });
+    }
 
     private void doMealRecognition(final String base64) {
         showLoadingDialog();
@@ -131,7 +149,7 @@ public class MealRecommendActivity extends BaseActivity {
                 try {
                     final String url = "https://aip.baidubce.com/rest/2.0/image-classify/v2/dish";
                     String imgParam = URLEncoder.encode(base64, "UTF-8");
-                    final String param = "image=" + imgParam + "&top_num=" + 5;
+                    final String param = "image=" + imgParam + "&top_num=" + 5 + "&baike_num=" + 1;
                     String accessToken = BaiduAuth.getAuth();
                     result = HttpUtil.post(url, accessToken, param);
                 } catch (Exception e) {

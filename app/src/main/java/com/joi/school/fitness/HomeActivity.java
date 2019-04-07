@@ -12,6 +12,7 @@ import com.joi.school.fitness.core.CoreFragment;
 import com.joi.school.fitness.forum.ForumFragment;
 import com.joi.school.fitness.home.HomeFragment;
 import com.joi.school.fitness.mine.MineFragment;
+import com.joi.school.fitness.tools.base.BaseActivity;
 
 public class HomeActivity extends BaseActivity {
 

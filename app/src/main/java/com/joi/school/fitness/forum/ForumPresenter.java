@@ -1,7 +1,7 @@
 package com.joi.school.fitness.forum;
 
-import com.joi.school.fitness.forum.datasource.Post;
-import com.joi.school.fitness.forum.datasource.PostDataSource;
+import com.joi.school.fitness.tools.bean.Post;
+import com.joi.school.fitness.datasource.PostDataSource;
 
 import java.util.List;
 

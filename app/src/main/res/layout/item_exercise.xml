@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cv_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="4dp"
+    android:layout_marginTop="4dp"
+    android:layout_marginEnd="4dp"
+    android:foreground="?android:attr/selectableItemBackground"
+    app:cardBackgroundColor="@color/window_background_color"
+    app:cardCornerRadius="3dp"
+    app:cardElevation="4dp"
+    app:contentPadding="8dp">
+
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp">
+
+        <TextView
+            android:id="@+id/tv_exercise_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/title_set_physical_statistic_height"
+            android:textColor="@color/text_level1_color"
+            android:textSize="22dp"
+            tools:text="exercise" />
+
+    </FrameLayout>
+</android.support.v7.widget.CardView>

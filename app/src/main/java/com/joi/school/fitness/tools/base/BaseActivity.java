@@ -1,4 +1,4 @@
-package com.joi.school.fitness;
+package com.joi.school.fitness.tools.base;
 
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
+import com.joi.school.fitness.R;
 import com.joi.school.fitness.sign.SignInActivity;
 
 import cn.bmob.v3.BmobUser;

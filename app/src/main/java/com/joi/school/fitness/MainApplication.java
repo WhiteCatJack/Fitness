@@ -5,7 +5,7 @@ import android.app.Application;
 import com.baidu.aip.imageclassify.AipImageClassify;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.joi.school.fitness.constant.Constants;
-import com.joi.school.fitness.util.MealRecognitionUtils;
+import com.joi.school.fitness.tools.util.MealRecognitionUtils;
 
 import cn.bmob.v3.Bmob;
 import cn.bmob.v3.BmobConfig;

@@ -1,4 +1,4 @@
-package com.joi.school.fitness.forum;
+package com.joi.school.fitness.forum.postdetail.comment;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -21,12 +21,12 @@ import java.util.List;
  * @author Joi
  * createAt 2019/3/23 0023 15:53
  */
-public class PostListAdapter extends RecyclerView.Adapter<PostListAdapter.ViewHolder> {
+public class CommentListAdapter extends RecyclerView.Adapter<CommentListAdapter.ViewHolder> {
 
     private List<Post> mData = new ArrayList<>();
     private OnItemClickListener mOnItemClickListener;
 
-    public PostListAdapter(@NonNull List<Post> data) {
+    public CommentListAdapter(@NonNull List<Post> data) {
         if (data != null) {
             this.mData = data;
         }

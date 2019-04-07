@@ -1,4 +1,4 @@
-package com.joi.school.fitness.forum;
+package com.joi.school.fitness.core.sport.uploadexercise;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -7,10 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.facebook.drawee.view.SimpleDraweeView;
 import com.joi.school.fitness.R;
-import com.joi.school.fitness.tools.bean.Post;
-import com.joi.school.fitness.tools.util.FrescoUtils;
+import com.joi.school.fitness.tools.bean.Sport;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,12 +19,12 @@ import java.util.List;
  * @author Joi
  * createAt 2019/3/23 0023 15:53
  */
-public class PostListAdapter extends RecyclerView.Adapter<PostListAdapter.ViewHolder> {
+public class ExerciseListAdapter extends RecyclerView.Adapter<ExerciseListAdapter.ViewHolder> {
 
-    private List<Post> mData = new ArrayList<>();
+    private List<Sport> mData = new ArrayList<>();
     private OnItemClickListener mOnItemClickListener;
 
-    public PostListAdapter(@NonNull List<Post> data) {
+    public ExerciseListAdapter(@NonNull List<Sport> data) {
         if (data != null) {
             this.mData = data;
         }
@@ -35,13 +33,13 @@ public class PostListAdapter extends RecyclerView.Adapter<PostListAdapter.ViewHo
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_post, parent, false));
+        return new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_exercise, parent, false));
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Post post = mData.get(position);
-        holder.build(post);
+        Sport sport = mData.get(position);
+        holder.build(sport);
     }
 
     @Override
@@ -56,10 +54,7 @@ public class PostListAdapter extends RecyclerView.Adapter<PostListAdapter.ViewHo
 
     class ViewHolder extends RecyclerView.ViewHolder {
         View layout;
-        SimpleDraweeView avatarImageView;
-        TextView nicknameTextView;
-        TextView titleTextView;
-        TextView contentTextView;
+        TextView exerciseNameTextView;
 
         ViewHolder(View itemView) {
             super(itemView);
@@ -68,27 +63,19 @@ public class PostListAdapter extends RecyclerView.Adapter<PostListAdapter.ViewHo
 
         private void bindViews(View itemView) {
             layout = itemView.findViewById(R.id.cv_layout);
-            avatarImageView = itemView.findViewById(R.id.iv_avatar);
-            nicknameTextView = itemView.findViewById(R.id.tv_nick);
-            titleTextView = itemView.findViewById(R.id.tv_title);
-            contentTextView = itemView.findViewById(R.id.tv_content);
+            exerciseNameTextView = itemView.findViewById(R.id.tv_exercise_name);
         }
 
-        void build(final Post post) {
+        void build(final Sport sport) {
             layout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     if (mOnItemClickListener != null) {
-                        mOnItemClickListener.onItemClick(post);
+                        mOnItemClickListener.onItemClick(sport);
                     }
                 }
             });
-            if (post.getAuthor() != null) {
-                FrescoUtils.setImageUrl(avatarImageView, post.getAuthor().getAvatarUrl());
-                nicknameTextView.setText(post.getAuthor().getNick());
-            }
-            titleTextView.setText(post.getTitle());
-            contentTextView.setText(post.getContent());
+            exerciseNameTextView.setText(sport.getSportKind());
         }
     }
 
@@ -97,6 +84,6 @@ public class PostListAdapter extends RecyclerView.Adapter<PostListAdapter.ViewHo
     }
 
     public interface OnItemClickListener {
-        void onItemClick(Post post);
+        void onItemClick(Sport sport);
     }
 }

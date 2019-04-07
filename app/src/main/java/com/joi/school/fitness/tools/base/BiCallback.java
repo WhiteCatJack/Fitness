@@ -1,4 +1,4 @@
-package com.joi.school.fitness.base;
+package com.joi.school.fitness.tools.base;
 
 /**
  * Description.

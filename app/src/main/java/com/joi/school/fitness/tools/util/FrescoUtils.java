@@ -1,4 +1,4 @@
-package com.joi.school.fitness.util;
+package com.joi.school.fitness.tools.util;
 
 import android.net.Uri;
 import android.support.annotation.Nullable;

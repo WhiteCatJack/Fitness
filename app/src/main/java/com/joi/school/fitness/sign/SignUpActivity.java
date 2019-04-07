@@ -7,10 +7,10 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.joi.school.fitness.BaseActivity;
+import com.joi.school.fitness.tools.base.BaseActivity;
 import com.joi.school.fitness.HomeActivity;
 import com.joi.school.fitness.R;
-import com.joi.school.fitness.user.FitnessUser;
+import com.joi.school.fitness.tools.bean.FitnessUser;
 
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.SaveListener;

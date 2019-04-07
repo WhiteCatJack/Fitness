@@ -1,6 +1,6 @@
 package com.joi.school.fitness.user;
 
-import com.joi.school.fitness.BaseActivity;
+import com.joi.school.fitness.tools.base.BaseActivity;
 
 /**
  * Description.

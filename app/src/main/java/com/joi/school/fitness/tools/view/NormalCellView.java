@@ -1,4 +1,4 @@
-package com.joi.school.fitness.view;
+package com.joi.school.fitness.tools.view;
 
 import android.content.Context;
 import android.content.res.TypedArray;

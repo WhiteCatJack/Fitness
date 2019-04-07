@@ -9,9 +9,11 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
-import com.joi.school.fitness.BaseActivity;
+import com.joi.school.fitness.tools.base.BaseActivity;
 import com.joi.school.fitness.R;
-import com.joi.school.fitness.util.FrescoUtils;
+import com.joi.school.fitness.tools.bean.Sport;
+import com.joi.school.fitness.tools.util.FrescoUtils;
+import com.joi.school.fitness.tools.util.Navigation;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,15 +32,25 @@ public class SportRecommendActivity extends BaseActivity {
 
     private List<Sport> likeList = new ArrayList<>();
     private List<Sport> unlikeList = new ArrayList<>();
-    private TextView mTestButton;
+
+    private TextView mUploadExerciseButton;
+    private TextView mSportRecommendButton;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sport_recommend);
 
-        mTestButton = findViewById(R.id.bt_test_sport_recommend);
-        mTestButton.setOnClickListener(new View.OnClickListener() {
+        mUploadExerciseButton = findViewById(R.id.bt_upload_completed_exercise);
+        mSportRecommendButton = findViewById(R.id.bt_sport_recommend);
+
+        mUploadExerciseButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.goToUploadExerciseActivity(SportRecommendActivity.this);
+            }
+        });
+        mSportRecommendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 showLoadingDialog();

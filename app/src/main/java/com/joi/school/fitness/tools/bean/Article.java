@@ -1,6 +1,6 @@
-package com.joi.school.fitness.forum.datasource;
+package com.joi.school.fitness.tools.bean;
 
-import com.joi.school.fitness.user.FitnessUser;
+import java.util.List;
 
 import cn.bmob.v3.BmobObject;
 
@@ -10,18 +10,9 @@ import cn.bmob.v3.BmobObject;
  * @author Joi
  * createAt 2019/3/22 0022 10:37
  */
-public class Post extends BmobObject {
-    private FitnessUser author;
+public class Article extends BmobObject {
     private String title;
     private String content;
-
-    public FitnessUser getAuthor() {
-        return author;
-    }
-
-    public void setAuthor(FitnessUser author) {
-        this.author = author;
-    }
 
     public String getTitle() {
         return title;
