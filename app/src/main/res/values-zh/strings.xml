@@ -56,4 +56,7 @@
     <string name="title_comment">评论</string>
     <string name="from_camera">相机</string>
     <string name="from_file_system">从相册选择</string>
+    <string name="title_upload_completed_exercise">上传完成的锻炼</string>
+    <string name="hint_upload_completed_exercise_complete">你成功上传了一个新的锻炼记录</string>
+    <string name="hint_upload_meal_complete">你成功上传了一个菜品食用记录</string>
 </resources>

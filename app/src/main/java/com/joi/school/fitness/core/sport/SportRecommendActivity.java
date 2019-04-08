@@ -9,18 +9,26 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
-import com.joi.school.fitness.tools.base.BaseActivity;
 import com.joi.school.fitness.R;
+import com.joi.school.fitness.constant.MailboxConstants;
+import com.joi.school.fitness.tools.base.BaseActivity;
+import com.joi.school.fitness.tools.bean.ClientMailbox;
+import com.joi.school.fitness.tools.bean.ServerMailbox;
 import com.joi.school.fitness.tools.bean.Sport;
 import com.joi.school.fitness.tools.util.FrescoUtils;
 import com.joi.school.fitness.tools.util.Navigation;
+import com.joi.school.fitness.user.UserEngine;
 
-import java.util.ArrayList;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.List;
 
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
+import cn.bmob.v3.listener.SaveListener;
+import cn.bmob.v3.listener.UpdateListener;
 
 /**
  * Description.
@@ -29,9 +37,6 @@ import cn.bmob.v3.listener.FindListener;
  * createAt 2019/4/1 0001 15:28
  */
 public class SportRecommendActivity extends BaseActivity {
-
-    private List<Sport> likeList = new ArrayList<>();
-    private List<Sport> unlikeList = new ArrayList<>();
 
     private TextView mUploadExerciseButton;
     private TextView mSportRecommendButton;
@@ -54,42 +59,66 @@ public class SportRecommendActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 showLoadingDialog();
-                BmobQuery<Sport> query = new BmobQuery<>();
-                query.findObjects(new FindListener<Sport>() {
-                    @Override
-                    public void done(List<Sport> list, BmobException e) {
-                        dismissLoadingDialog();
-                        if (e == null) {
-                            buildRecommendDialog(getSportRandomly(preDo(list)));
-                        } else {
 
-                        }
+                ClientMailbox mailbox = new ClientMailbox();
+                mailbox.setUser(UserEngine.getCurrentUser());
+                mailbox.setType(MailboxConstants.TYPE_SPORT_RECOMMEND);
+                mailbox.save(new SaveListener<String>() {
+                    @Override
+                    public void done(final String clientMailId, BmobException e) {
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                try {
+                                    Thread.sleep(5000);
+                                } catch (InterruptedException ignore) {
+                                }
+                                BmobQuery<ServerMailbox> query = new BmobQuery<>();
+                                query.addWhereEqualTo("clientMail", clientMailId);
+                                query.addWhereEqualTo("user", UserEngine.getCurrentUser().getObjectId());
+                                query.findObjects(new FindListener<ServerMailbox>() {
+                                    @Override
+                                    public void done(List<ServerMailbox> list, final BmobException e) {
+                                        if (e == null && list != null && list.size() > 0) {
+                                            ServerMailbox mail = list.get(0);
+                                            try {
+                                                JSONObject jsonObject = new JSONObject(mail.getObj());
+                                                String recommendedSportId = jsonObject.getString("sportId");
+                                                BmobQuery<Sport> sportQuery = new BmobQuery<>();
+                                                sportQuery.addWhereEqualTo("objectId", recommendedSportId);
+                                                sportQuery.findObjects(new FindListener<Sport>() {
+                                                    @Override
+                                                    public void done(final List<Sport> list, final BmobException e) {
+                                                        SportRecommendActivity.this.runOnUiThread(new Runnable() {
+                                                            @Override
+                                                            public void run() {
+                                                                dismissLoadingDialog();
+                                                                if (e == null && list != null && list.size() > 0) {
+                                                                    buildRecommendDialog(list.get(0));
+                                                                } else {
+                                                                }
+                                                            }
+                                                        });
+                                                    }
+                                                });
+                                            } catch (JSONException ignore) {
+                                            }
+                                            mail.setValid(false);
+                                            mail.update(new UpdateListener() {
+                                                @Override
+                                                public void done(BmobException e) {
+                                                }
+                                            });
+                                        } else {
+                                        }
+                                    }
+                                });
+                            }
+                        }).start();
                     }
                 });
             }
         });
-    }
-
-    private List<Sport> preDo(List<Sport> netData) {
-        for (Sport unlike : unlikeList) {
-            for (int i = 0; i < netData.size(); i++) {
-                if (unlike.getObjectId().equals(netData.get(i).getObjectId())) {
-                    netData.remove(i);
-                }
-            }
-        }
-        netData.addAll(likeList);
-        return netData;
-    }
-
-    @Deprecated
-    private Sport getSportRandomly(@NonNull List<Sport> list) {
-        if (list == null || list.isEmpty()) {
-            return null;
-        }
-        int size = list.size();
-        int randomIndex = (int) (Math.random() * size);
-        return list.get(randomIndex);
     }
 
     private void buildRecommendDialog(@NonNull final Sport sport) {
@@ -111,14 +140,12 @@ public class SportRecommendActivity extends BaseActivity {
         yesView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                likeList.add(sport);
                 dialog.dismiss();
             }
         });
         noView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                unlikeList.add(sport);
                 dialog.dismiss();
             }
         });
