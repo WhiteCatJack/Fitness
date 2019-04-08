@@ -57,6 +57,7 @@
         <activity
             android:name=".core.sport.uploadexercise.UploadExerciseActivity"
             android:label="@string/title_upload_completed_exercise" />
+        <activity android:name=".forum.postdetail.comment.newcomment.NewCommentActivity" />
     </application>
 
 </manifest>

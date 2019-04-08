@@ -14,7 +14,6 @@ public class Post extends BmobObject {
     private FitnessUser author;
     private String title;
     private String content;
-    private List<Comment> commentList;
 
     public FitnessUser getAuthor() {
         return author;
@@ -38,13 +37,5 @@ public class Post extends BmobObject {
 
     public void setContent(String content) {
         this.content = content;
-    }
-
-    public List<Comment> getCommentList() {
-        return commentList;
-    }
-
-    public void setCommentList(List<Comment> commentList) {
-        this.commentList = commentList;
     }
 }

@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.joi.school.fitness.R;
-import com.joi.school.fitness.tools.bean.Post;
+import com.joi.school.fitness.tools.bean.Comment;
 import com.joi.school.fitness.tools.util.FrescoUtils;
 
 import java.util.ArrayList;
@@ -23,10 +23,9 @@ import java.util.List;
  */
 public class CommentListAdapter extends RecyclerView.Adapter<CommentListAdapter.ViewHolder> {
 
-    private List<Post> mData = new ArrayList<>();
-    private OnItemClickListener mOnItemClickListener;
+    private List<Comment> mData = new ArrayList<>();
 
-    public CommentListAdapter(@NonNull List<Post> data) {
+    public CommentListAdapter(@NonNull List<Comment> data) {
         if (data != null) {
             this.mData = data;
         }
@@ -35,13 +34,13 @@ public class CommentListAdapter extends RecyclerView.Adapter<CommentListAdapter.
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_post, parent, false));
+        return new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_comment, parent, false));
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Post post = mData.get(position);
-        holder.build(post);
+        Comment comment = mData.get(position);
+        holder.build(comment);
     }
 
     @Override
@@ -55,10 +54,8 @@ public class CommentListAdapter extends RecyclerView.Adapter<CommentListAdapter.
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
-        View layout;
         SimpleDraweeView avatarImageView;
         TextView nicknameTextView;
-        TextView titleTextView;
         TextView contentTextView;
 
         ViewHolder(View itemView) {
@@ -67,36 +64,17 @@ public class CommentListAdapter extends RecyclerView.Adapter<CommentListAdapter.
         }
 
         private void bindViews(View itemView) {
-            layout = itemView.findViewById(R.id.cv_layout);
             avatarImageView = itemView.findViewById(R.id.iv_avatar);
             nicknameTextView = itemView.findViewById(R.id.tv_nick);
-            titleTextView = itemView.findViewById(R.id.tv_title);
             contentTextView = itemView.findViewById(R.id.tv_content);
         }
 
-        void build(final Post post) {
-            layout.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (mOnItemClickListener != null) {
-                        mOnItemClickListener.onItemClick(post);
-                    }
-                }
-            });
-            if (post.getAuthor() != null) {
-                FrescoUtils.setImageUrl(avatarImageView, post.getAuthor().getAvatarUrl());
-                nicknameTextView.setText(post.getAuthor().getNick());
+        void build(final Comment comment) {
+            if (comment.getAuthor() != null) {
+                FrescoUtils.setImageUrl(avatarImageView, comment.getAuthor().getAvatarUrl());
+                nicknameTextView.setText(comment.getAuthor().getNick());
             }
-            titleTextView.setText(post.getTitle());
-            contentTextView.setText(post.getContent());
+            contentTextView.setText(comment.getContent());
         }
-    }
-
-    void setOnItemClickListener(OnItemClickListener listener) {
-        mOnItemClickListener = listener;
-    }
-
-    public interface OnItemClickListener {
-        void onItemClick(Post post);
     }
 }

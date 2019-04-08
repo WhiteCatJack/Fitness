@@ -9,6 +9,7 @@ import com.joi.school.fitness.constant.IntentConstants;
 import com.joi.school.fitness.core.sport.uploadexercise.UploadExerciseActivity;
 import com.joi.school.fitness.forum.postdetail.PostActivity;
 import com.joi.school.fitness.forum.postdetail.comment.CommentActivity;
+import com.joi.school.fitness.forum.postdetail.comment.newcomment.NewCommentActivity;
 import com.joi.school.fitness.mine.body.SetPhysicalStatisticActivity;
 import com.joi.school.fitness.mine.setinfo.SetMyInformationActivity;
 import com.joi.school.fitness.tools.bean.Post;
@@ -53,6 +54,15 @@ public class Navigation {
             return;
         }
         Intent intent = new Intent(context, CommentActivity.class);
+        intent.putExtra(IntentConstants.INTENT_KEY_POST, post);
+        context.startActivity(intent);
+    }
+
+    public static void goToNewCommentActivity(@NonNull Context context, Post post) {
+        if (context == null || post == null || TextUtils.isEmpty(post.getObjectId())) {
+            return;
+        }
+        Intent intent = new Intent(context, NewCommentActivity.class);
         intent.putExtra(IntentConstants.INTENT_KEY_POST, post);
         context.startActivity(intent);
     }

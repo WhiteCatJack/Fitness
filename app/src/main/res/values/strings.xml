@@ -61,5 +61,7 @@
     <string name="hint_upload_completed_exercise_complete">You have been upload a new exercise record.</string>
     <string name="hint_upload_meal_complete">You have been upload your meal.</string>
 
+    <string name="toast_new_comment_success">You have created a new comment!</string>
+
 
 </resources>
