@@ -119,10 +119,14 @@ public class MealRecommendActivity extends BaseActivity {
         dismissLoadingDialog();
 
         Meal meal = MealRecognitionUtils.getResult(resultJson);
-        if (meal == null){
+        if (meal == null) {
             AndroidUtils.showUnknownErrorToast();
             return;
         }
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(MealRecommendActivity.this);
+        builder.setMessage(resultJson);
+        builder.create().show();
 
         HeatRecord heatRecord = new HeatRecord();
         heatRecord.setUser(UserEngine.getCurrentUser());

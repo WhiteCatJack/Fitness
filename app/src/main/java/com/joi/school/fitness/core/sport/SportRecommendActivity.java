@@ -70,7 +70,7 @@ public class SportRecommendActivity extends BaseActivity {
                             @Override
                             public void run() {
                                 try {
-                                    Thread.sleep(5000);
+                                    Thread.sleep(10000);
                                 } catch (InterruptedException ignore) {
                                 }
                                 BmobQuery<ServerMailbox> query = new BmobQuery<>();

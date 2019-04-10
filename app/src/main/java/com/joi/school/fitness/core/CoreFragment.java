@@ -72,6 +72,12 @@ public class CoreFragment extends Fragment {
         checkPhysicalStatistic();
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        checkPhysicalStatistic();
+    }
+
     private void checkPhysicalStatistic() {
         boolean hasStatistic = UserEngine.hasPysicalStatistic();
         if (hasStatistic) {
