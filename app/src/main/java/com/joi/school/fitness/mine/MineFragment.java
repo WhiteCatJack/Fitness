@@ -13,28 +13,21 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.joi.school.fitness.R;
-import com.joi.school.fitness.constant.BroadcastConstants;
 import com.joi.school.fitness.tools.bean.FitnessUser;
-import com.joi.school.fitness.user.UserEngine;
-import com.joi.school.fitness.tools.util.AndroidUtils;
+import com.joi.school.fitness.tools.constant.BroadcastConstants;
+import com.joi.school.fitness.tools.user.UserEngine;
 import com.joi.school.fitness.tools.util.FrescoUtils;
 import com.joi.school.fitness.tools.util.Navigation;
 import com.joi.school.fitness.tools.util.UserUtils;
 
-import es.dmoral.toasty.Toasty;
-
 public class MineFragment extends Fragment {
 
-    private View mMyInformationCard;
     private SimpleDraweeView mMyAvatarView;
     private TextView mMyNickNameTextView;
     private TextView mMyPersonalizedSignatureTextView;
-    private View mSignOutButton;
-    private View mSetPhysicalStatisticButton;
 
     private BroadcastReceiver mBroadcastReceiver;
 
@@ -42,26 +35,24 @@ public class MineFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View layout = inflater.inflate(R.layout.fragment_mine, container, false);
-        mMyInformationCard = layout.findViewById(R.id.cv_my_information);
-        mMyAvatarView = mMyInformationCard.findViewById(R.id.iv_avatar);
-        mMyNickNameTextView = mMyInformationCard.findViewById(R.id.tv_nickname);
-        mMyPersonalizedSignatureTextView = mMyInformationCard.findViewById(R.id.tv_personalized_signature);
-        mSignOutButton = layout.findViewById(R.id.bt_sign_out);
-        mSetPhysicalStatisticButton = layout.findViewById(R.id.bt_physical_statistic);
+        View myInformationCard = layout.findViewById(R.id.cv_my_information);
+        mMyAvatarView = myInformationCard.findViewById(R.id.iv_avatar);
+        mMyNickNameTextView = myInformationCard.findViewById(R.id.tv_nickname);
+        mMyPersonalizedSignatureTextView = myInformationCard.findViewById(R.id.tv_personalized_signature);
 
-        mMyInformationCard.setOnClickListener(new View.OnClickListener() {
+        myInformationCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Navigation.goToSetMyInformationActivity(getContext());
             }
         });
-        mSignOutButton.setOnClickListener(new View.OnClickListener() {
+        layout.findViewById(R.id.bt_sign_out).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 UserUtils.signOut(getContext());
             }
         });
-        mSetPhysicalStatisticButton.setOnClickListener(new View.OnClickListener() {
+        layout.findViewById(R.id.bt_physical_statistic).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Navigation.goToSetPhysicalStatisticActivity(getContext());
@@ -79,12 +70,8 @@ public class MineFragment extends Fragment {
         registerBroadcast();
     }
 
-    public void setUserInfo(){
-        FitnessUser user = UserEngine.getCurrentUser();
-        if (user == null) {
-            Toasty.warning(AndroidUtils.getApplicationContext(), R.string.warning_not_sign_in, Toast.LENGTH_SHORT, true).show();
-            return;
-        }
+    public void setUserInfo() {
+        FitnessUser user = UserEngine.getInstance().getCurrentUser();
         FrescoUtils.setImageUrl(mMyAvatarView, user.getAvatarUrl());
         mMyNickNameTextView.setText(user.getNick());
         mMyPersonalizedSignatureTextView.setText(user.getSignature());
@@ -93,7 +80,7 @@ public class MineFragment extends Fragment {
     @Override
     public void onDestroy() {
         LocalBroadcastManager.getInstance(getContext()).unregisterReceiver(mBroadcastReceiver);
-        if (mBroadcastReceiver != null){
+        if (mBroadcastReceiver != null) {
             mBroadcastReceiver = null;
         }
         super.onDestroy();

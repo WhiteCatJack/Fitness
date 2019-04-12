@@ -10,14 +10,14 @@ import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.joi.school.fitness.R;
-import com.joi.school.fitness.constant.MailboxConstants;
+import com.joi.school.fitness.tools.constant.MailboxConstants;
 import com.joi.school.fitness.tools.base.BaseActivity;
 import com.joi.school.fitness.tools.bean.ClientMailbox;
 import com.joi.school.fitness.tools.bean.ServerMailbox;
 import com.joi.school.fitness.tools.bean.Sport;
 import com.joi.school.fitness.tools.util.FrescoUtils;
 import com.joi.school.fitness.tools.util.Navigation;
-import com.joi.school.fitness.user.UserEngine;
+import com.joi.school.fitness.tools.user.UserEngine;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -61,7 +61,7 @@ public class SportRecommendActivity extends BaseActivity {
                 showLoadingDialog();
 
                 ClientMailbox mailbox = new ClientMailbox();
-                mailbox.setUser(UserEngine.getCurrentUser());
+                mailbox.setUser(UserEngine.getInstance().getCurrentUser());
                 mailbox.setType(MailboxConstants.TYPE_SPORT_RECOMMEND);
                 mailbox.save(new SaveListener<String>() {
                     @Override
@@ -75,7 +75,7 @@ public class SportRecommendActivity extends BaseActivity {
                                 }
                                 BmobQuery<ServerMailbox> query = new BmobQuery<>();
                                 query.addWhereEqualTo("clientMail", clientMailId);
-                                query.addWhereEqualTo("user", UserEngine.getCurrentUser().getObjectId());
+                                query.addWhereEqualTo("user", UserEngine.getInstance().getCurrentUser().getObjectId());
                                 query.findObjects(new FindListener<ServerMailbox>() {
                                     @Override
                                     public void done(List<ServerMailbox> list, final BmobException e) {

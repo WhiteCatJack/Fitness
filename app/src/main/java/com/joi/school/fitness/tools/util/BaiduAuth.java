@@ -1,6 +1,6 @@
 package com.joi.school.fitness.tools.util;
 
-import com.joi.school.fitness.constant.Constants;
+import com.joi.school.fitness.tools.constant.Constants;
 
 import org.json.JSONObject;
 

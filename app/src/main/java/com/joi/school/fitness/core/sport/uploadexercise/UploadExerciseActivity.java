@@ -10,7 +10,7 @@ import com.joi.school.fitness.tools.base.BaseActivity;
 import com.joi.school.fitness.tools.bean.HeatRecord;
 import com.joi.school.fitness.tools.bean.Sport;
 import com.joi.school.fitness.tools.util.AndroidUtils;
-import com.joi.school.fitness.user.UserEngine;
+import com.joi.school.fitness.tools.user.UserEngine;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,7 +47,7 @@ public class UploadExerciseActivity extends BaseActivity {
             public void onItemClick(Sport sport) {
                 showLoadingDialog();
                 HeatRecord heatRecord = new HeatRecord();
-                heatRecord.setUser(UserEngine.getCurrentUser());
+                heatRecord.setUser(UserEngine.getInstance().getCurrentUser());
                 heatRecord.setHeatChange(-sport.getCalories());
                 heatRecord.save(new SaveListener<String>() {
                     @Override

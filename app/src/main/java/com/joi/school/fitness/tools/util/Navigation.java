@@ -5,14 +5,17 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
 
-import com.joi.school.fitness.constant.IntentConstants;
+import com.joi.school.fitness.HomeActivity;
 import com.joi.school.fitness.core.sport.uploadexercise.UploadExerciseActivity;
 import com.joi.school.fitness.forum.postdetail.PostActivity;
 import com.joi.school.fitness.forum.postdetail.comment.CommentActivity;
 import com.joi.school.fitness.forum.postdetail.comment.newcomment.NewCommentActivity;
 import com.joi.school.fitness.mine.body.SetPhysicalStatisticActivity;
 import com.joi.school.fitness.mine.setinfo.SetMyInformationActivity;
+import com.joi.school.fitness.sign.SignInActivity;
+import com.joi.school.fitness.sign.SignUpActivity;
 import com.joi.school.fitness.tools.bean.Post;
+import com.joi.school.fitness.tools.constant.IntentConstants;
 
 /**
  * Description.
@@ -21,7 +24,7 @@ import com.joi.school.fitness.tools.bean.Post;
  * createAt 2019/4/1 0001 14:37
  */
 public class Navigation {
-    private static void noExtraNavigation(Context context, Class target){
+    private static void noExtraNavigation(Context context, Class target) {
         if (context == null) {
             return;
         }
@@ -35,6 +38,18 @@ public class Navigation {
         Intent intent = new Intent(context, PostActivity.class);
         intent.putExtra(IntentConstants.INTENT_KEY_POST, post);
         context.startActivity(intent);
+    }
+
+    public static void goToSignInActivity(@NonNull Context context) {
+        noExtraNavigation(context, SignInActivity.class);
+    }
+
+    public static void goToHomeActivity(@NonNull Context context) {
+        noExtraNavigation(context, HomeActivity.class);
+    }
+
+    public static void goToSignUpActivity(@NonNull Context context) {
+        noExtraNavigation(context, SignUpActivity.class);
     }
 
     public static void goToSetPhysicalStatisticActivity(@NonNull Context context) {

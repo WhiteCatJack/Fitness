@@ -9,7 +9,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.joi.school.fitness.R;
-import com.joi.school.fitness.constant.IntentConstants;
+import com.joi.school.fitness.tools.constant.IntentConstants;
 import com.joi.school.fitness.tools.base.BaseActivity;
 import com.joi.school.fitness.tools.bean.Comment;
 import com.joi.school.fitness.tools.bean.FitnessUser;
@@ -46,10 +46,7 @@ public class NewCommentActivity extends BaseActivity {
     private boolean getDataFromIntent() {
         Intent intent = getIntent();
         mPost = (Post) intent.getSerializableExtra(IntentConstants.INTENT_KEY_POST);
-        if (mPost == null) {
-            return false;
-        }
-        return true;
+        return mPost != null;
     }
 
     private void initViews() {

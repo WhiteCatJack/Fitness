@@ -22,7 +22,7 @@ import com.joi.school.fitness.tools.util.BaiduAuth;
 import com.joi.school.fitness.tools.util.FrescoUtils;
 import com.joi.school.fitness.tools.util.HttpUtil;
 import com.joi.school.fitness.tools.util.MealRecognitionUtils;
-import com.joi.school.fitness.user.UserEngine;
+import com.joi.school.fitness.tools.user.UserEngine;
 
 import java.net.URLEncoder;
 import java.util.ArrayList;
@@ -129,7 +129,7 @@ public class MealRecommendActivity extends BaseActivity {
         builder.create().show();
 
         HeatRecord heatRecord = new HeatRecord();
-        heatRecord.setUser(UserEngine.getCurrentUser());
+        heatRecord.setUser(UserEngine.getInstance().getCurrentUser());
         heatRecord.setHeatChange(meal.getCalories());
         heatRecord.save(new SaveListener<String>() {
             @Override

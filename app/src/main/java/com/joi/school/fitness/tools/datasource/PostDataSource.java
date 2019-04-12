@@ -1,4 +1,4 @@
-package com.joi.school.fitness.datasource;
+package com.joi.school.fitness.tools.datasource;
 
 import android.support.annotation.IntRange;
 import android.support.annotation.Nullable;

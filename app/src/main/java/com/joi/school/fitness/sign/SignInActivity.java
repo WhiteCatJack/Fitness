@@ -1,21 +1,20 @@
 package com.joi.school.fitness.sign;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.joi.school.fitness.tools.base.BaseActivity;
-import com.joi.school.fitness.HomeActivity;
 import com.joi.school.fitness.R;
+import com.joi.school.fitness.tools.base.BaseActivity;
 import com.joi.school.fitness.tools.bean.FitnessUser;
+import com.joi.school.fitness.tools.user.UserEngine;
+import com.joi.school.fitness.tools.util.AndroidUtils;
+import com.joi.school.fitness.tools.util.Navigation;
 
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.SaveListener;
-import es.dmoral.toasty.Toasty;
 
 /**
  * @author Joi
@@ -56,18 +55,15 @@ public class SignInActivity extends BaseActivity {
                 FitnessUser user = new FitnessUser();
                 user.setUsername(mUsernameEditText.getText().toString().trim());
                 user.setPassword(mPasswordEditText.getText().toString().trim());
-                user.login(new SaveListener<FitnessUser>() {
+                UserEngine.getInstance().signIn(user, new SaveListener<FitnessUser>() {
                     @Override
                     public void done(FitnessUser fitnessUser, BmobException e) {
                         dismissLoadingDialog();
                         if (e == null) {
-                            startActivity(new Intent(SignInActivity.this, HomeActivity.class));
+                            Navigation.goToHomeActivity(getContext());
                             SignProcessActivityCache.clearCache();
                         } else {
-                            /*
-                                弹出警告
-                             */
-                            Toasty.warning(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT, true).show();
+                            AndroidUtils.showWarning(e.getMessage());
                         }
                     }
                 });
@@ -76,7 +72,7 @@ public class SignInActivity extends BaseActivity {
         mSignUpLink.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(SignInActivity.this, SignUpActivity.class));
+                Navigation.goToSignUpActivity(getContext());
             }
         });
     }

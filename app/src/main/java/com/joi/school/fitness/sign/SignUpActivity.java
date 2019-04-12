@@ -1,16 +1,15 @@
 package com.joi.school.fitness.sign;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.joi.school.fitness.tools.base.BaseActivity;
-import com.joi.school.fitness.HomeActivity;
 import com.joi.school.fitness.R;
+import com.joi.school.fitness.tools.base.BaseActivity;
 import com.joi.school.fitness.tools.bean.FitnessUser;
+import com.joi.school.fitness.tools.util.Navigation;
 
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.SaveListener;
@@ -29,8 +28,8 @@ public class SignUpActivity extends BaseActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         SignProcessActivityCache.registerActivity(this);
-        setContentView(R.layout.activity_sign_up);
 
+        setContentView(R.layout.activity_sign_up);
         initView();
     }
 
@@ -55,7 +54,7 @@ public class SignUpActivity extends BaseActivity {
                     @Override
                     public void done(FitnessUser fitnessUser, BmobException e) {
                         if (e == null) {
-                            startActivity(new Intent(SignUpActivity.this, HomeActivity.class));
+                            Navigation.goToHomeActivity(getContext());
                             SignProcessActivityCache.clearCache();
                         } else {
                             /*

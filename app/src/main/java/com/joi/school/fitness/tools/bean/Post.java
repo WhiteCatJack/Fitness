@@ -1,6 +1,6 @@
 package com.joi.school.fitness.tools.bean;
 
-import java.util.List;
+import android.support.annotation.NonNull;
 
 import cn.bmob.v3.BmobObject;
 
@@ -15,6 +15,7 @@ public class Post extends BmobObject {
     private String title;
     private String content;
 
+    @NonNull
     public FitnessUser getAuthor() {
         return author;
     }

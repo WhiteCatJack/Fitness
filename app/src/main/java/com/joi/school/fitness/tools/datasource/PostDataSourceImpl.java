@@ -1,9 +1,9 @@
-package com.joi.school.fitness.datasource;
+package com.joi.school.fitness.tools.datasource;
 
 import android.support.annotation.Nullable;
 
 import com.joi.school.fitness.tools.bean.Post;
-import com.joi.school.fitness.constant.Constants;
+import com.joi.school.fitness.tools.constant.Constants;
 
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.listener.FindListener;

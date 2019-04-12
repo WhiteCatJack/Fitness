@@ -13,6 +13,7 @@ import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.StringRes;
 import android.util.Base64;
 import android.widget.Toast;
 
@@ -130,7 +131,45 @@ public class AndroidUtils {
         return BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
     }
 
+    private static String getString(@StringRes int id){
+        return getApplicationContext().getResources().getString(id);
+    }
+
     public static void showUnknownErrorToast() {
-        Toasty.error(getApplicationContext(), R.string.unknown_error, Toast.LENGTH_SHORT, true).show();
+        showError(R.string.unknown_error);
+    }
+
+    public static void showToast(String content) {
+        Toasty.normal(getApplicationContext(), content, Toast.LENGTH_SHORT).show();
+    }
+
+    public static void showToast(@StringRes int contentId) {
+        showToast(getString(contentId));
+    }
+
+    public static void showWarning(String content) {
+        Toasty.warning(getApplicationContext(), content, Toast.LENGTH_SHORT, true).show();
+    }
+
+    public static void showWarning(@StringRes int contentId) {
+        showWarning(getString(contentId));
+    }
+
+    public static void showError(String content) {
+        Toasty.error(getApplicationContext(), content, Toast.LENGTH_SHORT, true).show();
+    }
+
+    public static void showError(@StringRes int contentId) {
+        showError(getString(contentId));
+    }
+
+    public static void showAlert(Context context, String content) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setMessage(content);
+        builder.create().show();
+    }
+
+    public static void showAlert(Context context, @StringRes int contentId) {
+        showAlert(context, getString(contentId));
     }
 }

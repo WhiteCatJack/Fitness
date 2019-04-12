@@ -10,7 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.joi.school.fitness.R;
-import com.joi.school.fitness.constant.IntentConstants;
+import com.joi.school.fitness.tools.constant.IntentConstants;
 import com.joi.school.fitness.tools.base.BaseActivity;
 import com.joi.school.fitness.tools.bean.Comment;
 import com.joi.school.fitness.tools.bean.Post;
@@ -100,10 +100,7 @@ public class CommentActivity extends BaseActivity {
     private boolean getDataFromIntent() {
         Intent intent = getIntent();
         mPost = (Post) intent.getSerializableExtra(IntentConstants.INTENT_KEY_POST);
-        if (mPost == null) {
-            return false;
-        }
-        return true;
+        return mPost != null;
     }
 }
 

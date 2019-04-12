@@ -83,10 +83,8 @@ public class PostListAdapter extends RecyclerView.Adapter<PostListAdapter.ViewHo
                     }
                 }
             });
-            if (post.getAuthor() != null) {
-                FrescoUtils.setImageUrl(avatarImageView, post.getAuthor().getAvatarUrl());
-                nicknameTextView.setText(post.getAuthor().getNick());
-            }
+            FrescoUtils.setImageUrl(avatarImageView, post.getAuthor().getAvatarUrl());
+            nicknameTextView.setText(post.getAuthor().getNick());
             titleTextView.setText(post.getTitle());
             contentTextView.setText(post.getContent());
         }

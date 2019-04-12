@@ -2,17 +2,16 @@ package com.joi.school.fitness.mine.setinfo;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 
-import com.joi.school.fitness.tools.base.BaseActivity;
 import com.joi.school.fitness.R;
+import com.joi.school.fitness.tools.base.BaseActivity;
 import com.joi.school.fitness.tools.base.BiCallback;
 import com.joi.school.fitness.tools.bean.FitnessUser;
-import com.joi.school.fitness.user.UserEngine;
+import com.joi.school.fitness.tools.user.UserEngine;
 import com.joi.school.fitness.tools.util.AndroidUtils;
 import com.joi.school.fitness.tools.util.BmobUtils;
 import com.joi.school.fitness.tools.util.UserUtils;
@@ -34,9 +33,7 @@ public class SetMyInformationActivity extends BaseActivity {
 
     private NormalCellView mSetAvatarCellView;
     private EditText mSetNicknameEditText;
-    private View mSetNicknameButton;
     private EditText mSetPersonalizedSignatureEditText;
-    private View mSetPersonalizedSignatureButton;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -44,6 +41,7 @@ public class SetMyInformationActivity extends BaseActivity {
         setContentView(R.layout.activity_set_my_information);
 
         initView();
+        setUpUserInfoViews();
     }
 
     @Override
@@ -79,11 +77,7 @@ public class SetMyInformationActivity extends BaseActivity {
     private void initView() {
         mSetAvatarCellView = findViewById(R.id.cell_set_my_avatar);
         mSetNicknameEditText = findViewById(R.id.et_nick);
-        mSetNicknameButton = findViewById(R.id.bt_change_nick);
         mSetPersonalizedSignatureEditText = findViewById(R.id.et_personalized_signature);
-        mSetPersonalizedSignatureButton = findViewById(R.id.bt_change_personalized_signature);
-
-        setUserInfo();
 
         mSetAvatarCellView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -92,7 +86,7 @@ public class SetMyInformationActivity extends BaseActivity {
                         SET_AVATAR_CAMERA_PHOTO_REQUEST_CODE, SET_AVATAR_FILE_SYSTEM_PHOTO_REQUEST_CODE);
             }
         });
-        mSetNicknameButton.setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.bt_change_nick).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 FitnessUser fitnessUser = new FitnessUser();
@@ -100,7 +94,7 @@ public class SetMyInformationActivity extends BaseActivity {
                 changeUserInfo(fitnessUser);
             }
         });
-        mSetPersonalizedSignatureButton.setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.bt_change_personalized_signature).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 FitnessUser fitnessUser = new FitnessUser();
@@ -110,17 +104,15 @@ public class SetMyInformationActivity extends BaseActivity {
         });
     }
 
-    private void changeUserInfo(@NonNull FitnessUser fitnessUser) {
-        if (fitnessUser == null) {
-            return;
-        }
+    private void changeUserInfo(FitnessUser fitnessUser) {
         showLoadingDialog();
-        fitnessUser.update(UserEngine.getCurrentUser().getObjectId(), new UpdateListener() {
+        fitnessUser.setObjectId(UserEngine.getInstance().getCurrentUser().getObjectId());
+        UserEngine.getInstance().update(fitnessUser, new UpdateListener() {
             @Override
             public void done(BmobException e) {
                 dismissLoadingDialog();
                 if (e == null) {
-                    setUserInfo();
+                    setUpUserInfoViews();
                     UserUtils.infoChanged(getApplicationContext());
                 } else {
                     AndroidUtils.showUnknownErrorToast();
@@ -129,7 +121,10 @@ public class SetMyInformationActivity extends BaseActivity {
         });
     }
 
-    private void setUserInfo() {
-        mSetAvatarCellView.setIconUrl(UserEngine.getCurrentUser().getAvatarUrl());
+    private void setUpUserInfoViews() {
+        FitnessUser user = UserEngine.getInstance().getCurrentUser();
+        mSetAvatarCellView.setIconUrl(user.getAvatarUrl());
+        mSetNicknameEditText.setText(user.getNick());
+        mSetPersonalizedSignatureEditText.setText(user.getSignature());
     }
 }

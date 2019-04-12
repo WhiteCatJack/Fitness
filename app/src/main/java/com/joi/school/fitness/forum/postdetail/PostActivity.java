@@ -8,7 +8,7 @@ import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.joi.school.fitness.R;
-import com.joi.school.fitness.constant.IntentConstants;
+import com.joi.school.fitness.tools.constant.IntentConstants;
 import com.joi.school.fitness.tools.base.BaseActivity;
 import com.joi.school.fitness.tools.bean.Post;
 import com.joi.school.fitness.tools.util.FrescoUtils;
@@ -70,9 +70,6 @@ public class PostActivity extends BaseActivity {
     private boolean getDataFromIntent() {
         Intent intent = getIntent();
         mPost = (Post) intent.getSerializableExtra(IntentConstants.INTENT_KEY_POST);
-        if (mPost == null) {
-            return false;
-        }
-        return true;
+        return mPost != null;
     }
 }

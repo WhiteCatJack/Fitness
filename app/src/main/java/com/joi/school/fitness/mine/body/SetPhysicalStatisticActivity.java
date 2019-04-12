@@ -5,17 +5,16 @@ import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.EditText;
 
-import com.joi.school.fitness.tools.base.BaseActivity;
 import com.joi.school.fitness.R;
+import com.joi.school.fitness.tools.base.BaseActivity;
 import com.joi.school.fitness.tools.bean.FitnessUser;
 import com.joi.school.fitness.tools.bean.PhysicalStatistic;
-import com.joi.school.fitness.user.UserEngine;
+import com.joi.school.fitness.tools.user.UserEngine;
 import com.joi.school.fitness.tools.util.AndroidUtils;
 
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.SaveListener;
 import cn.bmob.v3.listener.UpdateListener;
-import es.dmoral.toasty.Toasty;
 
 /**
  * Description.
@@ -45,18 +44,13 @@ public class SetPhysicalStatisticActivity extends BaseActivity {
         mHeartRateEditText = findViewById(R.id.et_heart_rate);
         mLungCapacityEditText = findViewById(R.id.et_lung_capacity);
         mSubmitButton = findViewById(R.id.bt_submit);
-        // 测试用
-        mHeightEditText.setText("180");
-        mWeightEditText.setText("75");
-        mHeartRateEditText.setText("90");
-        mLungCapacityEditText.setText("5200");
 
         mSubmitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 showLoadingDialog();
                 final PhysicalStatistic physicalStatistic = new PhysicalStatistic();
-                physicalStatistic.setUser(UserEngine.getCurrentUser());
+                physicalStatistic.setUser(UserEngine.getInstance().getCurrentUser());
                 physicalStatistic.setHeight(Double.valueOf(mHeightEditText.getText().toString()));
                 physicalStatistic.setWeight(Double.valueOf(mWeightEditText.getText().toString()));
                 physicalStatistic.setHeartRate(Double.valueOf(mHeartRateEditText.getText().toString()));
@@ -65,10 +59,9 @@ public class SetPhysicalStatisticActivity extends BaseActivity {
                     @Override
                     public void done(String id, BmobException e) {
                         physicalStatistic.setObjectId(id);
-
                         FitnessUser fitnessUser = new FitnessUser();
                         fitnessUser.setLatestStatistic(physicalStatistic);
-                        fitnessUser.update(UserEngine.getCurrentUser().getObjectId(), new UpdateListener() {
+                        fitnessUser.update(UserEngine.getInstance().getCurrentUser().getObjectId(), new UpdateListener() {
                             @Override
                             public void done(BmobException e) {
                                 dismissLoadingDialog();
@@ -76,7 +69,7 @@ public class SetPhysicalStatisticActivity extends BaseActivity {
                                     AndroidUtils.showUnknownErrorToast();
                                     return;
                                 }
-                                Toasty.normal(getApplicationContext(), R.string.hint_set_physical_statistic_complete).show();
+                                AndroidUtils.showToast(R.string.hint_set_physical_statistic_complete);
                                 finish();
                             }
                         });

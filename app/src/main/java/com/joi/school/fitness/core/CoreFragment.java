@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 import com.joi.school.fitness.R;
 import com.joi.school.fitness.core.meal.MealRecommendActivity;
 import com.joi.school.fitness.core.sport.SportRecommendActivity;
-import com.joi.school.fitness.user.UserEngine;
+import com.joi.school.fitness.tools.user.UserEngine;
 import com.joi.school.fitness.tools.util.Navigation;
 
 public class CoreFragment extends Fragment {
@@ -79,7 +79,7 @@ public class CoreFragment extends Fragment {
     }
 
     private void checkPhysicalStatistic() {
-        boolean hasStatistic = UserEngine.hasPysicalStatistic();
+        boolean hasStatistic = UserEngine.getInstance().hasPhysicalStatistic();
         if (hasStatistic) {
             mFunctionLayout.setVisibility(View.VISIBLE);
             mNoPhysicalStatisticLayout.setVisibility(View.GONE);
