@@ -1,5 +1,6 @@
 package com.joi.school.fitness.tools.bmobsync;
 
+import com.joi.school.fitness.tools.bean.Advertisement;
 import com.joi.school.fitness.tools.bean.Article;
 import com.joi.school.fitness.tools.bean.Post;
 
@@ -29,6 +30,13 @@ class SyncBmobQueryFindListenerFactory {
             return (FindListener<T>) new FindListener<Article>() {
                 @Override
                 public void done(List<Article> list, BmobException e) {
+                    reflect.done((List<T>) list, e);
+                }
+            };
+        } else if (classEquals(Advertisement.class, clazz)) {
+            return (FindListener<T>) new FindListener<Advertisement>() {
+                @Override
+                public void done(List<Advertisement> list, BmobException e) {
                     reflect.done((List<T>) list, e);
                 }
             };

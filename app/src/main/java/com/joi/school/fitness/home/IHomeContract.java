@@ -1,8 +1,11 @@
 package com.joi.school.fitness.home;
 
+import com.joi.school.fitness.tools.bean.Advertisement;
 import com.joi.school.fitness.tools.bean.Article;
 
 import java.util.List;
+
+import me.wangyuwei.banner.BannerEntity;
 
 /**
  * Description.
@@ -12,10 +15,18 @@ import java.util.List;
  */
 public interface IHomeContract {
     interface View {
+        void showAdvertisement(List<BannerEntity> bannerEntityList);
+
         void showArticles(List<Article> articleList);
+
+        void reactClickBannerItem(Advertisement advertisement);
     }
 
     interface Presenter {
+        void getAllAdvertisement();
+
         void getAllArticles();
+
+        void clickBannerItem(int i);
     }
 }

@@ -19,5 +19,5 @@ public class Constants {
      */
     public static final int AMOUNT_IN_ONE_PAGE = 30;
 
-    public static final int SIGN_IN_CHECK_ON_STATUS = 1;
+    public static final int BANNER_AUTO_SCROLL_TIME_IN_SECONDS = 1;
 }
