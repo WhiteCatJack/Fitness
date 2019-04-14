@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
 
+import com.joi.school.fitness.DemoActivity;
 import com.joi.school.fitness.HomeActivity;
 import com.joi.school.fitness.core.sport.uploadexercise.UploadExerciseActivity;
 import com.joi.school.fitness.forum.postdetail.PostActivity;
@@ -49,6 +50,10 @@ public class Navigation {
         Intent intent = new Intent(context, ArticleActivity.class);
         intent.putExtra(IntentConstants.INTENT_KEY_ARTICLE, article);
         context.startActivity(intent);
+    }
+
+    public static void goToDemoActivity(@NonNull Context context) {
+        noExtraNavigation(context, DemoActivity.class);
     }
 
     public static void goToSignInActivity(@NonNull Context context) {

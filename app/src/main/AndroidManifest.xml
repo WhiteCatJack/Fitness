@@ -63,6 +63,9 @@
             android:label="@string/title_upload_completed_exercise" />
         <activity android:name=".forum.postdetail.comment.newcomment.NewCommentActivity" />
         <activity android:name=".home.articlelist.article.ArticleActivity" />
+        <activity
+            android:name=".DemoActivity"
+            android:label="Demo" />
     </application>
 
 </manifest>

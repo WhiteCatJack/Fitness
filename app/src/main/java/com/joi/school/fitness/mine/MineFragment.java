@@ -58,6 +58,12 @@ public class MineFragment extends Fragment {
                 Navigation.goToSetPhysicalStatisticActivity(getContext());
             }
         });
+        layout.findViewById(R.id.bt_go_to_demo).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.goToDemoActivity(getContext());
+            }
+        });
 
         return layout;
     }
