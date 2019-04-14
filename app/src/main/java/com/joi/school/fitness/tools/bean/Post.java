@@ -2,7 +2,7 @@ package com.joi.school.fitness.tools.bean;
 
 import android.support.annotation.NonNull;
 
-import cn.bmob.v3.BmobObject;
+import com.joi.school.fitness.tools.bmobsync.SyncBmobObject;
 
 /**
  * Post JavaBean.
@@ -10,7 +10,7 @@ import cn.bmob.v3.BmobObject;
  * @author Joi
  * createAt 2019/3/22 0022 10:37
  */
-public class Post extends BmobObject {
+public class Post extends SyncBmobObject {
     private FitnessUser author;
     private String title;
     private String content;

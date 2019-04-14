@@ -2,11 +2,13 @@ package com.joi.school.fitness.forum;
 
 import com.joi.school.fitness.tools.bean.Post;
 import com.joi.school.fitness.tools.datasource.PostDataSource;
+import com.joi.school.fitness.tools.util.AndroidUtils;
 
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import cn.bmob.v3.exception.BmobException;
-import cn.bmob.v3.listener.FindListener;
 
 /**
  * @author Joi
@@ -14,23 +16,32 @@ import cn.bmob.v3.listener.FindListener;
  */
 public class ForumPresenter implements IForumContract.Presenter {
 
-    private IForumContract.View mView;
+    private ForumFragment mView;
 
-    public ForumPresenter(IForumContract.View mView) {
+    public ForumPresenter(ForumFragment mView) {
         this.mView = mView;
     }
 
+    private ExecutorService mExecutor = Executors.newFixedThreadPool(1);
+
     @Override
     public void getAll() {
-        PostDataSource.getImpl().getAll(new FindListener<Post>() {
+        Runnable task = new Runnable() {
             @Override
-            public void done(List<Post> list, BmobException e) {
-                if (e == null) {
-                    mView.showPostList(list);
-                } else {
-
+            public void run() {
+                try {
+                    final List<Post> postList = PostDataSource.getImpl().getAll();
+                    mView.getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            mView.showPostList(postList);
+                        }
+                    });
+                } catch (BmobException e) {
+                    AndroidUtils.showErrorMainThread(mView.getActivity(), e);
                 }
             }
-        });
+        };
+        mExecutor.execute(task);
     }
 }

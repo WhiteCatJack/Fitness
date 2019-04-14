@@ -131,7 +131,7 @@ public class AndroidUtils {
         return BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
     }
 
-    private static String getString(@StringRes int id){
+    private static String getString(@StringRes int id) {
         return getApplicationContext().getResources().getString(id);
     }
 
@@ -171,5 +171,17 @@ public class AndroidUtils {
 
     public static void showAlert(Context context, @StringRes int contentId) {
         showAlert(context, getString(contentId));
+    }
+
+    public static void showErrorMainThread(Activity activity, final Exception e) {
+        if (activity == null) {
+            return;
+        }
+        activity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                AndroidUtils.showError(e.getMessage());
+            }
+        });
     }
 }

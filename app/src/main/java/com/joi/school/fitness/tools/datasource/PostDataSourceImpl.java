@@ -1,13 +1,12 @@
 package com.joi.school.fitness.tools.datasource;
 
-import android.support.annotation.Nullable;
-
 import com.joi.school.fitness.tools.bean.Post;
+import com.joi.school.fitness.tools.bmobsync.SyncBmobQuery;
 import com.joi.school.fitness.tools.constant.Constants;
 
-import cn.bmob.v3.BmobQuery;
-import cn.bmob.v3.listener.FindListener;
-import cn.bmob.v3.listener.SaveListener;
+import java.util.List;
+
+import cn.bmob.v3.exception.BmobException;
 
 /**
  * 帖子数据.
@@ -34,27 +33,23 @@ class PostDataSourceImpl extends PostDataSource {
     }
 
     @Override
-    public void getAll(@Nullable FindListener<Post> listener) {
-        getAll(0, Constants.AMOUNT_IN_ONE_PAGE, listener);
+    public List<Post> getAll() throws BmobException {
+        return getAll(0, Constants.AMOUNT_IN_ONE_PAGE);
     }
 
     @Override
-    public void getAll(int start, int amount, FindListener<Post> listener) {
-        // 如果没有回调需求，则不执行获取操作
-        if (listener == null) {
-            return;
-        }
-        // 获取数据
-        new BmobQuery<Post>()
-                .setSkip(start == 0 ? 0 : start - 1)
+    public List<Post> getAll(int start, int amount) throws BmobException {
+        final SyncBmobQuery<Post> query = new SyncBmobQuery<>(Post.class);
+        query.setSkip(start == 0 ? 0 : start - 1)
                 .setLimit(amount)
                 .order("-createdAt")
-                .include("author")
-                .findObjects(listener);
+                .include("author");
+
+        return query.syncFindObjects();
     }
 
     @Override
-    public void newPost(Post post, @Nullable SaveListener<String> listener) {
-        post.save(listener);
+    public String newPost(Post post) throws BmobException {
+        return post.syncSave();
     }
 }

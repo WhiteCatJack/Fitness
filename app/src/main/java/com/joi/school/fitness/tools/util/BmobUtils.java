@@ -1,6 +1,6 @@
 package com.joi.school.fitness.tools.util;
 
-import com.joi.school.fitness.tools.base.BiCallback;
+import com.joi.school.fitness.tools.base.RpcCallback;
 
 import java.io.File;
 
@@ -15,20 +15,21 @@ import cn.bmob.v3.listener.UploadFileListener;
  * createAt 2019/4/4 0004 20:17
  */
 public class BmobUtils {
-    public static void uploadFile(String filePath, final BiCallback<String> callback){
-        if (callback == null){
+    public static void uploadFile(String filePath, final RpcCallback<String> callback) {
+        if (callback == null) {
             return;
         }
         final BmobFile bmobFile = new BmobFile(new File(filePath));
         bmobFile.uploadblock(new UploadFileListener() {
             @Override
             public void done(BmobException e) {
-                if(e==null){
-                    callback.done(bmobFile.getFileUrl());
-                }else{
-                    callback.error(e.getMessage());
+                if (e == null) {
+                    callback.onSuccess(bmobFile.getFileUrl());
+                } else {
+                    callback.onError(e.getMessage());
                 }
             }
+
             @Override
             public void onProgress(Integer ignore) {
             }

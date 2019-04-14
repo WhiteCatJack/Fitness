@@ -1,8 +1,6 @@
 package com.joi.school.fitness.tools.bean;
 
-import java.util.List;
-
-import cn.bmob.v3.BmobObject;
+import com.joi.school.fitness.tools.bmobsync.SyncBmobObject;
 
 /**
  * Post JavaBean.
@@ -10,7 +8,7 @@ import cn.bmob.v3.BmobObject;
  * @author Joi
  * createAt 2019/3/22 0022 10:37
  */
-public class Article extends BmobObject {
+public class Article extends SyncBmobObject {
     private String title;
     private String content;
 

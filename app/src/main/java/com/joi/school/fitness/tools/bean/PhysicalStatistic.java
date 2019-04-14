@@ -1,6 +1,6 @@
 package com.joi.school.fitness.tools.bean;
 
-import cn.bmob.v3.BmobObject;
+import com.joi.school.fitness.tools.bmobsync.SyncBmobObject;
 
 /**
  * Description.
@@ -8,7 +8,7 @@ import cn.bmob.v3.BmobObject;
  * @author Joi
  * createAt 2019/3/22 0022 17:19
  */
-public class PhysicalStatistic extends BmobObject {
+public class PhysicalStatistic extends SyncBmobObject {
     private FitnessUser user;
     private double heartRate;
     private double height;

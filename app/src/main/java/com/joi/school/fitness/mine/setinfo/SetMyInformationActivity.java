@@ -9,7 +9,7 @@ import android.widget.EditText;
 
 import com.joi.school.fitness.R;
 import com.joi.school.fitness.tools.base.BaseActivity;
-import com.joi.school.fitness.tools.base.BiCallback;
+import com.joi.school.fitness.tools.base.RpcCallback;
 import com.joi.school.fitness.tools.bean.FitnessUser;
 import com.joi.school.fitness.tools.user.UserEngine;
 import com.joi.school.fitness.tools.util.AndroidUtils;
@@ -53,16 +53,16 @@ public class SetMyInformationActivity extends BaseActivity {
                     String filePath = AndroidUtils.getRealFilePath(AndroidUtils.getFileUriFromIntent(data));
                     if (!TextUtils.isEmpty(filePath)) {
                         showLoadingDialog();
-                        BmobUtils.uploadFile(filePath, new BiCallback<String>() {
+                        BmobUtils.uploadFile(filePath, new RpcCallback<String>() {
                             @Override
-                            public void done(String url) {
+                            public void onSuccess(String url) {
                                 FitnessUser fitnessUser = new FitnessUser();
                                 fitnessUser.setAvatarUrl(url);
                                 changeUserInfo(fitnessUser);
                             }
 
                             @Override
-                            public void error(String message) {
+                            public void onError(String message) {
                                 AndroidUtils.showUnknownErrorToast();
                             }
                         });

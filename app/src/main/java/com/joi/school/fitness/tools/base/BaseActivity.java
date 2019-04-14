@@ -26,7 +26,6 @@ public class BaseActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mContext = this;
-        checkLogin();
     }
 
     @Override
@@ -36,7 +35,7 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     private void checkLogin() {
-        if (needCheckLogin() && UserEngine.getInstance().isSignedIn(this)) {
+        if (needCheckLogin() && !UserEngine.getInstance().isSignedIn(this)) {
             AndroidUtils.showWarning(AndroidUtils.getApplicationContext().getResources().getString(R.string.warning_not_sign_in));
             Navigation.goToSignInActivity(this);
         }

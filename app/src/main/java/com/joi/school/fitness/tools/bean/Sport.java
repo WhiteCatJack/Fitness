@@ -1,6 +1,6 @@
 package com.joi.school.fitness.tools.bean;
 
-import cn.bmob.v3.BmobObject;
+import com.joi.school.fitness.tools.bmobsync.SyncBmobObject;
 
 /**
  * Description.
@@ -8,7 +8,7 @@ import cn.bmob.v3.BmobObject;
  * @author Joi
  * createAt 2019/4/4 0004 10:35
  */
-public class Sport extends BmobObject {
+public class Sport extends SyncBmobObject {
     private String sportKind;
     private int difficulty;
     private String sportImageUrl;

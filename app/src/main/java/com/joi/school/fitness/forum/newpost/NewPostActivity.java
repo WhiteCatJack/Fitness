@@ -7,15 +7,17 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.joi.school.fitness.tools.base.BaseActivity;
 import com.joi.school.fitness.R;
-import com.joi.school.fitness.tools.bean.Post;
-import com.joi.school.fitness.tools.datasource.PostDataSource;
+import com.joi.school.fitness.tools.base.BaseActivity;
 import com.joi.school.fitness.tools.bean.FitnessUser;
+import com.joi.school.fitness.tools.bean.Post;
+import com.joi.school.fitness.tools.util.AndroidUtils;
+
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.exception.BmobException;
-import cn.bmob.v3.listener.SaveListener;
 import es.dmoral.toasty.Toasty;
 
 /**
@@ -29,6 +31,8 @@ public class NewPostActivity extends BaseActivity {
     private EditText mTitleEditText;
     private EditText mContentEditText;
     private FloatingActionButton mComleteButton;
+
+    private ExecutorService mExecutor = Executors.newFixedThreadPool(1);
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -47,19 +51,25 @@ public class NewPostActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 showLoadingDialog();
-                Post post = getPost();
-                PostDataSource.getImpl().newPost(post, new SaveListener<String>() {
+                final Post post = getPost();
+                Runnable runnable = new Runnable() {
                     @Override
-                    public void done(String postId, BmobException e) {
-                       dismissLoadingDialog();
-                        if (e == null) {
-                            Toasty.success(getApplicationContext(), getString(R.string.toast_new_post_success), Toast.LENGTH_SHORT, true).show();
-                            finish();
-                        } else {
-                            Toasty.error(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT, true).show();
+                    public void run() {
+                        try {
+                            post.syncSave();
+                            NewPostActivity.this.runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Toasty.success(getApplicationContext(), getString(R.string.toast_new_post_success), Toast.LENGTH_SHORT, true).show();
+                                    finish();
+                                }
+                            });
+                        } catch (BmobException e) {
+                            AndroidUtils.showErrorMainThread(NewPostActivity.this, e);
                         }
                     }
-                });
+                };
+                mExecutor.execute(runnable);
             }
         });
     }

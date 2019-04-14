@@ -1,6 +1,6 @@
 package com.joi.school.fitness.tools.bean;
 
-import cn.bmob.v3.BmobObject;
+import com.joi.school.fitness.tools.bmobsync.SyncBmobObject;
 
 /**
  * Description.
@@ -8,7 +8,7 @@ import cn.bmob.v3.BmobObject;
  * @author Joi
  * createAt 2019/4/8 0008 14:44
  */
-public class ServerMailbox extends BmobObject {
+public class ServerMailbox extends SyncBmobObject {
     private FitnessUser user;
     private ClientMailbox clientMail;
     private boolean valid = true;
