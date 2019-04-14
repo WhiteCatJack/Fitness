@@ -1,4 +1,4 @@
-package com.joi.school.fitness.tools.datasource;
+package com.joi.school.fitness.tools.datasource.post;
 
 import android.support.annotation.IntRange;
 

@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.joi.school.fitness.R;
+import com.joi.school.fitness.tools.base.OnItemClickListener;
 import com.joi.school.fitness.tools.bean.Post;
 import com.joi.school.fitness.tools.util.FrescoUtils;
 
@@ -24,12 +25,10 @@ import java.util.List;
 public class PostListAdapter extends RecyclerView.Adapter<PostListAdapter.ViewHolder> {
 
     private List<Post> mData = new ArrayList<>();
-    private OnItemClickListener mOnItemClickListener;
+    private OnItemClickListener<Post> mOnItemClickListener;
 
     public PostListAdapter(@NonNull List<Post> data) {
-        if (data != null) {
-            this.mData = data;
-        }
+        this.mData = data;
     }
 
     @NonNull
@@ -42,11 +41,6 @@ public class PostListAdapter extends RecyclerView.Adapter<PostListAdapter.ViewHo
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Post post = mData.get(position);
         holder.build(post);
-    }
-
-    @Override
-    public long getItemId(int position) {
-        return position;
     }
 
     @Override
@@ -90,11 +84,7 @@ public class PostListAdapter extends RecyclerView.Adapter<PostListAdapter.ViewHo
         }
     }
 
-    void setOnItemClickListener(OnItemClickListener listener) {
+    void setOnItemClickListener(OnItemClickListener<Post> listener) {
         mOnItemClickListener = listener;
-    }
-
-    public interface OnItemClickListener {
-        void onItemClick(Post post);
     }
 }

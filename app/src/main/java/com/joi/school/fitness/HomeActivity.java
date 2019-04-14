@@ -39,6 +39,7 @@ public class HomeActivity extends BaseActivity {
         setContentView(R.layout.activity_main);
 
         setBottomNavigationBar();
+        switchFragment(FRAGMENT_TAG_HOME);
     }
 
     private void setBottomNavigationBar() {

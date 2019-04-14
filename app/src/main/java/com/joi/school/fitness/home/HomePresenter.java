@@ -1,7 +1,7 @@
-package com.joi.school.fitness.forum;
+package com.joi.school.fitness.home;
 
-import com.joi.school.fitness.tools.bean.Post;
-import com.joi.school.fitness.tools.datasource.post.PostDataSource;
+import com.joi.school.fitness.tools.bean.Article;
+import com.joi.school.fitness.tools.datasource.article.ArticleDataSource;
 import com.joi.school.fitness.tools.util.AndroidUtils;
 
 import java.util.List;
@@ -11,30 +11,32 @@ import java.util.concurrent.Executors;
 import cn.bmob.v3.exception.BmobException;
 
 /**
- * @author Joi
- * createAt 2019/3/23 0023 15:44
+ * Description.
+ *
+ * @author 泽乾
+ * createAt 2019/4/14 0014 17:47
  */
-public class ForumPresenter implements IForumContract.Presenter {
+public class HomePresenter implements IHomeContract.Presenter{
 
-    private ForumFragment mView;
+    private HomeFragment mView;
 
-    public ForumPresenter(ForumFragment mView) {
+    public HomePresenter(HomeFragment mView) {
         this.mView = mView;
     }
 
     private ExecutorService mExecutor = Executors.newFixedThreadPool(1);
 
     @Override
-    public void getAll() {
+    public void getAllArticles() {
         Runnable task = new Runnable() {
             @Override
             public void run() {
                 try {
-                    final List<Post> postList = PostDataSource.getImpl().getAll();
+                    final List<Article> postList = ArticleDataSource.getImpl().getAll();
                     mView.getActivity().runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            mView.showPostList(postList);
+                            mView.showArticles(postList);
                         }
                     });
                 } catch (BmobException e) {

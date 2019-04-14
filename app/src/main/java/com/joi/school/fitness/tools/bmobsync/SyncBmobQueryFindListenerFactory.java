@@ -26,6 +26,12 @@ class SyncBmobQueryFindListenerFactory {
                 }
             };
         } else if (classEquals(Article.class, clazz)) {
+            return (FindListener<T>) new FindListener<Article>() {
+                @Override
+                public void done(List<Article> list, BmobException e) {
+                    reflect.done((List<T>) list, e);
+                }
+            };
         }
         return null;
     }

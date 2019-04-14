@@ -13,8 +13,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.joi.school.fitness.R;
-import com.joi.school.fitness.tools.bean.Post;
 import com.joi.school.fitness.forum.newpost.NewPostActivity;
+import com.joi.school.fitness.tools.base.OnItemClickListener;
+import com.joi.school.fitness.tools.bean.Post;
 import com.joi.school.fitness.tools.util.Navigation;
 
 import java.util.ArrayList;
@@ -22,7 +23,7 @@ import java.util.List;
 
 public class ForumFragment extends Fragment implements IForumContract.View {
 
-    private SwipeRefreshLayout swipeRefreshLayout;
+    private SwipeRefreshLayout mSwipeRefreshLayout;
     private RecyclerView mPostListView;
     protected FloatingActionButton mNewPostButton;
 
@@ -35,7 +36,7 @@ public class ForumFragment extends Fragment implements IForumContract.View {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View layout = inflater.inflate(R.layout.fragment_forum, container, false);
-        swipeRefreshLayout = layout.findViewById(R.id.srl);
+        mSwipeRefreshLayout = layout.findViewById(R.id.srl);
         mPostListView = layout.findViewById(R.id.rv_list);
         mNewPostButton = layout.findViewById(R.id.fab_new_post);
 
@@ -54,18 +55,18 @@ public class ForumFragment extends Fragment implements IForumContract.View {
         super.onActivityCreated(savedInstanceState);
 
         mPresenter = new ForumPresenter(this);
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                swipeRefreshLayout.setRefreshing(true);
+                mSwipeRefreshLayout.setRefreshing(true);
                 mPresenter.getAll();
             }
         });
-        swipeRefreshLayout.setRefreshing(true);
+        mSwipeRefreshLayout.setRefreshing(true);
         mPresenter.getAll();
 
         mPostListAdapter = new PostListAdapter(mPostDataList);
-        mPostListAdapter.setOnItemClickListener(new PostListAdapter.OnItemClickListener() {
+        mPostListAdapter.setOnItemClickListener(new OnItemClickListener<Post>() {
             @Override
             public void onItemClick(Post post) {
                 Navigation.goToPostActivity(getContext(), post);
@@ -76,7 +77,7 @@ public class ForumFragment extends Fragment implements IForumContract.View {
 
     @Override
     public void showPostList(List<Post> data) {
-        swipeRefreshLayout.setRefreshing(false);
+        mSwipeRefreshLayout.setRefreshing(false);
         mPostDataList.clear();
         mPostDataList.addAll(data);
         mPostListAdapter.notifyDataSetChanged();
