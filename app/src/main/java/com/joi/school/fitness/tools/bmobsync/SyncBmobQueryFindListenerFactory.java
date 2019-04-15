@@ -2,7 +2,10 @@ package com.joi.school.fitness.tools.bmobsync;
 
 import com.joi.school.fitness.tools.bean.Advertisement;
 import com.joi.school.fitness.tools.bean.Article;
+import com.joi.school.fitness.tools.bean.ClientMailbox;
 import com.joi.school.fitness.tools.bean.Post;
+import com.joi.school.fitness.tools.bean.ServerMailbox;
+import com.joi.school.fitness.tools.bean.Sport;
 
 import java.util.List;
 
@@ -37,6 +40,27 @@ class SyncBmobQueryFindListenerFactory {
             return (FindListener<T>) new FindListener<Advertisement>() {
                 @Override
                 public void done(List<Advertisement> list, BmobException e) {
+                    reflect.done((List<T>) list, e);
+                }
+            };
+        } else if (classEquals(ClientMailbox.class, clazz)) {
+            return (FindListener<T>) new FindListener<ClientMailbox>() {
+                @Override
+                public void done(List<ClientMailbox> list, BmobException e) {
+                    reflect.done((List<T>) list, e);
+                }
+            };
+        } else if (classEquals(ServerMailbox.class, clazz)) {
+            return (FindListener<T>) new FindListener<ServerMailbox>() {
+                @Override
+                public void done(List<ServerMailbox> list, BmobException e) {
+                    reflect.done((List<T>) list, e);
+                }
+            };
+        } else if (classEquals(Sport.class, clazz)) {
+            return (FindListener<T>) new FindListener<Sport>() {
+                @Override
+                public void done(List<Sport> list, BmobException e) {
                     reflect.done((List<T>) list, e);
                 }
             };

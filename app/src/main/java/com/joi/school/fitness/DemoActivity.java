@@ -14,21 +14,22 @@ import com.joi.school.fitness.tools.bean.ClientMailbox;
 import com.joi.school.fitness.tools.bean.Meal;
 import com.joi.school.fitness.tools.bean.ServerMailbox;
 import com.joi.school.fitness.tools.bean.Sport;
+import com.joi.school.fitness.tools.bmobsync.SyncBmobQuery;
 import com.joi.school.fitness.tools.constant.MailboxConstants;
 import com.joi.school.fitness.tools.user.UserEngine;
+import com.joi.school.fitness.tools.util.AndroidUtils;
 import com.joi.school.fitness.tools.util.FrescoUtils;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
-import cn.bmob.v3.listener.SaveListener;
-import cn.bmob.v3.listener.UpdateListener;
 
 /**
  * Description.
@@ -44,6 +45,8 @@ public class DemoActivity extends BaseActivity {
     private View mSportRecommendButton;
     private View mMealRecommendButton;
 
+    private ExecutorService mExecutor = Executors.newFixedThreadPool(1);
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,61 +59,48 @@ public class DemoActivity extends BaseActivity {
             public void onClick(View v) {
                 showLoadingDialog();
 
-                ClientMailbox mailbox = new ClientMailbox();
-                mailbox.setUser(UserEngine.getInstance().getCurrentUser());
-                mailbox.setType(MailboxConstants.TYPE_SPORT_RECOMMEND);
-                mailbox.save(new SaveListener<String>() {
+                mExecutor.execute(new Runnable() {
                     @Override
-                    public void done(final String clientMailId, BmobException e) {
-                        new Thread(new Runnable() {
-                            @Override
-                            public void run() {
-                                try {
-                                    Thread.sleep(10000);
-                                } catch (InterruptedException ignore) {
-                                }
-                                BmobQuery<ServerMailbox> query = new BmobQuery<>();
-                                query.addWhereEqualTo("clientMail", clientMailId);
-                                query.addWhereEqualTo("user", UserEngine.getInstance().getCurrentUser().getObjectId());
-                                query.findObjects(new FindListener<ServerMailbox>() {
-                                    @Override
-                                    public void done(List<ServerMailbox> list, final BmobException e) {
-                                        if (e == null && list != null && list.size() > 0) {
-                                            ServerMailbox mail = list.get(0);
-                                            try {
-                                                JSONObject jsonObject = new JSONObject(mail.getObj());
-                                                String recommendedSportId = jsonObject.getString("sportId");
-                                                BmobQuery<Sport> sportQuery = new BmobQuery<>();
-                                                sportQuery.addWhereEqualTo("objectId", recommendedSportId);
-                                                sportQuery.findObjects(new FindListener<Sport>() {
-                                                    @Override
-                                                    public void done(final List<Sport> list, final BmobException e) {
-                                                        DemoActivity.this.runOnUiThread(new Runnable() {
-                                                            @Override
-                                                            public void run() {
-                                                                dismissLoadingDialog();
-                                                                if (e == null && list != null && list.size() > 0) {
-                                                                    buildRecommendDialog(list.get(0));
-                                                                } else {
-                                                                }
-                                                            }
-                                                        });
-                                                    }
-                                                });
-                                            } catch (JSONException ignore) {
-                                            }
-                                            mail.setValid(false);
-                                            mail.update(new UpdateListener() {
-                                                @Override
-                                                public void done(BmobException e) {
-                                                }
-                                            });
-                                        } else {
-                                        }
-                                    }
-                                });
+                    public void run() {
+                        try {
+                            ClientMailbox mailbox = new ClientMailbox();
+                            mailbox.setUser(UserEngine.getInstance().getCurrentUser());
+                            mailbox.setType(MailboxConstants.TYPE_SPORT_RECOMMEND);
+                            String clientMailId = mailbox.syncSave();
+
+                            Thread.sleep(10000);
+
+                            SyncBmobQuery<ServerMailbox> query = new SyncBmobQuery<>(ServerMailbox.class);
+                            query.addWhereEqualTo("clientMail", clientMailId);
+                            query.addWhereEqualTo("user", UserEngine.getInstance().getCurrentUser().getObjectId());
+                            List<ServerMailbox> temp = query.syncFindObjects();
+                            if (temp.size() < 1) {
+                                throw new BmobException("Server not replied!");
                             }
-                        }).start();
+                            ServerMailbox serverMail = temp.get(0);
+                            serverMail.setValid(false);
+                            serverMail.syncUpdate(serverMail.getObjectId());
+                            serverMail.syncDelete();
+
+                            JSONObject jsonObject = new JSONObject(serverMail.getObj());
+                            String recommendedSportId = jsonObject.getString("sportId");
+                            SyncBmobQuery<Sport> sportQuery = new SyncBmobQuery<>(Sport.class);
+                            sportQuery.addWhereEqualTo("objectId", recommendedSportId);
+                            List<Sport> sportList = sportQuery.syncFindObjects();
+                            if (sportList.size() < 1) {
+                                throw new BmobException("Sport not retrieved!");
+                            }
+                            final Sport targetSport = sportList.get(0);
+                            DemoActivity.this.runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    dismissLoadingDialog();
+                                    buildRecommendDialog(targetSport);
+                                }
+                            });
+                        } catch (Exception e) {
+                            AndroidUtils.showErrorMainThread(DemoActivity.this, e);
+                        }
                     }
                 });
             }
