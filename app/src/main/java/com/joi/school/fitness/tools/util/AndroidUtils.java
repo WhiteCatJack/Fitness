@@ -35,6 +35,16 @@ public class AndroidUtils {
         return Bmob.getApplicationContext();
     }
 
+    public static int toPx(float dpValue) {
+        final float scale = getApplicationContext().getResources().getDisplayMetrics().density;
+        return (int) (dpValue * scale + 0.5f);
+    }
+
+    public static int toDp(int pxValue) {
+        final float scale = getApplicationContext().getResources().getDisplayMetrics().density;
+        return (int) ((float) pxValue / scale + 0.5f);
+    }
+
     public static void showPhotoChoiceDialog(@NonNull final Activity activity,
                                              final int requestCameraCode, final int requestFileSystemCode) {
         String[] choices = {

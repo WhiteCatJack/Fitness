@@ -5,13 +5,15 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.facebook.drawee.view.SimpleDraweeView;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.CircleCrop;
+import com.bumptech.glide.request.RequestOptions;
 import com.joi.school.fitness.R;
 import com.joi.school.fitness.tools.base.OnItemClickListener;
 import com.joi.school.fitness.tools.bean.Post;
-import com.joi.school.fitness.tools.util.FrescoUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,7 +52,7 @@ public class PostListAdapter extends RecyclerView.Adapter<PostListAdapter.ViewHo
 
     class ViewHolder extends RecyclerView.ViewHolder {
         View layout;
-        SimpleDraweeView avatarImageView;
+        ImageView avatarImageView;
         TextView nicknameTextView;
         TextView titleTextView;
         TextView contentTextView;
@@ -77,7 +79,11 @@ public class PostListAdapter extends RecyclerView.Adapter<PostListAdapter.ViewHo
                     }
                 }
             });
-            FrescoUtils.setImageUrl(avatarImageView, post.getAuthor().getAvatarUrl());
+            Glide.with(layout.getContext())
+                    .load(post.getAuthor().getAvatarUrl())
+                    .apply(RequestOptions.bitmapTransform(new CircleCrop()))
+                    .placeholder(R.drawable.ui_placeholder)
+                    .into(avatarImageView);
             nicknameTextView.setText(post.getAuthor().getNick());
             titleTextView.setText(post.getTitle());
             contentTextView.setText(post.getContent());

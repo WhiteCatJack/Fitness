@@ -13,7 +13,6 @@ import java.util.List;
 public class MealRecommend extends SyncBmobObject {
     private FitnessUser targetUser;
     private List<Meal> recommendedMeals;
-    private double calories;
 
     public FitnessUser getTargetUser() {
         return targetUser;
@@ -30,15 +29,6 @@ public class MealRecommend extends SyncBmobObject {
 
     public MealRecommend setRecommendedMeals(List<Meal> recommendedMeals) {
         this.recommendedMeals = recommendedMeals;
-        return this;
-    }
-
-    public double getCalories() {
-        return calories;
-    }
-
-    public MealRecommend setCalories(double calories) {
-        this.calories = calories;
         return this;
     }
 }

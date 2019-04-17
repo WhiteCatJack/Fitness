@@ -14,12 +14,10 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <com.facebook.drawee.view.SimpleDraweeView
+        <ImageView
             android:id="@+id/iv_image"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:placeholderImage="@color/colorPrimary"
-            app:viewAspectRatio="1" />
+            android:layout_height="wrap_content"/>
 
         <LinearLayout
             android:layout_width="match_parent"

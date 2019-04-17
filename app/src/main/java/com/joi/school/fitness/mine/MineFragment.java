@@ -12,20 +12,22 @@ import android.support.v4.content.LocalBroadcastManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.facebook.drawee.view.SimpleDraweeView;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.CircleCrop;
+import com.bumptech.glide.request.RequestOptions;
 import com.joi.school.fitness.R;
 import com.joi.school.fitness.tools.bean.FitnessUser;
 import com.joi.school.fitness.tools.constant.BroadcastConstants;
 import com.joi.school.fitness.tools.user.UserEngine;
-import com.joi.school.fitness.tools.util.FrescoUtils;
 import com.joi.school.fitness.tools.util.Navigation;
 import com.joi.school.fitness.tools.util.UserUtils;
 
 public class MineFragment extends Fragment {
 
-    private SimpleDraweeView mMyAvatarView;
+    private ImageView mMyAvatarView;
     private TextView mMyNickNameTextView;
     private TextView mMyPersonalizedSignatureTextView;
 
@@ -78,7 +80,10 @@ public class MineFragment extends Fragment {
 
     public void setUserInfo() {
         FitnessUser user = UserEngine.getInstance().getCurrentUser();
-        FrescoUtils.setImageUrl(mMyAvatarView, user.getAvatarUrl());
+        Glide.with(this).load(user.getAvatarUrl())
+                .apply(RequestOptions.bitmapTransform(new CircleCrop()))
+                .placeholder(R.drawable.ui_placeholder)
+                .into(mMyAvatarView);
         mMyNickNameTextView.setText(user.getNick());
         mMyPersonalizedSignatureTextView.setText(user.getSignature());
     }

@@ -6,9 +6,13 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.facebook.drawee.view.SimpleDraweeView;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.CenterCrop;
+import com.bumptech.glide.load.resource.bitmap.CircleCrop;
+import com.bumptech.glide.request.RequestOptions;
 import com.joi.school.fitness.tools.base.BaseActivity;
 import com.joi.school.fitness.tools.bean.ClientMailbox;
 import com.joi.school.fitness.tools.bean.Meal;
@@ -18,7 +22,6 @@ import com.joi.school.fitness.tools.bmobsync.SyncBmobQuery;
 import com.joi.school.fitness.tools.constant.MailboxConstants;
 import com.joi.school.fitness.tools.user.UserEngine;
 import com.joi.school.fitness.tools.util.AndroidUtils;
-import com.joi.school.fitness.tools.util.FrescoUtils;
 
 import org.json.JSONObject;
 
@@ -159,7 +162,7 @@ public class DemoActivity extends BaseActivity {
         builder.setView(layout);
         final AlertDialog dialog = builder.create();
 
-        SimpleDraweeView mealImageView = layout.findViewById(R.id.iv_image);
+        ImageView mealImageView = layout.findViewById(R.id.iv_image);
         TextView mealNameView = layout.findViewById(R.id.tv_label);
         View yesView = layout.findViewById(R.id.tv_yes);
         View noView = layout.findViewById(R.id.tv_no);
@@ -179,7 +182,10 @@ public class DemoActivity extends BaseActivity {
             }
         });
 
-        FrescoUtils.setImageUrl(mealImageView, meal.getMealImageUrl());
+        Glide.with(layout.getContext()).load(meal.getMealImageUrl())
+                .apply(RequestOptions.bitmapTransform(new CenterCrop()))
+                .placeholder(R.drawable.ui_placeholder)
+                .into(mealImageView);
         mealNameView.setText(meal.getMealName());
 
         dialog.show();
@@ -196,7 +202,7 @@ public class DemoActivity extends BaseActivity {
         builder.setView(layout);
         final AlertDialog dialog = builder.create();
 
-        SimpleDraweeView sportImageView = layout.findViewById(R.id.iv_image);
+        ImageView sportImageView = layout.findViewById(R.id.iv_image);
         TextView sportNameView = layout.findViewById(R.id.tv_label);
         View yesView = layout.findViewById(R.id.tv_yes);
         View noView = layout.findViewById(R.id.tv_no);
@@ -214,7 +220,11 @@ public class DemoActivity extends BaseActivity {
             }
         });
 
-        FrescoUtils.setImageUrl(sportImageView, sport.getSportImageUrl());
+
+        Glide.with(layout.getContext()).load(sport.getSportImageUrl())
+                .apply(RequestOptions.bitmapTransform(new CenterCrop()))
+                .placeholder(R.drawable.ui_placeholder)
+                .into(sportImageView);
         sportNameView.setText(sport.getSportKind());
 
         dialog.show();

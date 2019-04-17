@@ -11,7 +11,6 @@ import com.joi.school.fitness.R;
 import com.joi.school.fitness.tools.constant.IntentConstants;
 import com.joi.school.fitness.tools.base.BaseActivity;
 import com.joi.school.fitness.tools.bean.Post;
-import com.joi.school.fitness.tools.util.FrescoUtils;
 import com.joi.school.fitness.tools.util.Navigation;
 
 /**

@@ -1,18 +1,13 @@
 package com.joi.school.fitness.core.sport;
 
-import android.app.AlertDialog;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.joi.school.fitness.R;
 import com.joi.school.fitness.tools.base.BaseActivity;
-import com.joi.school.fitness.tools.bean.Sport;
-import com.joi.school.fitness.tools.util.FrescoUtils;
 import com.joi.school.fitness.tools.util.Navigation;
 
 /**

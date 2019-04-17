@@ -54,7 +54,7 @@ public class SetPhysicalStatisticActivity extends BaseActivity {
                 physicalStatistic.setHeight(Double.valueOf(mHeightEditText.getText().toString()));
                 physicalStatistic.setWeight(Double.valueOf(mWeightEditText.getText().toString()));
                 physicalStatistic.setHeartRate(Double.valueOf(mHeartRateEditText.getText().toString()));
-                physicalStatistic.setLungCapacity(Double.valueOf(mLungCapacityEditText.getText().toString()));
+                physicalStatistic.setVitalCapacity(Double.valueOf(mLungCapacityEditText.getText().toString()));
                 physicalStatistic.save(new SaveListener<String>() {
                     @Override
                     public void done(String id, BmobException e) {

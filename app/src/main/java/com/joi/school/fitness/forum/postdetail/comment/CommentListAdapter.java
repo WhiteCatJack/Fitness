@@ -5,12 +5,14 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.facebook.drawee.view.SimpleDraweeView;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.CircleCrop;
+import com.bumptech.glide.request.RequestOptions;
 import com.joi.school.fitness.R;
 import com.joi.school.fitness.tools.bean.Comment;
-import com.joi.school.fitness.tools.util.FrescoUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,7 +56,7 @@ public class CommentListAdapter extends RecyclerView.Adapter<CommentListAdapter.
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
-        SimpleDraweeView avatarImageView;
+        ImageView avatarImageView;
         TextView nicknameTextView;
         TextView contentTextView;
 
@@ -71,7 +73,11 @@ public class CommentListAdapter extends RecyclerView.Adapter<CommentListAdapter.
 
         void build(final Comment comment) {
             if (comment.getAuthor() != null) {
-                FrescoUtils.setImageUrl(avatarImageView, comment.getAuthor().getAvatarUrl());
+                Glide.with(itemView.getContext())
+                        .load(comment.getAuthor().getAvatarUrl())
+                        .apply(RequestOptions.bitmapTransform(new CircleCrop()))
+                        .placeholder(R.drawable.ui_placeholder)
+                        .into(avatarImageView);
                 nicknameTextView.setText(comment.getAuthor().getNick());
             }
             contentTextView.setText(comment.getContent());

@@ -10,9 +10,12 @@ import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.facebook.drawee.view.SimpleDraweeView;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.CircleCrop;
+import com.bumptech.glide.request.RequestOptions;
 import com.joi.school.fitness.R;
 
 /**
@@ -21,7 +24,7 @@ import com.joi.school.fitness.R;
  */
 public class NormalCellView extends FrameLayout {
 
-    private SimpleDraweeView iconView;
+    private ImageView iconView;
     private TextView labelView;
     private View arrowView;
     private View bottomDividerView;
@@ -64,11 +67,12 @@ public class NormalCellView extends FrameLayout {
             iconView.setVisibility(GONE);
             return;
         }
-        try {
-            iconView.setImageURI(Uri.parse(url));
-            iconView.setVisibility(VISIBLE);
-        } catch (Exception ignored) {
-        }
+        Glide.with(iconView.getContext())
+                .load(url)
+                .apply(RequestOptions.bitmapTransform(new CircleCrop()))
+                .placeholder(R.drawable.ui_placeholder)
+                .into(iconView);
+        iconView.setVisibility(VISIBLE);
     }
 
     public void setLabelText(String text) {
