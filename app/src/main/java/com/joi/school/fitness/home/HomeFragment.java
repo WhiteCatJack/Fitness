@@ -19,31 +19,34 @@ import com.joi.school.fitness.tools.bean.Article;
 import com.joi.school.fitness.tools.constant.Constants;
 import com.joi.school.fitness.tools.util.AndroidUtils;
 import com.joi.school.fitness.tools.util.Navigation;
+import com.youth.banner.Banner;
+import com.youth.banner.BannerConfig;
+import com.youth.banner.Transformer;
+import com.youth.banner.listener.OnBannerListener;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import me.wangyuwei.banner.BannerEntity;
-import me.wangyuwei.banner.BannerView;
-import me.wangyuwei.banner.OnBannerClickListener;
+import java.util.concurrent.CountDownLatch;
 
 public class HomeFragment extends Fragment implements IHomeContract.View {
 
     private HomePresenter mPresenter;
 
     private SwipeRefreshLayout mSwipeRefreshLayout;
-    private BannerView mBannerView;
+    private Banner mBannerView;
     private RecyclerView mRecyclerView;
 
     private List<Article> mArticleList = new ArrayList<>();
     private ArticleListAdapter mArticleListAdapter;
+
+    private CountDownLatch mCountDown;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View layout = inflater.inflate(R.layout.fragment_home, container, false);
         mSwipeRefreshLayout = layout.findViewById(R.id.srl);
-        mBannerView = layout.findViewById(R.id.bv_banner);
+        mBannerView = layout.findViewById(R.id.b_banner);
         mRecyclerView = layout.findViewById(R.id.rv_list);
         return layout;
     }
@@ -67,23 +70,55 @@ public class HomeFragment extends Fragment implements IHomeContract.View {
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                mSwipeRefreshLayout.setRefreshing(true);
-                mPresenter.getAllAdvertisement();
-                mPresenter.getAllArticles();
+                refresh();
             }
         });
+        refresh();
+    }
+
+    private void refresh(){
         mSwipeRefreshLayout.setRefreshing(true);
         mPresenter.getAllAdvertisement();
         mPresenter.getAllArticles();
     }
 
     @Override
-    public void showAdvertisement(final List<BannerEntity> bannerEntityList) {
-        mBannerView.setEntities(bannerEntityList);
-        mBannerView.setAutoScroll(Constants.BANNER_AUTO_SCROLL_TIME_IN_SECONDS);
-        mBannerView.setOnBannerClickListener(new OnBannerClickListener() {
+    public void showAdvertisement(final List<Advertisement> advertisementList) {
+        mSwipeRefreshLayout.setRefreshing(false);
+
+        List<String> imageUrlList = new ArrayList<>();
+        List<String> titleList = new ArrayList<>();
+        for (Advertisement advertisement : advertisementList) {
+            if (advertisement == null) {
+                continue;
+            }
+            imageUrlList.add(advertisement.getCoverImageUrl());
+            titleList.add(advertisement.getTitle());
+        }
+
+        Banner banner = mBannerView;
+        //设置banner样式
+        banner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR_TITLE);
+        //设置图片加载器
+        banner.setImageLoader(new GlideImageLoader());
+        //设置图片集合
+        banner.setImages(imageUrlList);
+        //设置标题集合（当banner样式有显示title时）
+        banner.setBannerTitles(titleList);
+        //设置banner动画效果
+        banner.setBannerAnimation(Transformer.DepthPage);
+        //设置自动轮播，默认为true
+        banner.isAutoPlay(true);
+        //设置轮播时间
+        banner.setDelayTime(Constants.BANNER_AUTO_SCROLL_TIME_IN_MILLIS);
+        //设置指示器位置（当banner模式中有指示器时）
+        banner.setIndicatorGravity(BannerConfig.CENTER);
+        //banner设置方法全部调用完毕时最后调用
+        banner.start();
+
+        banner.setOnBannerListener(new OnBannerListener() {
             @Override
-            public void onClick(int position) {
+            public void OnBannerClick(int position) {
                 mPresenter.clickBannerItem(position);
             }
         });
@@ -92,6 +127,7 @@ public class HomeFragment extends Fragment implements IHomeContract.View {
     @Override
     public void showArticles(List<Article> articleList) {
         mSwipeRefreshLayout.setRefreshing(false);
+
         mArticleList.clear();
         mArticleList.addAll(articleList);
         mArticleListAdapter.notifyDataSetChanged();

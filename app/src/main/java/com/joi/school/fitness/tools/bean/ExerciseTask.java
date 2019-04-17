@@ -10,25 +10,25 @@ import cn.bmob.v3.datatype.BmobRelation;
  * @author Joi
  * createAt 2019/4/4 0004 10:35
  */
-public class MealRecommend extends SyncBmobObject {
+public class ExerciseTask extends SyncBmobObject {
     private FitnessUser targetUser;
-    private BmobRelation recommendedMeals;
+    private BmobRelation recommendedSports;
 
     public FitnessUser getTargetUser() {
         return targetUser;
     }
 
-    public MealRecommend setTargetUser(FitnessUser targetUser) {
+    public ExerciseTask setTargetUser(FitnessUser targetUser) {
         this.targetUser = targetUser;
         return this;
     }
 
-    public BmobRelation getRecommendedMeals() {
-        return recommendedMeals;
+    public BmobRelation getRecommendedSports() {
+        return recommendedSports;
     }
 
-    public MealRecommend setRecommendedMeals(BmobRelation recommendedMeals) {
-        this.recommendedMeals = recommendedMeals;
+    public ExerciseTask setRecommendedSports(BmobRelation recommendedMeals) {
+        this.recommendedSports = recommendedMeals;
         return this;
     }
 }

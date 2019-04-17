@@ -3,7 +3,6 @@ package com.joi.school.fitness;
 import android.app.Application;
 
 import com.baidu.aip.imageclassify.AipImageClassify;
-import com.bumptech.glide.Glide;
 import com.joi.school.fitness.tools.constant.Constants;
 import com.joi.school.fitness.tools.util.MealRecognitionUtils;
 

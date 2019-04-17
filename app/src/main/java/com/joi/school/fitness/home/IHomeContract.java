@@ -5,8 +5,6 @@ import com.joi.school.fitness.tools.bean.Article;
 
 import java.util.List;
 
-import me.wangyuwei.banner.BannerEntity;
-
 /**
  * Description.
  *
@@ -15,7 +13,7 @@ import me.wangyuwei.banner.BannerEntity;
  */
 public interface IHomeContract {
     interface View {
-        void showAdvertisement(List<BannerEntity> bannerEntityList);
+        void showAdvertisement(List<Advertisement> bannerEntityList);
 
         void showArticles(List<Article> articleList);
 

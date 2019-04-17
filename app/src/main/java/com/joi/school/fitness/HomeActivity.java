@@ -13,11 +13,6 @@ import com.joi.school.fitness.forum.ForumFragment;
 import com.joi.school.fitness.home.HomeFragment;
 import com.joi.school.fitness.mine.MineFragment;
 import com.joi.school.fitness.tools.base.BaseActivity;
-import com.joi.school.fitness.tools.bean.MealRecommend;
-import com.joi.school.fitness.tools.bean.SportRecommend;
-
-import cn.bmob.v3.exception.BmobException;
-import cn.bmob.v3.listener.SaveListener;
 
 public class HomeActivity extends BaseActivity {
 
