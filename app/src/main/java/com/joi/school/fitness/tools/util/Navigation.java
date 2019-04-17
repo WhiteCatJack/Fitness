@@ -7,7 +7,6 @@ import android.text.TextUtils;
 
 import com.joi.school.fitness.DemoActivity;
 import com.joi.school.fitness.HomeActivity;
-import com.joi.school.fitness.core.sport.uploadexercise.UploadExerciseActivity;
 import com.joi.school.fitness.forum.postdetail.PostActivity;
 import com.joi.school.fitness.forum.postdetail.comment.CommentActivity;
 import com.joi.school.fitness.forum.postdetail.comment.newcomment.NewCommentActivity;
@@ -74,10 +73,6 @@ public class Navigation {
 
     public static void goToSetMyInformationActivity(@NonNull Context context) {
         noExtraNavigation(context, SetMyInformationActivity.class);
-    }
-
-    public static void goToUploadExerciseActivity(@NonNull Context context) {
-        noExtraNavigation(context, UploadExerciseActivity.class);
     }
 
     public static void goToCommentActivity(@NonNull Context context, Post post) {
