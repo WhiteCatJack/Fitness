@@ -13,12 +13,18 @@ import java.util.List;
  */
 interface ISportRecommendContract {
     interface View {
+        void hasDoingTask(DoingExerciseTask doingExerciseTask);
+
         void showTaskList(List<ExerciseTask> taskList);
+
         void completeChooseTask(DoingExerciseTask task);
+
+        void todayTaskDone();
     }
 
     interface Presenter {
         void getTaskList();
+
         void chooseTask(ExerciseTask task);
     }
 }

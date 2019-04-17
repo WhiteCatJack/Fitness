@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
 import com.joi.school.fitness.R;
 import com.joi.school.fitness.tools.base.BaseActivity;
@@ -25,9 +26,11 @@ import java.util.List;
  */
 public class SportRecommendActivity extends BaseActivity implements ISportRecommendContract.View {
 
+    private RecyclerView mTaskListRecyclerView;
+    private View mCompleteTaskLayout;
+
     private List<ExerciseTask> mExerciseTaskList = new ArrayList<>();
     private ExerciseTaskListAdapter mAdapter;
-    private RecyclerView mTaskListRecyclerView;
 
     private ISportRecommendContract.Presenter mPresenter;
 
@@ -38,6 +41,7 @@ public class SportRecommendActivity extends BaseActivity implements ISportRecomm
         setContentView(R.layout.activity_sport_recommend);
 
         mTaskListRecyclerView = findViewById(R.id.rv_list);
+        mCompleteTaskLayout = findViewById(R.id.fl_complete_task);
 
         mAdapter = new ExerciseTaskListAdapter(mExerciseTaskList);
         mAdapter.setOnItemClickListener(new OnItemClickListener<ExerciseTask>() {
@@ -63,7 +67,16 @@ public class SportRecommendActivity extends BaseActivity implements ISportRecomm
     }
 
     @Override
+    public void hasDoingTask(DoingExerciseTask task) {
+        Navigation.goToDoingExerciseTaskActivity(this, task);
+        finish();
+    }
+
+    @Override
     public void showTaskList(List<ExerciseTask> taskList) {
+        mCompleteTaskLayout.setVisibility(View.GONE);
+        mTaskListRecyclerView.setVisibility(View.VISIBLE);
+
         mExerciseTaskList.clear();
         mExerciseTaskList.addAll(taskList);
         mAdapter.notifyDataSetChanged();
@@ -72,5 +85,11 @@ public class SportRecommendActivity extends BaseActivity implements ISportRecomm
     @Override
     public void completeChooseTask(DoingExerciseTask task) {
         Navigation.goToDoingExerciseTaskActivity(this, task);
+    }
+
+    @Override
+    public void todayTaskDone() {
+        mCompleteTaskLayout.setVisibility(View.VISIBLE);
+        mTaskListRecyclerView.setVisibility(View.GONE);
     }
 }

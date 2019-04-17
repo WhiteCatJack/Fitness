@@ -10,15 +10,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.bumptech.glide.load.resource.bitmap.BitmapTransformation;
+import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
+import com.bumptech.glide.request.RequestOptions;
 import com.joi.school.fitness.R;
 import com.joi.school.fitness.core.meal.MealRecommendActivity;
 import com.joi.school.fitness.core.sport.SportRecommendActivity;
-import com.joi.school.fitness.tools.constant.UrlConstants;
 import com.joi.school.fitness.tools.user.UserEngine;
 import com.joi.school.fitness.tools.util.AndroidUtils;
-import com.joi.school.fitness.tools.util.GlideUtils;
 import com.joi.school.fitness.tools.util.Navigation;
 
 public class CoreFragment extends Fragment {
@@ -88,10 +87,16 @@ public class CoreFragment extends Fragment {
     }
 
     private void setCovers() {
-        BitmapTransformation transformation = new RoundedCorners(AndroidUtils.toDp(3));
-        GlideUtils.setImageUrl(mSportRecommendCoverView, UrlConstants.URL_SPORT_COVER, transformation);
-        GlideUtils.setImageUrl(mMealRecommendCoverView, UrlConstants.URL_MEAL_COVER, transformation);
-        GlideUtils.setImageUrl(mAssessmentCoverView, UrlConstants.URL_ASSESSMENT_COVER, transformation);
+        setGlideDrawableId(mSportRecommendCoverView, R.drawable.sport_theme);
+        setGlideDrawableId(mMealRecommendCoverView, R.drawable.meal_theme);
+        setGlideDrawableId(mAssessmentCoverView, R.drawable.assessment_theme);
+    }
+
+    private void setGlideDrawableId(ImageView view, int drawableId) {
+        Glide.with(this).load(drawableId)
+                .apply(RequestOptions.bitmapTransform(new RoundedCorners(AndroidUtils.toDp(3))))
+                .placeholder(getResources().getDrawable(R.drawable.ui_placeholder))
+                .into(view);
     }
 
     @Override

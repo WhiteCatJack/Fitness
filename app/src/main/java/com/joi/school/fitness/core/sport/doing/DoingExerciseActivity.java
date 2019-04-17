@@ -40,7 +40,7 @@ public class DoingExerciseActivity extends BaseActivity implements IDoingExercis
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_sport_recommend);
+        setContentView(R.layout.activity_doing_exercise);
 
         if (!getDataFromIntent()) {
             finish();

@@ -36,7 +36,9 @@ class SportRecommendPresenter implements ISportRecommendContract.Presenter {
         mExecutor.execute(new Runnable() {
             @Override
             public void run() {
+
                 Calendar calendar = Calendar.getInstance();
+                calendar.set(Calendar.DATE, 17);
                 calendar.set(Calendar.HOUR_OF_DAY, 0);
                 calendar.set(Calendar.MINUTE, 0);
                 calendar.set(Calendar.SECOND, 0);
@@ -44,11 +46,32 @@ class SportRecommendPresenter implements ISportRecommendContract.Presenter {
                 Date date = calendar.getTime();
                 BmobDate today00 = new BmobDate(date);
 
-                SyncBmobQuery<ExerciseTask> taskListQuery = new SyncBmobQuery<>(ExerciseTask.class);
-                taskListQuery.addWhereEqualTo("targetUser", UserEngine.getInstance().getCurrentUser().getObjectId());
-                taskListQuery.addWhereGreaterThanOrEqualTo("createdAt", today00);
-
                 try {
+                    SyncBmobQuery<DoingExerciseTask> doingExerciseTaskSyncBmobQuery =
+                            new SyncBmobQuery<>(DoingExerciseTask.class);
+                    doingExerciseTaskSyncBmobQuery.addWhereEqualTo(
+                            "user", UserEngine.getInstance().getCurrentUser().getObjectId());
+                    doingExerciseTaskSyncBmobQuery.addWhereGreaterThanOrEqualTo("createdAt", today00);
+                    final List<DoingExerciseTask> doingExerciseTaskList = doingExerciseTaskSyncBmobQuery.syncFindObjects();
+                    if (doingExerciseTaskList.size() > 0) {
+                        final DoingExerciseTask doingExerciseTask = doingExerciseTaskList.get(0);
+                        mView.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                if (doingExerciseTask.getComplete()){
+                                    mView.todayTaskDone();
+                                } else {
+                                    mView.hasDoingTask(doingExerciseTask);
+                                }
+                            }
+                        });
+                        return;
+                    }
+
+                    SyncBmobQuery<ExerciseTask> taskListQuery = new SyncBmobQuery<>(ExerciseTask.class);
+                    taskListQuery.addWhereEqualTo("targetUser", UserEngine.getInstance().getCurrentUser().getObjectId());
+                    taskListQuery.addWhereGreaterThanOrEqualTo("createdAt", today00);
+
                     final List<ExerciseTask> result = taskListQuery.syncFindObjects();
                     mView.runOnUiThread(new Runnable() {
                         @Override
