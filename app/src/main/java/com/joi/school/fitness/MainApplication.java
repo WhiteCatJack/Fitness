@@ -3,7 +3,7 @@ package com.joi.school.fitness;
 import android.app.Application;
 
 import com.baidu.aip.imageclassify.AipImageClassify;
-import com.facebook.drawee.backends.pipeline.Fresco;
+import com.bumptech.glide.Glide;
 import com.joi.school.fitness.tools.constant.Constants;
 import com.joi.school.fitness.tools.util.MealRecognitionUtils;
 
@@ -20,23 +20,13 @@ public class MainApplication extends Application {
         super.onCreate();
 
         initBmob();
-        initFresco();
         initBaiduPicRecognition();
-
-        generateFakeData();
     }
 
     private void initBaiduPicRecognition() {
         // 初始化一个AipImageClassify
         AipImageClassify client = new AipImageClassify(Constants.BAIDU_APP_ID, Constants.BAIDU_APP_KEY, Constants.BAIDU_SECRET_KEY);
         MealRecognitionUtils.setsInstance(client);
-    }
-
-    private void generateFakeData() {
-    }
-
-    private void initFresco() {
-        Fresco.initialize(this);
     }
 
     private void initBmob() {
