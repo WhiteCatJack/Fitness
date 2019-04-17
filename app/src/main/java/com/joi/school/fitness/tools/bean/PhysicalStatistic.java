@@ -19,39 +19,44 @@ public class PhysicalStatistic extends SyncBmobObject {
         return user;
     }
 
-    public void setUser(FitnessUser user) {
+    public PhysicalStatistic setUser(FitnessUser user) {
         this.user = user;
+        return this;
     }
 
     public double getHeartRate() {
         return heartRate;
     }
 
-    public void setHeartRate(double heartRate) {
+    public PhysicalStatistic setHeartRate(double heartRate) {
         this.heartRate = heartRate;
+        return this;
     }
 
     public double getHeight() {
         return height;
     }
 
-    public void setHeight(double height) {
+    public PhysicalStatistic setHeight(double height) {
         this.height = height;
+        return this;
     }
 
     public double getWeight() {
         return weight;
     }
 
-    public void setWeight(double weight) {
+    public PhysicalStatistic setWeight(double weight) {
         this.weight = weight;
+        return this;
     }
 
     public double getVitalCapacity() {
         return vitalCapacity;
     }
 
-    public void setLungCapacity(double vitalCapacity) {
+    public PhysicalStatistic setVitalCapacity(double vitalCapacity) {
         this.vitalCapacity = vitalCapacity;
+        return this;
     }
 }

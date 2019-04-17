@@ -17,23 +17,26 @@ public class ClientMailbox extends SyncBmobObject {
         return user;
     }
 
-    public void setUser(FitnessUser user) {
+    public ClientMailbox setUser(FitnessUser user) {
         this.user = user;
+        return this;
     }
 
     public boolean isValid() {
         return valid;
     }
 
-    public void setValid(boolean valid) {
+    public ClientMailbox setValid(boolean valid) {
         this.valid = valid;
+        return this;
     }
 
     public int getType() {
         return type;
     }
 
-    public void setType(int type) {
+    public ClientMailbox setType(int type) {
         this.type = type;
+        return this;
     }
 }

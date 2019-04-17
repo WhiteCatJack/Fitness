@@ -17,23 +17,26 @@ public class Meal extends SyncBmobObject {
         return mealName;
     }
 
-    public void setMealName(String mealName) {
+    public Meal setMealName(String mealName) {
         this.mealName = mealName;
+        return this;
     }
 
     public double getCalories() {
         return calories;
     }
 
-    public void setCalories(double calories) {
+    public Meal setCalories(double calories) {
         this.calories = calories;
+        return this;
     }
 
     public String getMealImageUrl() {
         return mealImageUrl;
     }
 
-    public void setMealImageUrl(String mealImageUrl) {
+    public Meal setMealImageUrl(String mealImageUrl) {
         this.mealImageUrl = mealImageUrl;
+        return this;
     }
 }

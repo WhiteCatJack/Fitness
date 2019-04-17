@@ -18,31 +18,35 @@ public class Sport extends SyncBmobObject {
         return sportKind;
     }
 
-    public void setSportKind(String sportKind) {
+    public Sport setSportKind(String sportKind) {
         this.sportKind = sportKind;
+        return this;
     }
 
     public int getDifficulty() {
         return difficulty;
     }
 
-    public void setDifficulty(int difficulty) {
+    public Sport setDifficulty(int difficulty) {
         this.difficulty = difficulty;
+        return this;
     }
 
     public String getSportImageUrl() {
         return sportImageUrl;
     }
 
-    public void setSportImageUrl(String sportImageUrl) {
+    public Sport setSportImageUrl(String sportImageUrl) {
         this.sportImageUrl = sportImageUrl;
+        return this;
     }
 
     public double getCalories() {
         return calories;
     }
 
-    public void setCalories(double calories) {
+    public Sport setCalories(double calories) {
         this.calories = calories;
+        return this;
     }
 }

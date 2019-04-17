@@ -16,15 +16,17 @@ public class HeatRecord extends SyncBmobObject {
         return user;
     }
 
-    public void setUser(FitnessUser user) {
+    public HeatRecord setUser(FitnessUser user) {
         this.user = user;
+        return this;
     }
 
     public double getHeatChange() {
         return heatChange;
     }
 
-    public void setHeatChange(double heatChange) {
+    public HeatRecord setHeatChange(double heatChange) {
         this.heatChange = heatChange;
+        return this;
     }
 }

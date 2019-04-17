@@ -18,31 +18,35 @@ public class ServerMailbox extends SyncBmobObject {
         return user;
     }
 
-    public void setUser(FitnessUser user) {
+    public ServerMailbox setUser(FitnessUser user) {
         this.user = user;
+        return this;
     }
 
     public ClientMailbox getClientMail() {
         return clientMail;
     }
 
-    public void setClientMail(ClientMailbox clientMail) {
+    public ServerMailbox setClientMail(ClientMailbox clientMail) {
         this.clientMail = clientMail;
+        return this;
     }
 
     public boolean isValid() {
         return valid;
     }
 
-    public void setValid(boolean valid) {
+    public ServerMailbox setValid(boolean valid) {
         this.valid = valid;
+        return this;
     }
 
     public String getObj() {
         return obj;
     }
 
-    public void setObj(String obj) {
+    public ServerMailbox setObj(String obj) {
         this.obj = obj;
+        return this;
     }
 }

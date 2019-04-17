@@ -15,23 +15,26 @@ public class Advertisement extends SyncBmobObject {
         return title;
     }
 
-    public void setTitle(String title) {
+    public Advertisement setTitle(String title) {
         this.title = title;
+        return this;
     }
 
     public String getCoverImageUrl() {
         return coverImageUrl;
     }
 
-    public void setCoverImageUrl(String coverImageUrl) {
+    public Advertisement setCoverImageUrl(String coverImageUrl) {
         this.coverImageUrl = coverImageUrl;
+        return this;
     }
 
     public String getLinkUrl() {
         return linkUrl;
     }
 
-    public void setLinkUrl(String linkUrl) {
+    public Advertisement setLinkUrl(String linkUrl) {
         this.linkUrl = linkUrl;
+        return this;
     }
 }

@@ -16,31 +16,35 @@ public class Article extends SyncBmobObject {
         return coverImageUrl;
     }
 
-    public void setCoverImageUrl(String coverImageUrl) {
+    public Article setCoverImageUrl(String coverImageUrl) {
         this.coverImageUrl = coverImageUrl;
+        return this;
     }
 
     public String getTitle() {
         return title;
     }
 
-    public void setTitle(String title) {
+    public Article setTitle(String title) {
         this.title = title;
+        return this;
     }
 
     public String getBrief() {
         return brief;
     }
 
-    public void setBrief(String brief) {
+    public Article setBrief(String brief) {
         this.brief = brief;
+        return this;
     }
 
     public String getContentHtml() {
         return contentHtml;
     }
 
-    public void setContentHtml(String contentHtml) {
+    public Article setContentHtml(String contentHtml) {
         this.contentHtml = contentHtml;
+        return this;
     }
 }

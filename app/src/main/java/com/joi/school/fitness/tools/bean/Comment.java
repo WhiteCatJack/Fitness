@@ -17,23 +17,26 @@ public class Comment extends SyncBmobObject {
         return post;
     }
 
-    public void setPost(Post post) {
+    public Comment setPost(Post post) {
         this.post = post;
+        return this;
     }
 
     public FitnessUser getAuthor() {
         return author;
     }
 
-    public void setAuthor(FitnessUser author) {
+    public Comment setAuthor(FitnessUser author) {
         this.author = author;
+        return this;
     }
 
     public String getContent() {
         return content;
     }
 
-    public void setContent(String content) {
+    public Comment setContent(String content) {
         this.content = content;
+        return this;
     }
 }

@@ -20,23 +20,26 @@ public class Post extends SyncBmobObject {
         return author;
     }
 
-    public void setAuthor(FitnessUser author) {
+    public Post setAuthor(FitnessUser author) {
         this.author = author;
+        return this;
     }
 
     public String getTitle() {
         return title;
     }
 
-    public void setTitle(String title) {
+    public Post setTitle(String title) {
         this.title = title;
+        return this;
     }
 
     public String getContent() {
         return content;
     }
 
-    public void setContent(String content) {
+    public Post setContent(String content) {
         this.content = content;
+        return this;
     }
 }

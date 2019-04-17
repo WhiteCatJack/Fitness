@@ -16,15 +16,17 @@ public class PunchRecord extends SyncBmobObject {
         return user;
     }
 
-    public void setUser(FitnessUser user) {
+    public PunchRecord setUser(FitnessUser user) {
         this.user = user;
+        return this;
     }
 
     public Sport getCompleteExercise() {
         return completeExercise;
     }
 
-    public void setCompleteExercise(Sport completeExercise) {
+    public PunchRecord setCompleteExercise(Sport completeExercise) {
         this.completeExercise = completeExercise;
+        return this;
     }
 }

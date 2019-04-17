@@ -20,31 +20,35 @@ public class FitnessUser extends BmobUser {
         return avatarUrl;
     }
 
-    public void setAvatarUrl(String avatarUrl) {
+    public FitnessUser setAvatarUrl(String avatarUrl) {
         this.avatarUrl = avatarUrl;
+        return this;
     }
 
     public String getNick() {
         return nick;
     }
 
-    public void setNick(String nick) {
+    public FitnessUser setNick(String nick) {
         this.nick = nick;
+        return this;
     }
 
     public String getSignature() {
         return signature;
     }
 
-    public void setSignature(String signature) {
+    public FitnessUser setSignature(String signature) {
         this.signature = signature;
+        return this;
     }
 
     public PhysicalStatistic getLatestStatistic() {
         return latestStatistic;
     }
 
-    public void setLatestStatistic(PhysicalStatistic latestStatistic) {
+    public FitnessUser setLatestStatistic(PhysicalStatistic latestStatistic) {
         this.latestStatistic = latestStatistic;
+        return this;
     }
 }
