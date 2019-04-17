@@ -10,4 +10,5 @@ public class IntentConstants {
 
     public static final String INTENT_KEY_POST = "intent_key_post";
     public static final String INTENT_KEY_ARTICLE = "intent_key_article";
+    public static final String INTENT_KEY_DOING_EXERCISE_TASK = "intent_key_doing_exercise_task";
 }

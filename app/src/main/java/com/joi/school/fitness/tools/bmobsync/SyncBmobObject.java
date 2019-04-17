@@ -38,10 +38,10 @@ public class SyncBmobObject extends BmobObject {
         return syncBmobResult.data;
     }
 
-    public void syncUpdate(String objectId) throws BmobException {
+    public void syncUpdate() throws BmobException {
         final SyncBmobResult<String> syncBmobResult = new SyncBmobResult<>();
         final CountDownLatch countDownLatch = new CountDownLatch(1);
-        update(objectId, new UpdateListener() {
+        update(getObjectId(), new UpdateListener() {
             @Override
             public void done(BmobException e) {
                 syncBmobResult.setUp(null, e);

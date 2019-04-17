@@ -7,6 +7,7 @@ import android.text.TextUtils;
 
 import com.joi.school.fitness.DemoActivity;
 import com.joi.school.fitness.HomeActivity;
+import com.joi.school.fitness.core.sport.doing.DoingExerciseActivity;
 import com.joi.school.fitness.forum.postdetail.PostActivity;
 import com.joi.school.fitness.forum.postdetail.comment.CommentActivity;
 import com.joi.school.fitness.forum.postdetail.comment.newcomment.NewCommentActivity;
@@ -16,6 +17,7 @@ import com.joi.school.fitness.mine.setinfo.SetMyInformationActivity;
 import com.joi.school.fitness.sign.SignInActivity;
 import com.joi.school.fitness.sign.SignUpActivity;
 import com.joi.school.fitness.tools.bean.Article;
+import com.joi.school.fitness.tools.bean.DoingExerciseTask;
 import com.joi.school.fitness.tools.bean.Post;
 import com.joi.school.fitness.tools.constant.IntentConstants;
 
@@ -53,6 +55,15 @@ public class Navigation {
 
     public static void goToDemoActivity(@NonNull Context context) {
         noExtraNavigation(context, DemoActivity.class);
+    }
+
+    public static void goToDoingExerciseTaskActivity(@NonNull Context context, DoingExerciseTask task) {
+        if (context == null || task == null) {
+            return;
+        }
+        Intent intent = new Intent(context, DoingExerciseActivity.class);
+        intent.putExtra(IntentConstants.INTENT_KEY_DOING_EXERCISE_TASK, task);
+        context.startActivity(intent);
     }
 
     public static void goToSignInActivity(@NonNull Context context) {

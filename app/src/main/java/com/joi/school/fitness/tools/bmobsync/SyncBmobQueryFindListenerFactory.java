@@ -3,6 +3,7 @@ package com.joi.school.fitness.tools.bmobsync;
 import com.joi.school.fitness.tools.bean.Advertisement;
 import com.joi.school.fitness.tools.bean.Article;
 import com.joi.school.fitness.tools.bean.ClientMailbox;
+import com.joi.school.fitness.tools.bean.ExerciseTask;
 import com.joi.school.fitness.tools.bean.Post;
 import com.joi.school.fitness.tools.bean.ServerMailbox;
 import com.joi.school.fitness.tools.bean.Sport;
@@ -61,6 +62,13 @@ class SyncBmobQueryFindListenerFactory {
             return (FindListener<T>) new FindListener<Sport>() {
                 @Override
                 public void done(List<Sport> list, BmobException e) {
+                    reflect.done((List<T>) list, e);
+                }
+            };
+        } else if (classEquals(ExerciseTask.class, clazz)) {
+            return (FindListener<T>) new FindListener<ExerciseTask>() {
+                @Override
+                public void done(List<ExerciseTask> list, BmobException e) {
                     reflect.done((List<T>) list, e);
                 }
             };

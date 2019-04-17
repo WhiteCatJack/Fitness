@@ -82,7 +82,7 @@ public class DemoActivity extends BaseActivity {
                             }
                             ServerMailbox serverMail = temp.get(0);
                             serverMail.setValid(false);
-                            serverMail.syncUpdate(serverMail.getObjectId());
+                            serverMail.syncUpdate();
                             serverMail.syncDelete();
 
                             JSONObject jsonObject = new JSONObject(serverMail.getObj());

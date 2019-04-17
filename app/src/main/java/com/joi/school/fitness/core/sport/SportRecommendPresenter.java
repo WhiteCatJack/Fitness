@@ -1,8 +1,10 @@
 package com.joi.school.fitness.core.sport;
 
+import com.joi.school.fitness.tools.bean.DoingExerciseTask;
 import com.joi.school.fitness.tools.bean.ExerciseTask;
 import com.joi.school.fitness.tools.bmobsync.SyncBmobQuery;
 import com.joi.school.fitness.tools.user.UserEngine;
+import com.joi.school.fitness.tools.util.AndroidUtils;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -19,7 +21,7 @@ import cn.bmob.v3.exception.BmobException;
  * @author Joi
  * createAt 2019/4/1 0001 15:28
  */
-public class SportRecommendPresenter implements ISportRecommendContract.Presenter {
+class SportRecommendPresenter implements ISportRecommendContract.Presenter {
 
     private SportRecommendActivity mView;
 
@@ -55,7 +57,30 @@ public class SportRecommendPresenter implements ISportRecommendContract.Presente
                         }
                     });
                 } catch (BmobException e) {
-                    e.printStackTrace();
+                    AndroidUtils.showErrorMainThread(mView, e);
+                }
+            }
+        });
+    }
+
+    @Override
+    public void chooseTask(final ExerciseTask task) {
+        mExecutor.execute(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    final DoingExerciseTask doingExerciseTask = new DoingExerciseTask()
+                            .setUser(UserEngine.getInstance().getCurrentUser())
+                            .setTask(task);
+                    doingExerciseTask.syncSave();
+                    mView.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            mView.completeChooseTask(doingExerciseTask);
+                        }
+                    });
+                } catch (BmobException e) {
+                    AndroidUtils.showErrorMainThread(mView, e);
                 }
             }
         });
