@@ -6,9 +6,11 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.CenterCrop;
+import com.bumptech.glide.request.RequestOptions;
 import com.joi.school.fitness.R;
 import com.joi.school.fitness.tools.bean.Sport;
-import com.joi.school.fitness.tools.util.AndroidUtils;
 
 /**
  * Description.
@@ -33,5 +35,10 @@ class DoingExerciseViewHolder extends RecyclerView.ViewHolder {
     }
 
     public void build(final Sport sport) {
+        Glide.with(coverImageView.getContext()).load(sport.getSportImageUrl())
+                .apply(RequestOptions.bitmapTransform(new CenterCrop()))
+                .placeholder(R.drawable.ui_placeholder)
+                .into(coverImageView);
+        titleTextView.setText(sport.getSportKind());
     }
 }

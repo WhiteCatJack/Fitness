@@ -85,6 +85,7 @@ public class SportRecommendActivity extends BaseActivity implements ISportRecomm
     @Override
     public void completeChooseTask(DoingExerciseTask task) {
         Navigation.goToDoingExerciseTaskActivity(this, task);
+        finish();
     }
 
     @Override
