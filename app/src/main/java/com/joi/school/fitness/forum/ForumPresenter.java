@@ -13,7 +13,7 @@ import cn.bmob.v3.exception.BmobException;
 /**
  * Description.
  *
- * @author 泽乾
+ * @author Joi
  * createAt 2019/4/18 0018 20:30
  */
 public class ForumPresenter implements IForumContract.Presenter {
