@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -39,10 +40,28 @@
                 android:background="@null"
                 android:gravity="top|start"
                 android:hint="@string/hint_new_post_content"
-                android:minHeight="400dp"
+                android:minHeight="120dp"
                 android:textColor="@color/text_level2_color"
                 android:textSize="17dp"
                 tools:text="Laugh laugh" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="16dp"
+                android:background="@color/colorAccent" />
+
+            <com.joi.school.fitness.tools.widget.TagGroup
+                android:id="@+id/tag_group"
+                style="@style/TagGroup"
+                android:layout_marginTop="16dp"
+                app:atg_backgroundColor="@color/window_background_color"
+                app:atg_borderColor="@color/colorAccent"
+                app:atg_borderStrokeWidth="1dp"
+                app:atg_checkedBackgroundColor="@color/colorAccent"
+                app:atg_checkedBorderColor="@color/colorAccent"
+                app:atg_checkedTextColor="@color/window_background_color"
+                app:atg_textColor="@color/colorAccent" />
 
         </LinearLayout>
     </ScrollView>

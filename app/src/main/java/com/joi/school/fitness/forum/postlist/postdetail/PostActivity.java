@@ -1,4 +1,4 @@
-package com.joi.school.fitness.forum.postdetail;
+package com.joi.school.fitness.forum.postlist.postdetail;
 
 import android.content.Intent;
 import android.os.Bundle;

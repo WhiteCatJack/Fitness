@@ -4,12 +4,15 @@ import android.app.AlertDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.joi.school.fitness.R;
-import com.joi.school.fitness.tools.base.BaseActivity;
+import com.joi.school.fitness.tools.base.BaseFragment;
 import com.joi.school.fitness.tools.bean.HeatRecord;
 import com.joi.school.fitness.tools.bean.Meal;
 import com.joi.school.fitness.tools.user.UserEngine;
@@ -22,7 +25,8 @@ import java.net.URLEncoder;
 
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.SaveListener;
-import es.dmoral.toasty.Toasty;
+
+import static android.app.Activity.RESULT_OK;
 
 /**
  * Description.
@@ -30,36 +34,42 @@ import es.dmoral.toasty.Toasty;
  * @author Joi
  * createAt 2019/4/1 0001 15:28
  */
-public class MealRecommendActivity extends BaseActivity {
+public class MealRecommendFragment extends BaseFragment {
 
     private static final int MEAL_SCAN_FILE_SYSTEM_PHOTO_REQUEST_CODE = 1;
     private static final int MEAL_SCAN_CAMERA_PHOTO_REQUEST_CODE = 2;
 
     private TextView mTestScanButton;
 
+    @Nullable
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_meal_recommend);
-
-        mTestScanButton = findViewById(R.id.bt_test_meal_scan);
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View layout = inflater.inflate(R.layout.activity_meal_recommend, container, false);
+        mTestScanButton = layout.findViewById(R.id.bt_test_meal_scan);
 
         mTestScanButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AndroidUtils.showPhotoChoiceDialog(MealRecommendActivity.this,
+                AndroidUtils.showPhotoChoiceDialog(MealRecommendFragment.this,
                         MEAL_SCAN_CAMERA_PHOTO_REQUEST_CODE, MEAL_SCAN_FILE_SYSTEM_PHOTO_REQUEST_CODE);
             }
         });
+
+        return layout;
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == RESULT_OK) {
             switch (requestCode) {
                 case MEAL_SCAN_FILE_SYSTEM_PHOTO_REQUEST_CODE:
                 case MEAL_SCAN_CAMERA_PHOTO_REQUEST_CODE:
-                    Bitmap bitmap = AndroidUtils.readPhotoFromIntent(this, data);
+                    Bitmap bitmap = AndroidUtils.readPhotoFromIntent(getActivity(), data);
                     if (bitmap != null) {
                         doMealRecognition(AndroidUtils.convertBitmapToBase64(bitmap));
                     } else {
@@ -79,7 +89,7 @@ public class MealRecommendActivity extends BaseActivity {
             return;
         }
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(MealRecommendActivity.this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         builder.setMessage(resultJson);
         builder.create().show();
 
@@ -91,7 +101,7 @@ public class MealRecommendActivity extends BaseActivity {
             public void done(String s, BmobException e) {
                 dismissLoadingDialog();
                 if (e == null) {
-                    Toasty.normal(getApplicationContext(), R.string.hint_upload_meal_complete).show();
+                    AndroidUtils.showToast(R.string.hint_upload_meal_complete);
                 } else {
                     AndroidUtils.showUnknownErrorToast();
                 }
@@ -115,7 +125,7 @@ public class MealRecommendActivity extends BaseActivity {
                     e.printStackTrace();
                 }
                 final String finalResult = result;
-                MealRecommendActivity.this.runOnUiThread(new Runnable() {
+                getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                         mealRecognitionComplete(finalResult);

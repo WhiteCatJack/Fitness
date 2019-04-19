@@ -16,7 +16,7 @@ import org.sufficientlysecure.htmltextview.HtmlTextView;
 /**
  * Description.
  *
- * @author 泽乾
+ * @author Joi
  * createAt 2019/4/14 0014 18:04
  */
 public class ArticleActivity extends BaseActivity {

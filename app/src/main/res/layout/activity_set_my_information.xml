@@ -9,7 +9,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <com.joi.school.fitness.tools.view.NormalCellView
+        <com.joi.school.fitness.tools.widget.NormalCellView
             android:id="@+id/cell_set_my_avatar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

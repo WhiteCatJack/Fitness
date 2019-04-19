@@ -20,4 +20,6 @@ public class Constants {
     public static final int AMOUNT_IN_ONE_PAGE = 30;
 
     public static final int BANNER_AUTO_SCROLL_TIME_IN_MILLIS = 5000;
+
+    public static final String POST_TAG_DEFAULT = "L8pj333T";
 }

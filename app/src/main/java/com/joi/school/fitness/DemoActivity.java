@@ -37,7 +37,7 @@ import cn.bmob.v3.listener.FindListener;
 /**
  * Description.
  *
- * @author 泽乾
+ * @author Joi
  * createAt 2019/4/14 0014 21:49
  */
 public class DemoActivity extends BaseActivity {

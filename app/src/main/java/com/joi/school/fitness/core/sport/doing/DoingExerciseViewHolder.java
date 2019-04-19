@@ -15,7 +15,7 @@ import com.joi.school.fitness.tools.bean.Sport;
 /**
  * Description.
  *
- * @author 泽乾
+ * @author Joi
  * createAt 2019/4/17 0017 23:13
  */
 class DoingExerciseViewHolder extends RecyclerView.ViewHolder {

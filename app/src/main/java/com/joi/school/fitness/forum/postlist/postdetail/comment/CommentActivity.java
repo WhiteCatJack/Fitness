@@ -1,4 +1,4 @@
-package com.joi.school.fitness.forum.postdetail.comment;
+package com.joi.school.fitness.forum.postlist.postdetail.comment;
 
 import android.content.Intent;
 import android.os.Bundle;

@@ -16,7 +16,7 @@ import com.joi.school.fitness.R;
 /**
  * Description.
  *
- * @author 泽乾
+ * @author Joi
  * createAt 2019/4/17 0017 19:01
  */
 public class GlideUtils {

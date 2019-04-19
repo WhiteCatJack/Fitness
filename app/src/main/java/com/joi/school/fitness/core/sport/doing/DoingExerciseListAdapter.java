@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * Description.
  *
- * @author 泽乾
+ * @author Joi
  * createAt 2019/4/17 0017 21:21
  */
 public class DoingExerciseListAdapter extends RecyclerView.Adapter<DoingExerciseViewHolder> {

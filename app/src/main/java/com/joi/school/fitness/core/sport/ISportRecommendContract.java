@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * Description.
  *
- * @author 泽乾
+ * @author Joi
  * createAt 2019/4/17 0017 20:48
  */
 interface ISportRecommendContract {

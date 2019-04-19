@@ -23,9 +23,9 @@ import cn.bmob.v3.exception.BmobException;
  */
 class SportRecommendPresenter implements ISportRecommendContract.Presenter {
 
-    private SportRecommendActivity mView;
+    private SportRecommendFragment mView;
 
-    public SportRecommendPresenter(SportRecommendActivity activity) {
+    public SportRecommendPresenter(SportRecommendFragment activity) {
         this.mView = activity;
     }
 
@@ -55,7 +55,7 @@ class SportRecommendPresenter implements ISportRecommendContract.Presenter {
                     final List<DoingExerciseTask> doingExerciseTaskList = doingExerciseTaskSyncBmobQuery.syncFindObjects();
                     if (doingExerciseTaskList.size() > 0) {
                         final DoingExerciseTask doingExerciseTask = doingExerciseTaskList.get(0);
-                        mView.runOnUiThread(new Runnable() {
+                        mView.getActivity().runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
                                 if (doingExerciseTask.getComplete()){
@@ -73,14 +73,14 @@ class SportRecommendPresenter implements ISportRecommendContract.Presenter {
                     taskListQuery.addWhereGreaterThanOrEqualTo("createdAt", today00);
 
                     final List<ExerciseTask> result = taskListQuery.syncFindObjects();
-                    mView.runOnUiThread(new Runnable() {
+                    mView.getActivity().runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
                             mView.showTaskList(result);
                         }
                     });
                 } catch (BmobException e) {
-                    AndroidUtils.showErrorMainThread(mView, e);
+                    AndroidUtils.showErrorMainThread(mView.getActivity(), e);
                 }
             }
         });
@@ -96,14 +96,14 @@ class SportRecommendPresenter implements ISportRecommendContract.Presenter {
                             .setUser(UserEngine.getInstance().getCurrentUser())
                             .setTask(task);
                     doingExerciseTask.syncSave();
-                    mView.runOnUiThread(new Runnable() {
+                    mView.getActivity().runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
                             mView.completeChooseTask(doingExerciseTask);
                         }
                     });
                 } catch (BmobException e) {
-                    AndroidUtils.showErrorMainThread(mView, e);
+                    AndroidUtils.showErrorMainThread(mView.getActivity(), e);
                 }
             }
         });

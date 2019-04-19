@@ -15,14 +15,14 @@ import cn.bmob.v3.exception.BmobException;
 /**
  * Description.
  *
- * @author 泽乾
+ * @author Joi
  * createAt 2019/4/14 0014 17:47
  */
 public class HomePresenter implements IHomeContract.Presenter {
 
-    private HomeFragment mView;
+    private NewsFragment mView;
 
-    public HomePresenter(HomeFragment mView) {
+    public HomePresenter(NewsFragment mView) {
         this.mView = mView;
     }
 

@@ -42,13 +42,8 @@
             android:name=".sign.SignInActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name=".forum.postdetail.PostActivity"
+            android:name=".forum.postlist.postdetail.PostActivity"
             android:label="@string/title_post" />
-        <activity
-            android:name=".core.sport.SportRecommendActivity"
-            android:label="@string/title_sport_recommend" />
-        <activity android:name=".core.assessment.AssessmentActivity" />
-        <activity android:name=".core.meal.MealRecommendActivity" />
         <activity
             android:name=".mine.body.SetPhysicalStatisticActivity"
             android:label="@string/title_set_physical_statistic" />
@@ -56,12 +51,12 @@
             android:name=".mine.setinfo.SetMyInformationActivity"
             android:label="@string/title_set_my_information" />
         <activity
-            android:name=".forum.postdetail.comment.CommentActivity"
+            android:name=".forum.postlist.postdetail.comment.CommentActivity"
             android:label="@string/title_comment" />
         <activity
             android:name=".core.sport.uploadexercise.UploadExerciseActivity"
             android:label="@string/title_upload_completed_exercise" />
-        <activity android:name=".forum.postdetail.comment.newcomment.NewCommentActivity" />
+        <activity android:name=".forum.postlist.postdetail.comment.newcomment.NewCommentActivity" />
         <activity android:name=".home.articlelist.article.ArticleActivity" />
         <activity
             android:name=".DemoActivity"

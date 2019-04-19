@@ -1,8 +1,7 @@
-package com.joi.school.fitness.tools.view;
+package com.joi.school.fitness.tools.widget;
 
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;

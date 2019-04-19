@@ -11,8 +11,13 @@ import com.joi.school.fitness.R;
 import com.joi.school.fitness.tools.base.BaseActivity;
 import com.joi.school.fitness.tools.bean.FitnessUser;
 import com.joi.school.fitness.tools.bean.Post;
+import com.joi.school.fitness.tools.bean.PostTag;
+import com.joi.school.fitness.tools.bmobsync.SyncBmobQuery;
 import com.joi.school.fitness.tools.util.AndroidUtils;
+import com.joi.school.fitness.tools.widget.TagGroup;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -28,9 +33,14 @@ import es.dmoral.toasty.Toasty;
  */
 public class NewPostActivity extends BaseActivity {
 
+    private TagGroup mTagGroupView;
     private EditText mTitleEditText;
     private EditText mContentEditText;
     private FloatingActionButton mComleteButton;
+
+    private List<PostTag> mTagList;
+    private List<String> mTagStringList;
+    private PostTag mChosenPostTag;
 
     private ExecutorService mExecutor = Executors.newFixedThreadPool(1);
 
@@ -40,13 +50,21 @@ public class NewPostActivity extends BaseActivity {
         setContentView(R.layout.activity_new_post);
 
         initViews();
+        getTagList();
     }
 
     private void initViews() {
+        mTagGroupView = findViewById(R.id.tag_group);
         mTitleEditText = findViewById(R.id.tv_title);
         mContentEditText = findViewById(R.id.tv_content);
         mComleteButton = findViewById(R.id.fab_complete);
 
+        mTagGroupView.setOnTagClickListener(new TagGroup.OnTagClickListener() {
+            @Override
+            public void onTagClick(String tag) {
+                selectTag(mTagStringList.indexOf(tag));
+            }
+        });
         mComleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -79,6 +97,44 @@ public class NewPostActivity extends BaseActivity {
         post.setAuthor(BmobUser.getCurrentUser(FitnessUser.class));
         post.setTitle(mTitleEditText.getText().toString());
         post.setContent(mContentEditText.getText().toString());
+        post.setTag(mChosenPostTag);
         return post;
+    }
+
+    private void selectTag(int index) {
+        mChosenPostTag = mTagList.get(index);
+    }
+
+    private void showTagList(List<PostTag> tagList) {
+        mTagList = tagList;
+        mTagStringList = new ArrayList<>(tagList.size());
+        String[] tags = new String[tagList.size()];
+        for (int i = 0; i < tagList.size(); i++) {
+            PostTag tag = tagList.get(i);
+            mTagStringList.add(tag.getTagName());
+            tags[i] = tag.getTagName();
+        }
+        mTagGroupView.setTags(tags);
+    }
+
+    private void getTagList() {
+        mExecutor.execute(new Runnable() {
+            @Override
+            public void run() {
+                SyncBmobQuery<PostTag> query = new SyncBmobQuery<>(PostTag.class);
+                query.order("-updatedAt");
+                try {
+                    final List<PostTag> tagList = query.syncFindObjects();
+                    NewPostActivity.this.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            showTagList(tagList);
+                        }
+                    });
+                } catch (BmobException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 }

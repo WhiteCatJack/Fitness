@@ -14,7 +14,7 @@ import com.joi.school.fitness.tools.util.AndroidUtils;
 /**
  * Description.
  *
- * @author 泽乾
+ * @author Joi
  * createAt 2019/4/17 0017 21:21
  */
 class ExerciseTaskViewHolder extends RecyclerView.ViewHolder {

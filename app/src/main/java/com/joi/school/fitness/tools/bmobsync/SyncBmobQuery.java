@@ -12,7 +12,7 @@ import cn.bmob.v3.listener.FindListener;
 /**
  * Description.
  *
- * @author 泽乾
+ * @author Joi
  * createAt 2019/4/13 0013 14:57
  */
 public class SyncBmobQuery<T> extends BmobQuery<T> {

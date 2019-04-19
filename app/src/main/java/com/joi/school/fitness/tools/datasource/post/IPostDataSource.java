@@ -3,6 +3,7 @@ package com.joi.school.fitness.tools.datasource.post;
 import android.support.annotation.IntRange;
 
 import com.joi.school.fitness.tools.bean.Post;
+import com.joi.school.fitness.tools.bean.PostTag;
 
 import java.util.List;
 
@@ -16,9 +17,9 @@ public interface IPostDataSource {
     /**
      * 查询所有
      */
-    List<Post> getAll() throws BmobException;
+    List<Post> getAll(PostTag postTag) throws BmobException;
 
-    List<Post> getAll(@IntRange(from = 0) int start, @IntRange(from = 0) int amount) throws BmobException;
+    List<Post> getAll(PostTag postTag, @IntRange(from = 0) int start, @IntRange(from = 0) int amount) throws BmobException;
 
     /**
      * 新建

@@ -9,7 +9,7 @@ import org.json.JSONObject;
 /**
  * Description.
  *
- * @author 泽乾
+ * @author Joi
  * createAt 2019/4/4 0004 12:52
  */
 public class MealRecognitionUtils {

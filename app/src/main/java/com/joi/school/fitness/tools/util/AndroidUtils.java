@@ -14,6 +14,7 @@ import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
+import android.support.v4.app.Fragment;
 import android.util.Base64;
 import android.widget.Toast;
 
@@ -68,6 +69,29 @@ public class AndroidUtils {
         builder.create().show();
     }
 
+    public static void showPhotoChoiceDialog(@NonNull final Fragment fragment,
+                                             final int requestCameraCode, final int requestFileSystemCode) {
+        String[] choices = {
+                getApplicationContext().getResources().getString(R.string.from_camera),
+                getApplicationContext().getResources().getString(R.string.from_file_system)
+        };
+        AlertDialog.Builder builder = new AlertDialog.Builder(fragment.getContext());
+        builder.setItems(choices, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                switch (which) {
+                    case 0:
+                        AndroidUtils.requestCameraPhoto(fragment, requestCameraCode);
+                        break;
+                    case 1:
+                        AndroidUtils.requestFileSystemPhoto(fragment, requestFileSystemCode);
+                        break;
+                }
+            }
+        });
+        builder.create().show();
+    }
+
     public static void requestCameraPhoto(Activity activity, int requestCode) {
         Intent takePhotoIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         if (takePhotoIntent.resolveActivity(activity.getPackageManager()) != null) {
@@ -80,6 +104,20 @@ public class AndroidUtils {
         intent.setType("image/*");
         intent.addCategory(Intent.CATEGORY_OPENABLE);
         activity.startActivityForResult(intent, requestCode);
+    }
+
+    public static void requestCameraPhoto(Fragment fragment, int requestCode) {
+        Intent takePhotoIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (takePhotoIntent.resolveActivity(fragment.getContext().getPackageManager()) != null) {
+            fragment.startActivityForResult(takePhotoIntent, requestCode);
+        }
+    }
+
+    public static void requestFileSystemPhoto(Fragment fragment, int requestCode) {
+        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+        intent.setType("image/*");
+        intent.addCategory(Intent.CATEGORY_OPENABLE);
+        fragment.startActivityForResult(intent, requestCode);
     }
 
     @Nullable
@@ -122,7 +160,8 @@ public class AndroidUtils {
         if (imageUri != null) {
             try {
                 bitmap = BitmapFactory.decodeStream(activity.getContentResolver().openInputStream(imageUri));
-            } catch (Exception ignore) {
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         }
         return bitmap;

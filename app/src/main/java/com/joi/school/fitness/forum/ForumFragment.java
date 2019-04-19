@@ -4,40 +4,42 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.RecyclerView;
+import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.flyco.tablayout.SlidingTabLayout;
 import com.joi.school.fitness.R;
 import com.joi.school.fitness.forum.newpost.NewPostActivity;
-import com.joi.school.fitness.tools.base.OnItemClickListener;
-import com.joi.school.fitness.tools.bean.Post;
-import com.joi.school.fitness.tools.util.Navigation;
+import com.joi.school.fitness.forum.postlist.PostListFragment;
+import com.joi.school.fitness.tools.bean.PostTag;
+import com.joi.school.fitness.tools.constant.IntentConstants;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ForumFragment extends Fragment implements IForumContract.View {
 
-    private SwipeRefreshLayout mSwipeRefreshLayout;
-    private RecyclerView mPostListView;
-    protected FloatingActionButton mNewPostButton;
-
     private IForumContract.Presenter mPresenter;
 
-    private PostListAdapter mPostListAdapter;
-    private List<Post> mPostDataList = new ArrayList<>();
+    private View mSlidesLayout;
+    private List<PostTag> mTagList;
+    private SlidingTabLayout mSlidesTabLayout;
+    private ViewPager mSlidesViewPager;
+
+    private View mNewPostButton;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View layout = inflater.inflate(R.layout.fragment_forum, container, false);
-        mSwipeRefreshLayout = layout.findViewById(R.id.srl);
-        mPostListView = layout.findViewById(R.id.rv_list);
+
+        mSlidesLayout = layout.findViewById(R.id.ll_slides);
+        mSlidesTabLayout = layout.findViewById(R.id.stl_tab);
+        mSlidesViewPager = layout.findViewById(R.id.vp);
+
         mNewPostButton = layout.findViewById(R.id.fab_new_post);
 
         mNewPostButton.setOnClickListener(new View.OnClickListener() {
@@ -55,31 +57,33 @@ public class ForumFragment extends Fragment implements IForumContract.View {
         super.onActivityCreated(savedInstanceState);
 
         mPresenter = new ForumPresenter(this);
-        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                mSwipeRefreshLayout.setRefreshing(true);
-                mPresenter.getAll();
-            }
-        });
-        mSwipeRefreshLayout.setRefreshing(true);
-        mPresenter.getAll();
+        mPresenter.getPostTags();
+    }
 
-        mPostListAdapter = new PostListAdapter(mPostDataList);
-        mPostListAdapter.setOnItemClickListener(new OnItemClickListener<Post>() {
-            @Override
-            public void onItemClick(Post post) {
-                Navigation.goToPostActivity(getContext(), post);
-            }
-        });
-        mPostListView.setAdapter(mPostListAdapter);
+    private void initPostListFragmentViewPager(List<PostTag> tagList) {
+        String[] titles = new String[tagList.size()];
+        List<Fragment> fragments = new ArrayList<>(tagList.size());
+
+        for (int i = 0; i < tagList.size(); i++) {
+            PostTag tag = tagList.get(i);
+            titles[i] = tag.getTagName();
+
+            Bundle bundle = new Bundle();
+            bundle.putSerializable(IntentConstants.INTENT_KEY_POST_TAG, tag);
+            Fragment fragment = new PostListFragment();
+            fragment.setArguments(bundle);
+            fragments.add(fragment);
+        }
+        SlidesPagerAdapter mAdapter = new SlidesPagerAdapter(getChildFragmentManager(), titles, fragments);
+        mSlidesViewPager.setOffscreenPageLimit(fragments.size() - 1);
+        mSlidesViewPager.setAdapter(mAdapter);
+        mSlidesTabLayout.setViewPager(mSlidesViewPager);
     }
 
     @Override
-    public void showPostList(List<Post> data) {
-        mSwipeRefreshLayout.setRefreshing(false);
-        mPostDataList.clear();
-        mPostDataList.addAll(data);
-        mPostListAdapter.notifyDataSetChanged();
+    public void doneGetPostTags(List<PostTag> tagList) {
+        this.mTagList = tagList;
+
+        initPostListFragmentViewPager(tagList);
     }
 }

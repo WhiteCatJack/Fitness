@@ -28,7 +28,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
 
-public class HomeFragment extends Fragment implements IHomeContract.View {
+public class NewsFragment extends Fragment implements IHomeContract.View {
 
     private HomePresenter mPresenter;
 

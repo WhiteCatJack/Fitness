@@ -46,6 +46,9 @@ public class UserEngine implements UserInterface {
 
     @Override
     public boolean hasPhysicalStatistic() {
+        if (getCurrentUser() == null) {
+            return false;
+        }
         return getCurrentUser().getLatestStatistic() != null;
     }
 

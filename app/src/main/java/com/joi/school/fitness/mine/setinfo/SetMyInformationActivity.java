@@ -15,7 +15,7 @@ import com.joi.school.fitness.tools.user.UserEngine;
 import com.joi.school.fitness.tools.util.AndroidUtils;
 import com.joi.school.fitness.tools.util.BmobUtils;
 import com.joi.school.fitness.tools.util.UserUtils;
-import com.joi.school.fitness.tools.view.NormalCellView;
+import com.joi.school.fitness.tools.widget.NormalCellView;
 
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.UpdateListener;

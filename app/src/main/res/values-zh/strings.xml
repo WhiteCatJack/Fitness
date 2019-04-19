@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">健康达人</string>
-    <string name="title_home">首页</string>
+    <string name="title_news">新鲜事</string>
     <string name="title_core">核心</string>
     <string name="title_forum">社区</string>
     <string name="title_mine">我</string>

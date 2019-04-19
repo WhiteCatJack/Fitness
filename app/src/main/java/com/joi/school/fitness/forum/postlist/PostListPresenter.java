@@ -1,7 +1,8 @@
-package com.joi.school.fitness.forum;
+package com.joi.school.fitness.forum.postlist;
 
+import com.joi.school.fitness.tools.bean.Post;
 import com.joi.school.fitness.tools.bean.PostTag;
-import com.joi.school.fitness.tools.bmobsync.SyncBmobQuery;
+import com.joi.school.fitness.tools.datasource.post.PostDataSource;
 import com.joi.school.fitness.tools.util.AndroidUtils;
 
 import java.util.List;
@@ -11,40 +12,37 @@ import java.util.concurrent.Executors;
 import cn.bmob.v3.exception.BmobException;
 
 /**
- * Description.
- *
- * @author 泽乾
- * createAt 2019/4/18 0018 20:30
+ * @author Joi
+ * createAt 2019/3/23 0023 15:44
  */
-public class ForumPresenter implements IForumContract.Presenter {
+public class PostListPresenter implements IPostListContract.Presenter {
 
-    private ForumFragment mView;
+    private PostListFragment mView;
 
-    private ExecutorService mExecutor = Executors.newFixedThreadPool(1);
-
-    public ForumPresenter(ForumFragment mView) {
+    public PostListPresenter(PostListFragment mView) {
         this.mView = mView;
     }
 
+    private ExecutorService mExecutor = Executors.newFixedThreadPool(1);
+
     @Override
-    public void getPostTags() {
-        mExecutor.execute(new Runnable() {
+    public void getAll(final PostTag postTag) {
+        Runnable task = new Runnable() {
             @Override
             public void run() {
                 try {
-                    SyncBmobQuery<PostTag> query = new SyncBmobQuery<>(PostTag.class);
-                    query.order("-updatedAt");
-                    final List<PostTag> tagList = query.syncFindObjects();
+                    final List<Post> postList = PostDataSource.getImpl().getAll(postTag);
                     mView.getActivity().runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            mView.doneGetPostTags(tagList);
+                            mView.showPostList(postList);
                         }
                     });
                 } catch (BmobException e) {
                     AndroidUtils.showErrorMainThread(mView.getActivity(), e);
                 }
             }
-        });
+        };
+        mExecutor.execute(task);
     }
 }

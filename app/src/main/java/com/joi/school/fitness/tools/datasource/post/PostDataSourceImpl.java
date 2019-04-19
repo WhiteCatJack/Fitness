@@ -1,6 +1,7 @@
 package com.joi.school.fitness.tools.datasource.post;
 
 import com.joi.school.fitness.tools.bean.Post;
+import com.joi.school.fitness.tools.bean.PostTag;
 import com.joi.school.fitness.tools.bmobsync.SyncBmobQuery;
 import com.joi.school.fitness.tools.constant.Constants;
 
@@ -33,16 +34,17 @@ class PostDataSourceImpl extends PostDataSource {
     }
 
     @Override
-    public List<Post> getAll() throws BmobException {
-        return getAll(0, Constants.AMOUNT_IN_ONE_PAGE);
+    public List<Post> getAll(PostTag tag) throws BmobException {
+        return getAll(tag, 0, Constants.AMOUNT_IN_ONE_PAGE);
     }
 
     @Override
-    public List<Post> getAll(int start, int amount) throws BmobException {
+    public List<Post> getAll(PostTag tag, int start, int amount) throws BmobException {
         final SyncBmobQuery<Post> query = new SyncBmobQuery<>(Post.class);
         query.setSkip(start == 0 ? 0 : start - 1)
                 .setLimit(amount)
                 .order("-createdAt")
+                .addWhereEqualTo("tag", tag.getObjectId())
                 .include("author");
 
         return query.syncFindObjects();

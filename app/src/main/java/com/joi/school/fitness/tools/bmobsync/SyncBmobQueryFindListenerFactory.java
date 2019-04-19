@@ -6,6 +6,7 @@ import com.joi.school.fitness.tools.bean.ClientMailbox;
 import com.joi.school.fitness.tools.bean.DoingExerciseTask;
 import com.joi.school.fitness.tools.bean.ExerciseTask;
 import com.joi.school.fitness.tools.bean.Post;
+import com.joi.school.fitness.tools.bean.PostTag;
 import com.joi.school.fitness.tools.bean.ServerMailbox;
 import com.joi.school.fitness.tools.bean.Sport;
 
@@ -17,7 +18,7 @@ import cn.bmob.v3.listener.FindListener;
 /**
  * Description.
  *
- * @author 泽乾
+ * @author Joi
  * createAt 2019/4/14 0014 16:41
  */
 class SyncBmobQueryFindListenerFactory {
@@ -77,6 +78,13 @@ class SyncBmobQueryFindListenerFactory {
             return (FindListener<T>) new FindListener<DoingExerciseTask>() {
                 @Override
                 public void done(List<DoingExerciseTask> list, BmobException e) {
+                    reflect.done((List<T>) list, e);
+                }
+            };
+        } else if (classEquals(PostTag.class, clazz)) {
+            return (FindListener<T>) new FindListener<PostTag>() {
+                @Override
+                public void done(List<PostTag> list, BmobException e) {
                     reflect.done((List<T>) list, e);
                 }
             };

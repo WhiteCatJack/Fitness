@@ -5,7 +5,7 @@ import cn.bmob.v3.exception.BmobException;
 /**
  * Description.
  *
- * @author 泽乾
+ * @author Joi
  * createAt 2019/4/13 0013 14:56
  */
 class SyncBmobResult<T> {

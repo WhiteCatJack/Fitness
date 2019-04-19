@@ -1,16 +1,18 @@
 package com.joi.school.fitness;
 
+import android.Manifest;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.StringDef;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.view.MenuItem;
 
 import com.joi.school.fitness.core.CoreFragment;
 import com.joi.school.fitness.forum.ForumFragment;
-import com.joi.school.fitness.home.HomeFragment;
+import com.joi.school.fitness.home.NewsFragment;
 import com.joi.school.fitness.mine.MineFragment;
 import com.joi.school.fitness.tools.base.BaseActivity;
 
@@ -18,17 +20,17 @@ public class HomeActivity extends BaseActivity {
 
     private static final String TAG = "HomeActivity";
 
-    public static final String FRAGMENT_TAG_HOME = "fragment_tag_home";
     public static final String FRAGMENT_TAG_CORE = "fragment_tag_core";
+    public static final String FRAGMENT_TAG_NEWS = "fragment_tag_news";
     public static final String FRAGMENT_TAG_FORUM = "fragment_tag_forum";
     public static final String FRAGMENT_TAG_MINE = "fragment_tag_mine";
 
-    @StringDef({FRAGMENT_TAG_HOME, FRAGMENT_TAG_CORE, FRAGMENT_TAG_FORUM, FRAGMENT_TAG_MINE})
+    @StringDef({FRAGMENT_TAG_CORE, FRAGMENT_TAG_NEWS, FRAGMENT_TAG_FORUM, FRAGMENT_TAG_MINE})
     private @interface FragmentTag {
     }
 
-    private HomeFragment mHomeFragment;
     private CoreFragment mCoreFragment;
+    private NewsFragment mNewsFragment;
     private ForumFragment mForumFragment;
     private MineFragment mMineFragment;
     private Fragment mCurrentFragment;
@@ -39,7 +41,18 @@ public class HomeActivity extends BaseActivity {
         setContentView(R.layout.activity_main);
 
         setBottomNavigationBar();
-        switchFragment(FRAGMENT_TAG_HOME);
+        switchFragment(FRAGMENT_TAG_CORE);
+        checkPermission();
+    }
+
+    private void checkPermission() {
+        ActivityCompat.requestPermissions(this,
+                new String[]{
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                        Manifest.permission.READ_PHONE_STATE
+                },
+                0
+        );
     }
 
     private void setBottomNavigationBar() {
@@ -50,7 +63,7 @@ public class HomeActivity extends BaseActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.navigation_home:
-                        switchFragment(FRAGMENT_TAG_HOME);
+                        switchFragment(FRAGMENT_TAG_NEWS);
                         return true;
                     case R.id.navigation_core:
                         switchFragment(FRAGMENT_TAG_CORE);
@@ -88,12 +101,12 @@ public class HomeActivity extends BaseActivity {
                 }
                 targetFragment = mMineFragment;
                 break;
-            case FRAGMENT_TAG_HOME:
+            case FRAGMENT_TAG_NEWS:
             default:
-                if (mHomeFragment == null) {
-                    mHomeFragment = new HomeFragment();
+                if (mNewsFragment == null) {
+                    mNewsFragment = new NewsFragment();
                 }
-                targetFragment = mHomeFragment;
+                targetFragment = mNewsFragment;
                 break;
         }
         FragmentTransaction transaction = getSupportFragmentManager()
