@@ -1,8 +1,13 @@
 package com.joi.school.fitness.tools.base;
 
 import android.annotation.SuppressLint;
-import android.app.ProgressDialog;
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
+import android.view.View;
+
+import com.joi.school.fitness.R;
 
 /**
  * @author Joi
@@ -11,32 +16,32 @@ import android.support.v4.app.Fragment;
 @SuppressLint("Registered")
 public abstract class BaseFragment extends Fragment {
 
-    private ProgressDialog progressDialog;
+    private Dialog mProgressDialog;
 
     @Override
     public void onDestroy() {
-        if (progressDialog != null) {
-            progressDialog.dismiss();
-            progressDialog = null;
+        if (mProgressDialog != null) {
+            mProgressDialog.dismiss();
+            mProgressDialog = null;
         }
         super.onDestroy();
     }
 
     private void checkAndInitLoadingDialog() {
-        if (progressDialog != null) {
+        if (mProgressDialog != null) {
             return;
         }
-        progressDialog = new ProgressDialog(getContext());
-        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        View view = LayoutInflater.from(getContext()).inflate(R.layout.dialog_progress, null, false);
+        mProgressDialog = new AlertDialog.Builder(getContext()).setView(view).create();
     }
 
     protected void showLoadingDialog() {
         checkAndInitLoadingDialog();
-        progressDialog.show();
+        mProgressDialog.show();
     }
 
     protected void dismissLoadingDialog() {
         checkAndInitLoadingDialog();
-        progressDialog.dismiss();
+        mProgressDialog.dismiss();
     }
 }

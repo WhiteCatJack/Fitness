@@ -6,7 +6,7 @@ import com.joi.school.fitness.tools.util.AndroidUtils;
 
 import java.util.List;
 import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledThreadPoolExecutor;
 
 import cn.bmob.v3.exception.BmobException;
 
@@ -20,7 +20,7 @@ public class ForumPresenter implements IForumContract.Presenter {
 
     private ForumFragment mView;
 
-    private ExecutorService mExecutor = Executors.newFixedThreadPool(1);
+    private ExecutorService mExecutor = new ScheduledThreadPoolExecutor(1);
 
     public ForumPresenter(ForumFragment mView) {
         this.mView = mView;

@@ -11,7 +11,6 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CenterCrop;
-import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.bumptech.glide.request.RequestOptions;
 import com.joi.school.fitness.tools.base.BaseActivity;
 import com.joi.school.fitness.tools.bean.ClientMailbox;
@@ -28,7 +27,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledThreadPoolExecutor;
 
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.exception.BmobException;
@@ -48,7 +47,7 @@ public class DemoActivity extends BaseActivity {
     private View mSportRecommendButton;
     private View mMealRecommendButton;
 
-    private ExecutorService mExecutor = Executors.newFixedThreadPool(1);
+    private ExecutorService mExecutor = new ScheduledThreadPoolExecutor(1);
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

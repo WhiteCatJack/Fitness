@@ -19,7 +19,7 @@ import com.joi.school.fitness.tools.widget.TagGroup;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledThreadPoolExecutor;
 
 import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.exception.BmobException;
@@ -36,13 +36,13 @@ public class NewPostActivity extends BaseActivity {
     private TagGroup mTagGroupView;
     private EditText mTitleEditText;
     private EditText mContentEditText;
-    private FloatingActionButton mComleteButton;
+    private FloatingActionButton mCompleteButton;
 
     private List<PostTag> mTagList;
     private List<String> mTagStringList;
     private PostTag mChosenPostTag;
 
-    private ExecutorService mExecutor = Executors.newFixedThreadPool(1);
+    private ExecutorService mExecutor = new ScheduledThreadPoolExecutor(1);
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -57,7 +57,7 @@ public class NewPostActivity extends BaseActivity {
         mTagGroupView = findViewById(R.id.tag_group);
         mTitleEditText = findViewById(R.id.tv_title);
         mContentEditText = findViewById(R.id.tv_content);
-        mComleteButton = findViewById(R.id.fab_complete);
+        mCompleteButton = findViewById(R.id.fab_complete);
 
         mTagGroupView.setOnTagClickListener(new TagGroup.OnTagClickListener() {
             @Override
@@ -65,7 +65,7 @@ public class NewPostActivity extends BaseActivity {
                 selectTag(mTagStringList.indexOf(tag));
             }
         });
-        mComleteButton.setOnClickListener(new View.OnClickListener() {
+        mCompleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 showLoadingDialog();

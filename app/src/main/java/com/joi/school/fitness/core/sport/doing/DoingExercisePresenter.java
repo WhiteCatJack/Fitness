@@ -7,7 +7,7 @@ import com.joi.school.fitness.tools.bmobsync.SyncBmobQuery;
 
 import java.util.List;
 import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledThreadPoolExecutor;
 
 import cn.bmob.v3.datatype.BmobPointer;
 import cn.bmob.v3.exception.BmobException;
@@ -26,7 +26,7 @@ class DoingExercisePresenter implements IDoingExerciseContract.Presenter {
         this.mView = activity;
     }
 
-    private ExecutorService mExecutor = Executors.newFixedThreadPool(1);
+    private ExecutorService mExecutor = new ScheduledThreadPoolExecutor(1);
 
     @Override
     public void getSportList(final ExerciseTask task) {

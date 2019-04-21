@@ -10,7 +10,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledThreadPoolExecutor;
 
 import cn.bmob.v3.datatype.BmobDate;
 import cn.bmob.v3.exception.BmobException;
@@ -29,7 +29,7 @@ class SportRecommendPresenter implements ISportRecommendContract.Presenter {
         this.mView = activity;
     }
 
-    private ExecutorService mExecutor = Executors.newFixedThreadPool(1);
+    private ExecutorService mExecutor = new ScheduledThreadPoolExecutor(1);
 
     @Override
     public void getTaskList() {

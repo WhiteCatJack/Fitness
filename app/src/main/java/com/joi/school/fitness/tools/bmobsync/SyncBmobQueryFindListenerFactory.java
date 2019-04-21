@@ -5,6 +5,7 @@ import com.joi.school.fitness.tools.bean.Article;
 import com.joi.school.fitness.tools.bean.ClientMailbox;
 import com.joi.school.fitness.tools.bean.DoingExerciseTask;
 import com.joi.school.fitness.tools.bean.ExerciseTask;
+import com.joi.school.fitness.tools.bean.HeatRecord;
 import com.joi.school.fitness.tools.bean.Post;
 import com.joi.school.fitness.tools.bean.PostTag;
 import com.joi.school.fitness.tools.bean.ServerMailbox;
@@ -85,6 +86,13 @@ class SyncBmobQueryFindListenerFactory {
             return (FindListener<T>) new FindListener<PostTag>() {
                 @Override
                 public void done(List<PostTag> list, BmobException e) {
+                    reflect.done((List<T>) list, e);
+                }
+            };
+        } else if (classEquals(HeatRecord.class, clazz)) {
+            return (FindListener<T>) new FindListener<HeatRecord>() {
+                @Override
+                public void done(List<HeatRecord> list, BmobException e) {
                     reflect.done((List<T>) list, e);
                 }
             };

@@ -16,7 +16,7 @@ import com.joi.school.fitness.tools.util.AndroidUtils;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledThreadPoolExecutor;
 
 /**
  * Description.
@@ -33,7 +33,7 @@ public class DoingExerciseActivity extends BaseActivity implements IDoingExercis
     private DoingExerciseListAdapter mAdapter;
     private DoingExerciseTask mDoingExerciseTask;
 
-    private ExecutorService mExecutor = Executors.newFixedThreadPool(1);
+    private ExecutorService mExecutor = new ScheduledThreadPoolExecutor(1);
 
     private IDoingExerciseContract.Presenter mPresenter;
 

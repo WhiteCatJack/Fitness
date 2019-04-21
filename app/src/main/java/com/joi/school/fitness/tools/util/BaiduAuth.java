@@ -31,9 +31,7 @@ public class BaiduAuth {
      * 该token有一定的有效期，需要自行管理，当失效时需重新获取.
      *
      * @param ak - 百度云官网获取的 API Key
-     * @param sk - 百度云官网获取的 Securet Key
-     * @return assess_token 示例：
-     * "24.460da4889caad24cccdb1fea17221975.2592000.1491995545.282335-1234567"
+     * @param sk - 百度云官网获取的 Secret Key
      */
     public static String getAuth(String ak, String sk) {
         // 获取token地址

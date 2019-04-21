@@ -53,9 +53,6 @@
         <activity
             android:name=".forum.postlist.postdetail.comment.CommentActivity"
             android:label="@string/title_comment" />
-        <activity
-            android:name=".core.sport.uploadexercise.UploadExerciseActivity"
-            android:label="@string/title_upload_completed_exercise" />
         <activity android:name=".forum.postlist.postdetail.comment.newcomment.NewCommentActivity" />
         <activity android:name=".home.articlelist.article.ArticleActivity" />
         <activity

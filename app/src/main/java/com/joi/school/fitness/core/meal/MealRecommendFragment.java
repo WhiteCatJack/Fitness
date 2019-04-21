@@ -22,6 +22,8 @@ import com.joi.school.fitness.tools.util.HttpUtil;
 import com.joi.school.fitness.tools.util.MealRecognitionUtils;
 
 import java.net.URLEncoder;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.ScheduledThreadPoolExecutor;
 
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.SaveListener;
@@ -38,6 +40,8 @@ public class MealRecommendFragment extends BaseFragment {
 
     private static final int MEAL_SCAN_FILE_SYSTEM_PHOTO_REQUEST_CODE = 1;
     private static final int MEAL_SCAN_CAMERA_PHOTO_REQUEST_CODE = 2;
+
+    private ExecutorService mExecutor = new ScheduledThreadPoolExecutor(1);
 
     private TextView mTestScanButton;
 
@@ -111,7 +115,7 @@ public class MealRecommendFragment extends BaseFragment {
 
     private void doMealRecognition(final String base64) {
         showLoadingDialog();
-        new Thread(new Runnable() {
+        mExecutor.execute(new Runnable() {
             @Override
             public void run() {
                 String result = null;
@@ -132,7 +136,7 @@ public class MealRecommendFragment extends BaseFragment {
                     }
                 });
             }
-        }).start();
+        });
     }
 
 }

@@ -1,11 +1,14 @@
 package com.joi.school.fitness.tools.base;
 
 import android.annotation.SuppressLint;
-import android.app.ProgressDialog;
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.view.LayoutInflater;
+import android.view.View;
 
 import com.joi.school.fitness.R;
 import com.joi.school.fitness.tools.user.UserEngine;
@@ -20,7 +23,7 @@ import com.joi.school.fitness.tools.util.Navigation;
 public class BaseActivity extends AppCompatActivity {
 
     private Context mContext;
-    private ProgressDialog progressDialog;
+    private Dialog mProgressDialog;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -43,9 +46,9 @@ public class BaseActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
-        if (progressDialog != null) {
-            progressDialog.dismiss();
-            progressDialog = null;
+        if (mProgressDialog != null) {
+            mProgressDialog.dismiss();
+            mProgressDialog = null;
         }
         if (mContext != null) {
             mContext = null;
@@ -66,20 +69,20 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     private void checkAndInitLoadingDialog() {
-        if (progressDialog != null) {
+        if (mProgressDialog != null) {
             return;
         }
-        progressDialog = new ProgressDialog(this);
-        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        View view = LayoutInflater.from(this).inflate(R.layout.dialog_progress, null, false);
+        mProgressDialog = new AlertDialog.Builder(this).setView(view).create();
     }
 
     protected void showLoadingDialog() {
         checkAndInitLoadingDialog();
-        progressDialog.show();
+        mProgressDialog.show();
     }
 
     protected void dismissLoadingDialog() {
         checkAndInitLoadingDialog();
-        progressDialog.dismiss();
+        mProgressDialog.dismiss();
     }
 }
