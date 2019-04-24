@@ -1,67 +1,65 @@
 <resources>
-    <string name="app_name">Fitness</string>
-    <string name="title_news">news</string>
-    <string name="title_core">Core</string>
-    <string name="title_forum">Forum</string>
-    <string name="title_mine">Mine</string>
+    <string name="app_name">健康达人</string>
+    <string name="title_news">新鲜事</string>
+    <string name="title_core">核心</string>
+    <string name="title_forum">社区</string>
+    <string name="title_mine">我</string>
 
-    <string name="title_new_post">New post</string>
-    <string name="toast_new_post_success">You have created a new post!</string>
-    <string name="hint_new_post_title">Please input title here.</string>
-    <string name="hint_new_post_content">Please input content here.</string>
-    <string name="title_post">post</string>
+    <string name="title_new_post">发表</string>
+    <string name="toast_new_post_success">你刚刚作了一个新的发表！</string>
+    <string name="hint_new_post_title">题目</string>
+    <string name="hint_new_post_content">内容</string>
+    <string name="title_post">发表</string>
 
-    <string name="warning_not_sign_in">Not signed in! Please sign in first.</string>
-    <string name="button_sign_in">Sign in</string>
-    <string name="hint_sign_username">Please input username here.</string>
-    <string name="button_sign_up">Sign up</string>
-    <string name="button_sign_up_link">No account yet? Create one</string>
-    <string name="hint_sign_password">Please input password here.</string>
-    <string name="button_sign_out">Sign out</string>
+    <string name="warning_not_sign_in">请先登录。</string>
+    <string name="button_sign_in">登录</string>
+    <string name="hint_sign_username">账号</string>
+    <string name="button_sign_up">注册</string>
+    <string name="button_sign_up_link">还没有账号？来注册一个。</string>
+    <string name="hint_sign_password">密码</string>
+    <string name="button_sign_out">注销</string>
 
-    <string name="title_core_sport_recommend">Sport Recommend</string>
-    <string name="title_core_meal_recommend">Meal Recommend</string>
-    <string name="title_core_assessment">In 30-Day Assessment</string>
+    <string name="title_core_sport_recommend">运动推荐</string>
+    <string name="title_core_meal_recommend">菜品推荐</string>
+    <string name="title_core_assessment">30天评估</string>
 
-    <string name="title_core_no_physical_statistic_hint">No physical statistic!</string>
-    <string name="title_physical_statistic">Physical statistic</string>
-    <string name="button_physical_statistic_link">Go to make a physical statistic</string>
-    <string name="title_set_physical_statistic">Set physical statistic</string>
+    <string name="title_core_no_physical_statistic_hint">没有身体数据！</string>
+    <string name="title_physical_statistic">身体数据</string>
+    <string name="button_physical_statistic_link">去设置身体数据</string>
+    <string name="title_set_physical_statistic">设置身体数据</string>
 
-    <string name="title_set_my_information">Set my information</string>
-    <string name="title_set_my_info_avatar">Set avatar</string>
-    <string name="title_set_my_info_nickname">Set nickname</string>
-    <string name="title_set_my_info_personalized_signature">Set personalized signature</string>
+    <string name="title_set_my_information">设置个人信息</string>
+    <string name="title_set_my_info_avatar">设置头像</string>
 
-    <string name="title_set_physical_statistic_height">Your height(cm):</string>
-    <string name="title_set_physical_statistic_weight">Your weight(kg):</string>
-    <string name="title_set_physical_statistic_heart_rate">Your heart rate(bpm):</string>
-    <string name="title_set_physical_statistic_lung_capacity">Your lung capacity(ml):</string>
-    <string name="submit">Submit</string>
+    <string name="title_set_my_info_nickname">设置昵称</string>
+    <string name="title_set_my_info_personalized_signature">设置个性签名</string>
 
-    <string name="title_comment">Comment</string>
+    <string name="title_set_physical_statistic_height">身高（厘米）：</string>
+    <string name="title_set_physical_statistic_weight">体重（千克）：</string>
+    <string name="title_set_physical_statistic_heart_rate">心率（每分钟跳动次数）：</string>
+    <string name="title_set_physical_statistic_lung_capacity">肺活量（毫升）：</string>
+    <string name="submit">提交</string>
 
-    <string name="hint_set_physical_statistic_complete">You have been created a new physical statistic record.</string>
+    <string name="hint_set_physical_statistic_complete">您新建了一个新的身体参数记录！</string>
 
-    <string name="unknown_error">Unknown error</string>
+    <string name="unknown_error">未知错误</string>
 
-    <string name="title_sport_recommend">Sport recommend</string>
-    <string name="hint_new_recommend">We have been recommend a new thing to you! Do you like it?</string>
+    <string name="title_sport_recommend">运动推荐</string>
+    <string name="hint_new_recommend">我们做了一个新的推荐，您喜欢吗？</string>
 
-    <string name="title_meal_recommend">Meal recommend</string>
-    <string name="title_meal_scan">Meal scan</string>
+    <string name="title_meal_recommend">菜品推荐</string>
+    <string name="title_meal_scan">菜品识别</string>
 
-    <string name="yes">yes</string>
-    <string name="no">no</string>
+    <string name="like">喜欢</string>
+    <string name="unlike">不喜欢</string>
+    <string name="title_comment">评论</string>
+    <string name="from_camera">相机</string>
+    <string name="from_file_system">从相册选择</string>
+    <string name="title_upload_completed_exercise">上传完成的锻炼</string>
+    <string name="hint_upload_completed_exercise_complete">你成功上传了一个新的锻炼记录</string>
+    <string name="hint_upload_meal_complete">你成功上传了一个菜品食用记录</string>
 
-    <string name="from_camera">From camera</string>
-    <string name="from_file_system">From file system</string>
-
-    <string name="title_upload_completed_exercise">Upload completed exercise</string>
-    <string name="hint_upload_completed_exercise_complete">You have been upload a new exercise record.</string>
-    <string name="hint_upload_meal_complete">You have been upload your meal.</string>
-
-    <string name="toast_new_comment_success">You have created a new comment!</string>
+    <string name="toast_new_comment_success">你成功发表了一个评论</string>
 
 
 </resources>

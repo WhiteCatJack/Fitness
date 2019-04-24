@@ -15,6 +15,7 @@ import com.joi.school.fitness.forum.ForumFragment;
 import com.joi.school.fitness.home.NewsFragment;
 import com.joi.school.fitness.mine.MineFragment;
 import com.joi.school.fitness.tools.base.BaseActivity;
+import com.joi.school.fitness.tools.util.DataManipulator;
 
 public class HomeActivity extends BaseActivity {
 
@@ -43,6 +44,11 @@ public class HomeActivity extends BaseActivity {
         setBottomNavigationBar();
         switchFragment(FRAGMENT_TAG_CORE);
         checkPermission();
+        manipulateData();
+    }
+
+    private void manipulateData() {
+        DataManipulator.HeatRecordDataManipulator.createHeatRecordTable();
     }
 
     private void checkPermission() {

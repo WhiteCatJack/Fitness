@@ -39,6 +39,6 @@ class DoingExerciseViewHolder extends RecyclerView.ViewHolder {
                 .apply(RequestOptions.bitmapTransform(new CenterCrop()))
                 .placeholder(R.drawable.ui_placeholder)
                 .into(coverImageView);
-        titleTextView.setText(sport.getSportKind());
+        titleTextView.setText(sport.getSportName());
     }
 }

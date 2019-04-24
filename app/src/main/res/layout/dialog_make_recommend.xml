@@ -50,7 +50,7 @@
                     android:id="@+id/tv_yes"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:text="@string/yes"
+                    android:text="@string/like"
                     android:textColor="@color/colorAccent" />
 
                 <TextView
@@ -58,7 +58,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_marginStart="20dp"
-                    android:text="@string/no"
+                    android:text="@string/unlike"
                     android:textColor="@color/colorAccent" />
             </LinearLayout>
         </LinearLayout>

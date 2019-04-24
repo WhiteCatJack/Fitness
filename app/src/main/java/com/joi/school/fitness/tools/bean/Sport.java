@@ -9,17 +9,18 @@ import com.joi.school.fitness.tools.bmobsync.SyncBmobObject;
  * createAt 2019/4/4 0004 10:35
  */
 public class Sport extends SyncBmobObject {
-    private String sportKind;
+    private String sportName;
     private int difficulty;
     private String sportImageUrl;
-    private double calories;
+    private String calorieUnit;
+    private double caloriesPerUnit;
 
-    public String getSportKind() {
-        return sportKind;
+    public String getSportName() {
+        return sportName;
     }
 
-    public Sport setSportKind(String sportKind) {
-        this.sportKind = sportKind;
+    public Sport setSportName(String sportName) {
+        this.sportName = sportName;
         return this;
     }
 
@@ -41,12 +42,21 @@ public class Sport extends SyncBmobObject {
         return this;
     }
 
-    public double getCalories() {
-        return calories;
+    public String getCalorieUnit() {
+        return calorieUnit;
     }
 
-    public Sport setCalories(double calories) {
-        this.calories = calories;
+    public Sport setCalorieUnit(String calorieUnit) {
+        this.calorieUnit = calorieUnit;
+        return this;
+    }
+
+    public double getCaloriesPerUnit() {
+        return caloriesPerUnit;
+    }
+
+    public Sport setCaloriesPerUnit(double caloriesPerUnit) {
+        this.caloriesPerUnit = caloriesPerUnit;
         return this;
     }
 }

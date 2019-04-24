@@ -224,7 +224,7 @@ public class DemoActivity extends BaseActivity {
                 .apply(RequestOptions.bitmapTransform(new CenterCrop()))
                 .placeholder(R.drawable.ui_placeholder)
                 .into(sportImageView);
-        sportNameView.setText(sport.getSportKind());
+        sportNameView.setText(sport.getSportName());
 
         dialog.show();
     }
