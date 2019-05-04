@@ -61,6 +61,7 @@
 
     <string name="toast_new_comment_success">你成功发表了一个评论</string>
     <string name="title_history_heat_outcome">历史运动消耗</string>
+    <string name="title_my_exercise_task_recommend">我的运动任务推荐</string>
 
 
 </resources>

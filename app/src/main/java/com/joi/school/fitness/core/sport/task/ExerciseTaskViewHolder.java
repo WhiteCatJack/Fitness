@@ -1,4 +1,4 @@
-package com.joi.school.fitness.core.sport;
+package com.joi.school.fitness.core.sport.task;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;

@@ -1,49 +1,51 @@
 package com.joi.school.fitness.core.sport;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.joi.school.fitness.R;
+import com.joi.school.fitness.core.sport.task.ExerciseTaskListActivity;
 import com.joi.school.fitness.tools.base.BaseFragment;
-import com.joi.school.fitness.tools.base.OnItemClickListener;
-import com.joi.school.fitness.tools.bean.DoingExerciseTask;
-import com.joi.school.fitness.tools.transform.ExerciseTaskWrapper;
-import com.joi.school.fitness.tools.util.Navigation;
+import com.joi.school.fitness.tools.bean.Sport;
+import com.joi.school.fitness.tools.bean.SportRecommend;
+import com.joi.school.fitness.tools.bmobsync.SyncBmobQuery;
+import com.joi.school.fitness.tools.transform.SportRecommendWrapper;
+
+import org.json.JSONException;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.ScheduledThreadPoolExecutor;
+
+import cn.bmob.v3.exception.BmobException;
 
 /**
  * Description.
  *
- * @author Joi
- * createAt 2019/4/1 0001 15:28
+ * @author 泽乾
+ * createAt 2019/5/4 0004 18:56
  */
-public class SportRecommendFragment extends BaseFragment implements ISportRecommendContract.View {
+public class SportRecommendFragment extends BaseFragment {
 
-    private RecyclerView mTaskListRecyclerView;
-    private View mCompleteTaskLayout;
+    private View mMyTaskButton;
+    private RecyclerView mTaskRecommendRecyclerView;
 
-    private List<ExerciseTaskWrapper> mExerciseTaskList = new ArrayList<>();
-    private ExerciseTaskListAdapter mAdapter;
-
-    private ISportRecommendContract.Presenter mPresenter;
+    private ExecutorService mExecutor = new ScheduledThreadPoolExecutor(1);
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View layout = inflater.inflate(R.layout.fragment_sport_recommend, container, false);
 
-        mTaskListRecyclerView = layout.findViewById(R.id.rv_list);
-        mCompleteTaskLayout = layout.findViewById(R.id.fl_complete_task);
+        mMyTaskButton = layout.findViewById(R.id.bt_my_task);
+        mTaskRecommendRecyclerView = layout.findViewById(R.id.rv_list);
 
         return layout;
     }
@@ -52,54 +54,62 @@ public class SportRecommendFragment extends BaseFragment implements ISportRecomm
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        mPresenter = new SportRecommendPresenter(this);
-
-        mAdapter = new ExerciseTaskListAdapter(mExerciseTaskList);
-        mAdapter.setOnItemClickListener(new OnItemClickListener<ExerciseTaskWrapper>() {
+        mMyTaskButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onItemClick(final ExerciseTaskWrapper data) {
-                // 提示开始执行此运动task
-                new AlertDialog.Builder(getContext())
-                        .setMessage("确定要以此为今天的运动目标吗？")
-                        .setPositiveButton("是", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                mPresenter.chooseTask(data);
-                            }
-                        })
-                        .setNegativeButton("否", null)
-                        .create().show();
+            public void onClick(View v) {
+                startActivity(new Intent(getContext(), ExerciseTaskListActivity.class));
             }
         });
-        mTaskListRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        mTaskListRecyclerView.setAdapter(mAdapter);
 
-        mPresenter.getTaskList();
+        getSportRecommendList();
     }
 
-    @Override
-    public void hasDoingTask(DoingExerciseTask task) {
-        Navigation.goToDoingExerciseTaskActivity(getContext(), task);
+    private void getSportRecommendList() {
+        mExecutor.execute(new Runnable() {
+            @Override
+            public void run() {
+                final List<SportRecommendWrapper> resultList = new ArrayList<>();
+                try {
+                    SyncBmobQuery<Sport> sportQuery = new SyncBmobQuery<>(Sport.class);
+                    List<Sport> sportList = sportQuery.syncFindObjects();
+
+                    SyncBmobQuery<SportRecommend> query = new SyncBmobQuery<>(SportRecommend.class);
+                    query.order("-createdAt");
+                    query.setLimit(30);
+                    List<SportRecommend> sportRecommendList = query.syncFindObjects();
+
+                    for (SportRecommend sportRecommend : sportRecommendList) {
+                        SportRecommendWrapper wrapper = new SportRecommendWrapper(sportRecommend);
+                        List<Sport> taskSportList = new ArrayList<>();
+                        List<String> sportIdList = wrapper.getSportIdList();
+                        for (String id : sportIdList) {
+                            for (Sport sport : sportList) {
+                                if (sport.getObjectId().equals(id)) {
+                                    taskSportList.add(sport);
+                                }
+                            }
+                        }
+                        wrapper.setSportList(taskSportList);
+                        resultList.add(wrapper);
+                    }
+
+                } catch (BmobException e) {
+                    e.printStackTrace();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        showSportRecommendList(resultList);
+                    }
+                });
+            }
+        });
     }
 
-    @Override
-    public void showTaskList(List<ExerciseTaskWrapper> taskList) {
-        mCompleteTaskLayout.setVisibility(View.GONE);
-        mTaskListRecyclerView.setVisibility(View.VISIBLE);
+    private void showSportRecommendList(List<SportRecommendWrapper> dataList) {
 
-        mExerciseTaskList.clear();
-        mExerciseTaskList.addAll(taskList);
-        mAdapter.notifyDataSetChanged();
-    }
-
-    @Override
-    public void completeChooseTask(DoingExerciseTask task) {
-        Navigation.goToDoingExerciseTaskActivity(getContext(), task);
-    }
-
-    @Override
-    public void todayTaskDone() {
-        mCompleteTaskLayout.setVisibility(View.VISIBLE);
-        mTaskListRecyclerView.setVisibility(View.GONE);
     }
 }

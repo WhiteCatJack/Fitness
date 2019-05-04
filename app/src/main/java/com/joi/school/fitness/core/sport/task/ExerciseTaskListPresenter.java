@@ -1,4 +1,4 @@
-package com.joi.school.fitness.core.sport;
+package com.joi.school.fitness.core.sport.task;
 
 import com.joi.school.fitness.tools.bean.DoingExerciseTask;
 import com.joi.school.fitness.tools.bean.ExerciseTask;
@@ -22,11 +22,11 @@ import cn.bmob.v3.exception.BmobException;
  * @author Joi
  * createAt 2019/4/1 0001 15:28
  */
-class SportRecommendPresenter implements ISportRecommendContract.Presenter {
+class ExerciseTaskListPresenter implements IExerciseTaskListContract.Presenter {
 
-    private SportRecommendFragment mView;
+    private ExerciseTaskListActivity mView;
 
-    public SportRecommendPresenter(SportRecommendFragment activity) {
+    public ExerciseTaskListPresenter(ExerciseTaskListActivity activity) {
         this.mView = activity;
     }
 
@@ -56,7 +56,7 @@ class SportRecommendPresenter implements ISportRecommendContract.Presenter {
                     final List<DoingExerciseTask> doingExerciseTaskList = doingExerciseTaskSyncBmobQuery.syncFindObjects();
                     if (doingExerciseTaskList.size() > 0) {
                         final DoingExerciseTask doingExerciseTask = doingExerciseTaskList.get(0);
-                        mView.getActivity().runOnUiThread(new Runnable() {
+                        mView.runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
                                 if (doingExerciseTask.getComplete()){
@@ -74,14 +74,14 @@ class SportRecommendPresenter implements ISportRecommendContract.Presenter {
                     taskListQuery.addWhereGreaterThanOrEqualTo("createdAt", today00);
 
                     final List<ExerciseTask> result = taskListQuery.syncFindObjects();
-                    mView.getActivity().runOnUiThread(new Runnable() {
+                    mView.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
                             mView.showTaskList(ExerciseTaskWrapper.fromOriginal(result));
                         }
                     });
                 } catch (BmobException e) {
-                    AndroidUtils.showErrorMainThread(mView.getActivity(), e);
+                    AndroidUtils.showErrorMainThread(mView, e);
                 }
             }
         });
@@ -97,14 +97,14 @@ class SportRecommendPresenter implements ISportRecommendContract.Presenter {
                             .setUser(UserEngine.getInstance().getCurrentUser())
                             .setTask(taskWrapper.getTask());
                     doingExerciseTask.syncSave();
-                    mView.getActivity().runOnUiThread(new Runnable() {
+                    mView.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
                             mView.completeChooseTask(doingExerciseTask);
                         }
                     });
                 } catch (BmobException e) {
-                    AndroidUtils.showErrorMainThread(mView.getActivity(), e);
+                    AndroidUtils.showErrorMainThread(mView, e);
                 }
             }
         });

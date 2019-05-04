@@ -1,4 +1,4 @@
-package com.joi.school.fitness.core.sport;
+package com.joi.school.fitness.core.sport.task;
 
 import com.joi.school.fitness.tools.bean.DoingExerciseTask;
 import com.joi.school.fitness.tools.transform.ExerciseTaskWrapper;
@@ -11,7 +11,7 @@ import java.util.List;
  * @author Joi
  * createAt 2019/4/17 0017 20:48
  */
-interface ISportRecommendContract {
+interface IExerciseTaskListContract {
     interface View {
         void hasDoingTask(DoingExerciseTask doingExerciseTask);
 

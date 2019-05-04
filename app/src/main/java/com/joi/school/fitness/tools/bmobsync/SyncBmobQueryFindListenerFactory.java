@@ -10,6 +10,7 @@ import com.joi.school.fitness.tools.bean.Post;
 import com.joi.school.fitness.tools.bean.PostTag;
 import com.joi.school.fitness.tools.bean.ServerMailbox;
 import com.joi.school.fitness.tools.bean.Sport;
+import com.joi.school.fitness.tools.bean.SportRecommend;
 
 import java.util.List;
 
@@ -93,6 +94,13 @@ class SyncBmobQueryFindListenerFactory {
             return (FindListener<T>) new FindListener<HeatRecord>() {
                 @Override
                 public void done(List<HeatRecord> list, BmobException e) {
+                    reflect.done((List<T>) list, e);
+                }
+            };
+        } else if (classEquals(SportRecommend.class, clazz)) {
+            return (FindListener<T>) new FindListener<SportRecommend>() {
+                @Override
+                public void done(List<SportRecommend> list, BmobException e) {
                     reflect.done((List<T>) list, e);
                 }
             };

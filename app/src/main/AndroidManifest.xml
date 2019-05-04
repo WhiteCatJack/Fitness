@@ -59,6 +59,7 @@
             android:name=".DemoActivity"
             android:label="Demo" />
         <activity android:name=".core.sport.doing.DoingExerciseActivity" />
+        <activity android:name=".core.sport.task.ExerciseTaskListActivity" />
     </application>
 
 </manifest>
