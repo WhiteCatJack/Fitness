@@ -3,6 +3,7 @@ package com.joi.school.fitness.tools.bean;
 import com.joi.school.fitness.tools.bmobsync.SyncBmobObject;
 
 import cn.bmob.v3.datatype.BmobDate;
+import cn.bmob.v3.exception.BmobException;
 
 /**
  * Description.
@@ -25,6 +26,14 @@ public class HeatRecord extends SyncBmobObject {
 
     // 1早餐2午餐3晚餐4运动消耗, 0不正常数值
     private int type = Type.TYPE_UNKNOWN;
+
+    @Override
+    public String syncSave() throws BmobException {
+        if (type == Type.TYPE_UNKNOWN){
+            return null;
+        }
+        return super.syncSave();
+    }
 
     public FitnessUser getUser() {
         return user;

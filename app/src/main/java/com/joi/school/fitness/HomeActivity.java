@@ -1,6 +1,9 @@
 package com.joi.school.fitness;
 
 import android.Manifest;
+import android.app.AlertDialog;
+import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.StringDef;
@@ -8,6 +11,7 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.view.Menu;
 import android.view.MenuItem;
 
 import com.joi.school.fitness.core.CoreFragment;
@@ -15,9 +19,11 @@ import com.joi.school.fitness.forum.ForumFragment;
 import com.joi.school.fitness.home.NewsFragment;
 import com.joi.school.fitness.mine.MineFragment;
 import com.joi.school.fitness.tools.base.BaseActivity;
+import com.joi.school.fitness.tools.bean.Meal;
+import com.joi.school.fitness.tools.util.AndroidUtils;
 import com.joi.school.fitness.tools.util.DataManipulator;
 
-public class HomeActivity extends BaseActivity {
+public class HomeActivity extends BaseActivity implements IHomeContract.View {
 
     private static final String TAG = "HomeActivity";
 
@@ -25,6 +31,42 @@ public class HomeActivity extends BaseActivity {
     public static final String FRAGMENT_TAG_NEWS = "fragment_tag_news";
     public static final String FRAGMENT_TAG_FORUM = "fragment_tag_forum";
     public static final String FRAGMENT_TAG_MINE = "fragment_tag_mine";
+
+    private static final int MEAL_SCAN_FILE_SYSTEM_PHOTO_REQUEST_CODE = 1;
+    private static final int MEAL_SCAN_CAMERA_PHOTO_REQUEST_CODE = 2;
+
+    private IHomeContract.Presenter mPresenter;
+
+    @Override
+    public void mealRecognitionDone(Meal meal, String resultJson) {
+        dismissLoadingDialog();
+        if (meal == null) {
+            AndroidUtils.showUnknownErrorToast();
+            return;
+        }
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setMessage(resultJson);
+        builder.create().show();
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == RESULT_OK) {
+            switch (requestCode) {
+                case MEAL_SCAN_FILE_SYSTEM_PHOTO_REQUEST_CODE:
+                case MEAL_SCAN_CAMERA_PHOTO_REQUEST_CODE:
+                    Bitmap bitmap = AndroidUtils.readPhotoFromIntent(this, data);
+                    if (bitmap != null) {
+                        showLoadingDialog();
+                        mPresenter.doMealRecognition(bitmap);
+                    } else {
+                        AndroidUtils.showUnknownErrorToast();
+                    }
+                    break;
+            }
+        }
+    }
 
     @StringDef({FRAGMENT_TAG_CORE, FRAGMENT_TAG_NEWS, FRAGMENT_TAG_FORUM, FRAGMENT_TAG_MINE})
     private @interface FragmentTag {
@@ -39,12 +81,13 @@ public class HomeActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mPresenter = new HomePresenter(this);
         setContentView(R.layout.activity_main);
 
         setBottomNavigationBar();
         switchFragment(FRAGMENT_TAG_CORE);
         checkPermission();
-        manipulateData();
+//        manipulateData();
     }
 
     private void manipulateData() {
@@ -52,7 +95,8 @@ public class HomeActivity extends BaseActivity {
     }
 
     private void checkPermission() {
-        ActivityCompat.requestPermissions(this,
+        ActivityCompat.requestPermissions(
+                this,
                 new String[]{
                         Manifest.permission.WRITE_EXTERNAL_STORAGE,
                         Manifest.permission.READ_PHONE_STATE
@@ -84,6 +128,26 @@ public class HomeActivity extends BaseActivity {
                 return false;
             }
         });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.action_bar, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.action_bar_meal_recognize) {
+            AndroidUtils.showPhotoChoiceDialog(this,
+                                               MEAL_SCAN_CAMERA_PHOTO_REQUEST_CODE, MEAL_SCAN_FILE_SYSTEM_PHOTO_REQUEST_CODE
+            );
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     private void switchFragment(@FragmentTag String fragmentTag) {

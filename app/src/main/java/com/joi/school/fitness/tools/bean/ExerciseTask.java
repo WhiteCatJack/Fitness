@@ -2,8 +2,6 @@ package com.joi.school.fitness.tools.bean;
 
 import com.joi.school.fitness.tools.bmobsync.SyncBmobObject;
 
-import cn.bmob.v3.datatype.BmobRelation;
-
 /**
  * Description.
  *
@@ -12,7 +10,7 @@ import cn.bmob.v3.datatype.BmobRelation;
  */
 public class ExerciseTask extends SyncBmobObject {
     private FitnessUser targetUser;
-    private BmobRelation recommendedSports;
+    private String      data;
 
     public FitnessUser getTargetUser() {
         return targetUser;
@@ -23,12 +21,12 @@ public class ExerciseTask extends SyncBmobObject {
         return this;
     }
 
-    public BmobRelation getRecommendedSports() {
-        return recommendedSports;
+    public String getData() {
+        return data;
     }
 
-    public ExerciseTask setRecommendedSports(BmobRelation recommendedMeals) {
-        this.recommendedSports = recommendedMeals;
+    public ExerciseTask setData(String data) {
+        this.data = data;
         return this;
     }
 }

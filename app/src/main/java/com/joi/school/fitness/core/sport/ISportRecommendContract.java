@@ -1,7 +1,7 @@
 package com.joi.school.fitness.core.sport;
 
 import com.joi.school.fitness.tools.bean.DoingExerciseTask;
-import com.joi.school.fitness.tools.bean.ExerciseTask;
+import com.joi.school.fitness.tools.transform.ExerciseTaskWrapper;
 
 import java.util.List;
 
@@ -15,7 +15,7 @@ interface ISportRecommendContract {
     interface View {
         void hasDoingTask(DoingExerciseTask doingExerciseTask);
 
-        void showTaskList(List<ExerciseTask> taskList);
+        void showTaskList(List<ExerciseTaskWrapper> taskList);
 
         void completeChooseTask(DoingExerciseTask task);
 
@@ -25,6 +25,6 @@ interface ISportRecommendContract {
     interface Presenter {
         void getTaskList();
 
-        void chooseTask(ExerciseTask task);
+        void chooseTask(ExerciseTaskWrapper task);
     }
 }

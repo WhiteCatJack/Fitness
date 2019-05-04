@@ -6,19 +6,21 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.joi.school.fitness.R;
 import com.joi.school.fitness.tools.base.BaseFragment;
-import com.joi.school.fitness.tools.bean.HeatRecord;
-import com.joi.school.fitness.tools.bmobsync.SyncBmobQuery;
 import com.joi.school.fitness.tools.user.UserEngine;
 import com.joi.school.fitness.tools.util.AndroidUtils;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.ScheduledThreadPoolExecutor;
 
-import cn.bmob.v3.exception.BmobException;
+import lecho.lib.hellocharts.model.Axis;
+import lecho.lib.hellocharts.model.Line;
+import lecho.lib.hellocharts.model.LineChartData;
+import lecho.lib.hellocharts.model.PointValue;
+import lecho.lib.hellocharts.view.LineChartView;
 
 /**
  * Description.
@@ -26,13 +28,28 @@ import cn.bmob.v3.exception.BmobException;
  * @author Joi
  * createAt 2019/4/1 0001 15:28
  */
-public class AssessmentFragment extends BaseFragment {
-    private ExecutorService mExecutor = new ScheduledThreadPoolExecutor(1);
+public class AssessmentFragment extends BaseFragment implements IAssessmentContract.View {
+
+    private IAssessmentContract.Presenter mPresenter;
+
+    private LineChartView mOriginalChart;
+    private LineChartView mIncomeChart;
+    private TextView mOutcomeTitle;
+    private LineChartView mOutcomeChart;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View layout = inflater.inflate(R.layout.fragment_assesment, container, false);
+
+        mOriginalChart = layout.findViewById(R.id.chart_original);
+        mIncomeChart = layout.findViewById(R.id.chart_income);
+        mOutcomeTitle = layout.findViewById(R.id.tv_title_outcome);
+        mOutcomeChart = layout.findViewById(R.id.chart_outcome);
+
+        mOriginalChart.setInteractive(false);
+        mIncomeChart.setInteractive(false);
+        mOutcomeChart.setInteractive(false);
 
         return layout;
     }
@@ -40,28 +57,53 @@ public class AssessmentFragment extends BaseFragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
-        getHeatRecord();
+        mPresenter = new AssessmentPresenter(this);
+        mPresenter.getData(UserEngine.getInstance().getCurrentUser().getObjectId());
     }
 
-    private void getHeatRecord() {
-        mExecutor.execute(new Runnable() {
-            @Override
-            public void run() {
-                SyncBmobQuery<HeatRecord> query = new SyncBmobQuery<>(HeatRecord.class);
-                query.addWhereEqualTo("user", UserEngine.getInstance().getCurrentUser().getObjectId());
-                try {
-                    final List<HeatRecord> heatRecordList = query.syncFindObjects();
-                    getActivity().runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                        }
-                    });
-                } catch (BmobException e) {
-                    AndroidUtils.showErrorMainThread(getActivity(), e);
-                }
+    @Override
+    public void showOriginalData(double[] heatRecordList) {
+
+    }
+
+    @Override
+    public void showIncome(double[] heatRecordList) {
+
+    }
+
+    @Override
+    public void showOutcome(double[] heatRecordList) {
+        for (int i = 0; i < heatRecordList.length; i++) {
+            if (heatRecordList[i] < 0) {
+                heatRecordList[i] = -heatRecordList[i];
             }
-        });
+        }
+        setChartData(mOutcomeChart, heatRecordList);
+        mOutcomeChart.setVisibility(View.VISIBLE);
+        mOutcomeTitle.setVisibility(View.VISIBLE);
     }
 
+    private void setChartData(LineChartView chart, double[] array) {
+        List<PointValue> values = new ArrayList<>();
+        for (int i = 0; i < array.length; i++) {
+            values.add(new PointValue(i, (float) array[i]));
+        }
+
+        Line line = new Line(values).setColor(
+                AndroidUtils.getApplicationContext().getResources().getColor(R.color.colorPrimaryDark)
+        ).setCubic(true);
+        line.setStrokeWidth(3);
+        List<Line> lines = new ArrayList<>();
+        lines.add(line);
+
+        LineChartData data = new LineChartData();
+        data.setLines(lines);
+        Axis axis = new Axis();
+        axis.setLineColor(AndroidUtils.getApplicationContext().getResources().getColor(R.color.colorPrimaryDark));
+        axis.setTextColor(AndroidUtils.getApplicationContext().getResources().getColor(R.color.text_level1_color));
+        data.setAxisYLeft(axis);
+        data.setAxisXBottom(axis);
+
+        chart.setLineChartData(data);
+    }
 }

@@ -3,6 +3,7 @@ package com.joi.school.fitness.core.sport;
 import com.joi.school.fitness.tools.bean.DoingExerciseTask;
 import com.joi.school.fitness.tools.bean.ExerciseTask;
 import com.joi.school.fitness.tools.bmobsync.SyncBmobQuery;
+import com.joi.school.fitness.tools.transform.ExerciseTaskWrapper;
 import com.joi.school.fitness.tools.user.UserEngine;
 import com.joi.school.fitness.tools.util.AndroidUtils;
 
@@ -76,7 +77,7 @@ class SportRecommendPresenter implements ISportRecommendContract.Presenter {
                     mView.getActivity().runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            mView.showTaskList(result);
+                            mView.showTaskList(ExerciseTaskWrapper.fromOriginal(result));
                         }
                     });
                 } catch (BmobException e) {
@@ -87,14 +88,14 @@ class SportRecommendPresenter implements ISportRecommendContract.Presenter {
     }
 
     @Override
-    public void chooseTask(final ExerciseTask task) {
+    public void chooseTask(final ExerciseTaskWrapper taskWrapper) {
         mExecutor.execute(new Runnable() {
             @Override
             public void run() {
                 try {
                     final DoingExerciseTask doingExerciseTask = new DoingExerciseTask()
                             .setUser(UserEngine.getInstance().getCurrentUser())
-                            .setTask(task);
+                            .setTask(taskWrapper.getTask());
                     doingExerciseTask.syncSave();
                     mView.getActivity().runOnUiThread(new Runnable() {
                         @Override

@@ -60,6 +60,7 @@
     <string name="hint_upload_meal_complete">你成功上传了一个菜品食用记录</string>
 
     <string name="toast_new_comment_success">你成功发表了一个评论</string>
+    <string name="title_history_heat_outcome">历史运动消耗</string>
 
 
 </resources>

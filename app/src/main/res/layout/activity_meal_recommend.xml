@@ -4,16 +4,5 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <android.support.v7.widget.AppCompatButton
-        android:id="@+id/bt_test_meal_scan"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:layout_marginBottom="24dp"
-        android:background="@color/colorPrimaryDark"
-        android:padding="12dp"
-        android:text="@string/title_meal_scan"
-        android:textColor="@color/text_level1_color_inverse"
-        android:textSize="17dp" />
 
 </LinearLayout>

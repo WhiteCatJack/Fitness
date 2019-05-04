@@ -8,7 +8,7 @@ import android.widget.TextView;
 
 import com.joi.school.fitness.R;
 import com.joi.school.fitness.tools.base.OnItemClickListener;
-import com.joi.school.fitness.tools.bean.ExerciseTask;
+import com.joi.school.fitness.tools.transform.ExerciseTaskWrapper;
 import com.joi.school.fitness.tools.util.AndroidUtils;
 
 /**
@@ -23,7 +23,7 @@ class ExerciseTaskViewHolder extends RecyclerView.ViewHolder {
     private ImageView coverImageView;
     private TextView titleTextView;
 
-    private OnItemClickListener<ExerciseTask> mOnItemClickListener;
+    private OnItemClickListener<ExerciseTaskWrapper> mOnItemClickListener;
 
     public ExerciseTaskViewHolder(@NonNull View itemView) {
         super(itemView);
@@ -37,7 +37,7 @@ class ExerciseTaskViewHolder extends RecyclerView.ViewHolder {
         titleTextView = itemView.findViewById(R.id.tv_title);
     }
 
-    public void build(final ExerciseTask task) {
+    public void build(final ExerciseTaskWrapper task) {
         layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -50,7 +50,7 @@ class ExerciseTaskViewHolder extends RecyclerView.ViewHolder {
         titleTextView.setText("运动任务");
     }
 
-    public ExerciseTaskViewHolder setOnItemClickListener(OnItemClickListener<ExerciseTask> onItemClickListener) {
+    public ExerciseTaskViewHolder setOnItemClickListener(OnItemClickListener<ExerciseTaskWrapper> onItemClickListener) {
         this.mOnItemClickListener = onItemClickListener;
         return this;
     }

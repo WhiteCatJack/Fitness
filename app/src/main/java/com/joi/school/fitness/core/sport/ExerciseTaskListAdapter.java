@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 
 import com.joi.school.fitness.R;
 import com.joi.school.fitness.tools.base.OnItemClickListener;
-import com.joi.school.fitness.tools.bean.ExerciseTask;
+import com.joi.school.fitness.tools.transform.ExerciseTaskWrapper;
 
 import java.util.List;
 
@@ -19,10 +19,10 @@ import java.util.List;
  */
 class ExerciseTaskListAdapter extends RecyclerView.Adapter<ExerciseTaskViewHolder> {
 
-    private List<ExerciseTask> mDataList;
-    private OnItemClickListener<ExerciseTask> mOnItemClickListener;
+    private List<ExerciseTaskWrapper> mDataList;
+    private OnItemClickListener<ExerciseTaskWrapper> mOnItemClickListener;
 
-    public ExerciseTaskListAdapter(List<ExerciseTask> mDataList) {
+    public ExerciseTaskListAdapter(List<ExerciseTaskWrapper> mDataList) {
         this.mDataList = mDataList;
     }
 
@@ -38,7 +38,7 @@ class ExerciseTaskListAdapter extends RecyclerView.Adapter<ExerciseTaskViewHolde
 
     @Override
     public void onBindViewHolder(@NonNull ExerciseTaskViewHolder exerciseTaskViewHolder, int i) {
-        ExerciseTask exerciseTask = mDataList.get(i);
+        ExerciseTaskWrapper exerciseTask = mDataList.get(i);
         exerciseTaskViewHolder.build(exerciseTask);
     }
 
@@ -47,7 +47,7 @@ class ExerciseTaskListAdapter extends RecyclerView.Adapter<ExerciseTaskViewHolde
         return mDataList.size();
     }
 
-    public void setOnItemClickListener(OnItemClickListener<ExerciseTask> mOnItemClickListener) {
+    public void setOnItemClickListener(OnItemClickListener<ExerciseTaskWrapper> mOnItemClickListener) {
         this.mOnItemClickListener = mOnItemClickListener;
     }
 }

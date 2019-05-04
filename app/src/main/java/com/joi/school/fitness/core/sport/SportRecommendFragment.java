@@ -15,7 +15,7 @@ import com.joi.school.fitness.R;
 import com.joi.school.fitness.tools.base.BaseFragment;
 import com.joi.school.fitness.tools.base.OnItemClickListener;
 import com.joi.school.fitness.tools.bean.DoingExerciseTask;
-import com.joi.school.fitness.tools.bean.ExerciseTask;
+import com.joi.school.fitness.tools.transform.ExerciseTaskWrapper;
 import com.joi.school.fitness.tools.util.Navigation;
 
 import java.util.ArrayList;
@@ -32,7 +32,7 @@ public class SportRecommendFragment extends BaseFragment implements ISportRecomm
     private RecyclerView mTaskListRecyclerView;
     private View mCompleteTaskLayout;
 
-    private List<ExerciseTask> mExerciseTaskList = new ArrayList<>();
+    private List<ExerciseTaskWrapper> mExerciseTaskList = new ArrayList<>();
     private ExerciseTaskListAdapter mAdapter;
 
     private ISportRecommendContract.Presenter mPresenter;
@@ -55,9 +55,9 @@ public class SportRecommendFragment extends BaseFragment implements ISportRecomm
         mPresenter = new SportRecommendPresenter(this);
 
         mAdapter = new ExerciseTaskListAdapter(mExerciseTaskList);
-        mAdapter.setOnItemClickListener(new OnItemClickListener<ExerciseTask>() {
+        mAdapter.setOnItemClickListener(new OnItemClickListener<ExerciseTaskWrapper>() {
             @Override
-            public void onItemClick(final ExerciseTask data) {
+            public void onItemClick(final ExerciseTaskWrapper data) {
                 // 提示开始执行此运动task
                 new AlertDialog.Builder(getContext())
                         .setMessage("确定要以此为今天的运动目标吗？")
@@ -83,7 +83,7 @@ public class SportRecommendFragment extends BaseFragment implements ISportRecomm
     }
 
     @Override
-    public void showTaskList(List<ExerciseTask> taskList) {
+    public void showTaskList(List<ExerciseTaskWrapper> taskList) {
         mCompleteTaskLayout.setVisibility(View.GONE);
         mTaskListRecyclerView.setVisibility(View.VISIBLE);
 
