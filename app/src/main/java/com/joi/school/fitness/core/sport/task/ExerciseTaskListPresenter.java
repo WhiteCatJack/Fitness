@@ -39,11 +39,10 @@ class ExerciseTaskListPresenter implements IExerciseTaskListContract.Presenter {
             public void run() {
 
                 Calendar calendar = Calendar.getInstance();
-                calendar.set(Calendar.DATE, 17);
                 calendar.set(Calendar.HOUR_OF_DAY, 0);
                 calendar.set(Calendar.MINUTE, 0);
                 calendar.set(Calendar.SECOND, 0);
-                calendar.set(Calendar.MILLISECOND, 1);
+                calendar.set(Calendar.MILLISECOND, 0);
                 Date date = calendar.getTime();
                 BmobDate today00 = new BmobDate(date);
 
@@ -71,7 +70,7 @@ class ExerciseTaskListPresenter implements IExerciseTaskListContract.Presenter {
 
                     SyncBmobQuery<ExerciseTask> taskListQuery = new SyncBmobQuery<>(ExerciseTask.class);
                     taskListQuery.addWhereEqualTo("targetUser", UserEngine.getInstance().getCurrentUser().getObjectId());
-                    taskListQuery.addWhereGreaterThanOrEqualTo("createdAt", today00);
+                    taskListQuery.addWhereGreaterThanOrEqualTo("time", today00);
 
                     final List<ExerciseTask> result = taskListQuery.syncFindObjects();
                     mView.runOnUiThread(new Runnable() {

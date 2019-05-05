@@ -2,8 +2,10 @@ package com.joi.school.fitness.core.sport;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.MainThread;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -35,6 +37,9 @@ import cn.bmob.v3.exception.BmobException;
 public class SportRecommendFragment extends BaseFragment {
 
     private View mMyTaskButton;
+
+    private List<SportRecommendWrapper> mDataList = new ArrayList<>();
+    private RecommendedTaskListAdapter mAdapter = new RecommendedTaskListAdapter(mDataList);
     private RecyclerView mTaskRecommendRecyclerView;
 
     private ExecutorService mExecutor = new ScheduledThreadPoolExecutor(1);
@@ -60,6 +65,9 @@ public class SportRecommendFragment extends BaseFragment {
                 startActivity(new Intent(getContext(), ExerciseTaskListActivity.class));
             }
         });
+
+        mTaskRecommendRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        mTaskRecommendRecyclerView.setAdapter(mAdapter);
 
         getSportRecommendList();
     }
@@ -109,7 +117,10 @@ public class SportRecommendFragment extends BaseFragment {
         });
     }
 
+    @MainThread
     private void showSportRecommendList(List<SportRecommendWrapper> dataList) {
-
+        mDataList.clear();
+        mDataList.addAll(dataList);
+        mAdapter.notifyDataSetChanged();
     }
 }

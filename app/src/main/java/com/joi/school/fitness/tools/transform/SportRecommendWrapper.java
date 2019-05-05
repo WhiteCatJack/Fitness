@@ -52,10 +52,11 @@ public class SportRecommendWrapper {
             String sportId = (String) array.get(i);
             sportIdList.add(sportId);
         }
+        timeInMinuteList = new ArrayList<>();
         array = jsonObject.optJSONArray(JSON_KEY_TIME_LIST);
         for (int i = 0; i < array.length(); i++) {
-            Double timeInMinute = Double.valueOf((String) array.get(i));
-            timeInMinuteList.add(timeInMinute.intValue());
+            Integer timeInMinute = (Integer) array.get(i);
+            timeInMinuteList.add(timeInMinute);
         }
     }
 
