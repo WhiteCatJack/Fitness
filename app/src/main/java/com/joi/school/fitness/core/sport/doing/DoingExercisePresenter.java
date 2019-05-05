@@ -4,12 +4,16 @@ import com.joi.school.fitness.tools.bean.DoingExerciseTask;
 import com.joi.school.fitness.tools.bean.ExerciseTask;
 import com.joi.school.fitness.tools.bean.Sport;
 import com.joi.school.fitness.tools.bmobsync.SyncBmobQuery;
+import com.joi.school.fitness.tools.transform.ExerciseTaskWrapper;
 
+import org.json.JSONException;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 
-import cn.bmob.v3.datatype.BmobPointer;
+import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.exception.BmobException;
 
 /**
@@ -34,8 +38,17 @@ class DoingExercisePresenter implements IDoingExerciseContract.Presenter {
             @Override
             public void run() {
                 try {
+                    ExerciseTaskWrapper exerciseTaskWrapper = new ExerciseTaskWrapper(task);
+
+                    List<BmobQuery<Sport>> queries = new ArrayList<>();
+                    for (String id : exerciseTaskWrapper.getSportIdList()) {
+                        BmobQuery<Sport> eq = new BmobQuery<>();
+                        eq.addWhereEqualTo("objectId", id);
+                        queries.add(eq);
+                    }
+
                     SyncBmobQuery<Sport> query = new SyncBmobQuery<>(Sport.class);
-                    query.addWhereRelatedTo("recommendedSports", new BmobPointer(task));
+                    query.or(queries);
                     final List<Sport> sportList = query.syncFindObjects();
                     mView.runOnUiThread(new Runnable() {
                         @Override
@@ -44,6 +57,8 @@ class DoingExercisePresenter implements IDoingExerciseContract.Presenter {
                         }
                     });
                 } catch (BmobException e) {
+                    e.printStackTrace();
+                } catch (JSONException e) {
                     e.printStackTrace();
                 }
             }

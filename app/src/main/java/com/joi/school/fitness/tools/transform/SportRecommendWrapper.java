@@ -83,9 +83,8 @@ public class SportRecommendWrapper {
         return wrapperList;
     }
 
-    public SportRecommendWrapper setSportList(List<Sport> sportList) {
+    public void setSportList(List<Sport> sportList) {
         this.sportList = sportList;
-        return this;
     }
 
     public List<Sport> getSportList() {

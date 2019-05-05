@@ -70,6 +70,7 @@ public class ExerciseTaskListActivity extends BaseActivity implements IExerciseT
     @Override
     public void hasDoingTask(DoingExerciseTask task) {
         Navigation.goToDoingExerciseTaskActivity(getContext(), task);
+        finish();
     }
 
     @Override
@@ -85,6 +86,7 @@ public class ExerciseTaskListActivity extends BaseActivity implements IExerciseT
     @Override
     public void completeChooseTask(DoingExerciseTask task) {
         Navigation.goToDoingExerciseTaskActivity(getContext(), task);
+        finish();
     }
 
     @Override

@@ -1,6 +1,7 @@
 package com.joi.school.fitness.tools.transform;
 
 import com.joi.school.fitness.tools.bean.ExerciseTask;
+import com.joi.school.fitness.tools.bean.Sport;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -18,6 +19,7 @@ import java.util.List;
 public class ExerciseTaskWrapper {
     private ExerciseTask task;
     private List<String> sportIdList;
+    private List<Sport> sportList;
     private List<Integer> timeInMinuteList;
 
     private final String JSON_KEY_SPORT_LIST = "sportList";
@@ -79,5 +81,13 @@ public class ExerciseTaskWrapper {
             wrapperList.add(wrapper);
         }
         return wrapperList;
+    }
+
+    public void setSportList(List<Sport> sportList) {
+        this.sportList = sportList;
+    }
+
+    public List<Sport> getSportList() {
+        return sportList;
     }
 }

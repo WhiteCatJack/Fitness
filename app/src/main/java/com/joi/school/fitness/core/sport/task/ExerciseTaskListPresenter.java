@@ -2,11 +2,15 @@ package com.joi.school.fitness.core.sport.task;
 
 import com.joi.school.fitness.tools.bean.DoingExerciseTask;
 import com.joi.school.fitness.tools.bean.ExerciseTask;
+import com.joi.school.fitness.tools.bean.Sport;
 import com.joi.school.fitness.tools.bmobsync.SyncBmobQuery;
 import com.joi.school.fitness.tools.transform.ExerciseTaskWrapper;
 import com.joi.school.fitness.tools.user.UserEngine;
 import com.joi.school.fitness.tools.util.AndroidUtils;
 
+import org.json.JSONException;
+
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -37,6 +41,7 @@ class ExerciseTaskListPresenter implements IExerciseTaskListContract.Presenter {
         mExecutor.execute(new Runnable() {
             @Override
             public void run() {
+                final List<ExerciseTaskWrapper> resultList = new ArrayList<>();
 
                 Calendar calendar = Calendar.getInstance();
                 calendar.set(Calendar.HOUR_OF_DAY, 0);
@@ -52,6 +57,7 @@ class ExerciseTaskListPresenter implements IExerciseTaskListContract.Presenter {
                     doingExerciseTaskSyncBmobQuery.addWhereEqualTo(
                             "user", UserEngine.getInstance().getCurrentUser().getObjectId());
                     doingExerciseTaskSyncBmobQuery.addWhereGreaterThanOrEqualTo("createdAt", today00);
+                    doingExerciseTaskSyncBmobQuery.include("task");
                     final List<DoingExerciseTask> doingExerciseTaskList = doingExerciseTaskSyncBmobQuery.syncFindObjects();
                     if (doingExerciseTaskList.size() > 0) {
                         final DoingExerciseTask doingExerciseTask = doingExerciseTaskList.get(0);
@@ -72,15 +78,36 @@ class ExerciseTaskListPresenter implements IExerciseTaskListContract.Presenter {
                     taskListQuery.addWhereEqualTo("targetUser", UserEngine.getInstance().getCurrentUser().getObjectId());
                     taskListQuery.addWhereGreaterThanOrEqualTo("time", today00);
 
+                    SyncBmobQuery<Sport> sportQuery = new SyncBmobQuery<>(Sport.class);
+                    List<Sport> sportList = sportQuery.syncFindObjects();
+
                     final List<ExerciseTask> result = taskListQuery.syncFindObjects();
+
+                    for (ExerciseTask exerciseTask : result) {
+                        ExerciseTaskWrapper wrapper = new ExerciseTaskWrapper(exerciseTask);
+                        List<Sport> taskSportList = new ArrayList<>();
+                        List<String> sportIdList = wrapper.getSportIdList();
+                        for (String id : sportIdList) {
+                            for (Sport sport : sportList) {
+                                if (sport.getObjectId().equals(id)) {
+                                    taskSportList.add(sport);
+                                }
+                            }
+                        }
+                        wrapper.setSportList(taskSportList);
+                        resultList.add(wrapper);
+                    }
+
                     mView.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            mView.showTaskList(ExerciseTaskWrapper.fromOriginal(result));
+                            mView.showTaskList(resultList);
                         }
                     });
                 } catch (BmobException e) {
                     AndroidUtils.showErrorMainThread(mView, e);
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
             }
         });

@@ -49,7 +49,7 @@ class RecommendedTaskViewHolder extends RecyclerView.ViewHolder {
             builder.append(sport.getSportName());
             builder.append("(").append(timeInMinutes).append("min)");
             if (i != task.getSportList().size() - 1) {
-                builder.append(" + ");
+                builder.append("\n");
             }
         }
         contentTextView.setText(builder.toString());

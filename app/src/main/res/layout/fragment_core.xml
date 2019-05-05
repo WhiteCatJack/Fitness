@@ -18,6 +18,7 @@
             android:paddingTop="15dp"
             android:paddingBottom="15dp"
             tl:tl_indicator_gravity="BOTTOM"
+            tl:tl_tab_space_equal="true"
             tl:tl_textBold="SELECT"
             tl:tl_underline_color="@color/window_background_color" />
 
