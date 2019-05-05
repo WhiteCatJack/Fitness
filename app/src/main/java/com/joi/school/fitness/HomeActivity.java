@@ -88,6 +88,12 @@ public class HomeActivity extends BaseActivity implements IHomeContract.View {
         switchFragment(FRAGMENT_TAG_CORE);
         checkPermission();
 //        manipulateData();
+        showSlidesIfNeeded();
+    }
+
+    private void showSlidesIfNeeded() {
+//        SharedPreferences...
+        startActivity(new Intent(this, SlidesActivity.class));
     }
 
     private void manipulateData() {

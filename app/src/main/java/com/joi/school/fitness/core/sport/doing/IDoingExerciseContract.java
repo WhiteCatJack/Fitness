@@ -1,8 +1,8 @@
 package com.joi.school.fitness.core.sport.doing;
 
 import com.joi.school.fitness.tools.bean.DoingExerciseTask;
-import com.joi.school.fitness.tools.bean.ExerciseTask;
 import com.joi.school.fitness.tools.bean.Sport;
+import com.joi.school.fitness.tools.transform.DoingExerciseTaskWrapper;
 
 import java.util.List;
 
@@ -14,12 +14,13 @@ import java.util.List;
  */
 interface IDoingExerciseContract {
     interface View {
+        void doneBuildWrapper(DoingExerciseTaskWrapper taskWrapper);
         void showSportList(List<Sport> taskList);
         void doneComplete();
     }
 
     interface Presenter {
-        void getSportList(ExerciseTask task);
-        void completeTask(DoingExerciseTask task);
+        void getSportList(DoingExerciseTask doingExerciseTask);
+        void completeTask(DoingExerciseTaskWrapper taskWrapper);
     }
 }

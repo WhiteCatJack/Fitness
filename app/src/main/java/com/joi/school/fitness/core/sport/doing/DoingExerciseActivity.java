@@ -11,6 +11,7 @@ import com.joi.school.fitness.tools.base.BaseActivity;
 import com.joi.school.fitness.tools.bean.DoingExerciseTask;
 import com.joi.school.fitness.tools.bean.Sport;
 import com.joi.school.fitness.tools.constant.IntentConstants;
+import com.joi.school.fitness.tools.transform.DoingExerciseTaskWrapper;
 import com.joi.school.fitness.tools.util.AndroidUtils;
 
 import java.util.ArrayList;
@@ -32,6 +33,7 @@ public class DoingExerciseActivity extends BaseActivity implements IDoingExercis
     private List<Sport> mSportTaskList = new ArrayList<>();
     private DoingExerciseListAdapter mAdapter;
     private DoingExerciseTask mDoingExerciseTask;
+    private DoingExerciseTaskWrapper mDoingExerciseTaskWrapper;
 
     private ExecutorService mExecutor = new ScheduledThreadPoolExecutor(1);
 
@@ -58,11 +60,16 @@ public class DoingExerciseActivity extends BaseActivity implements IDoingExercis
         mCompleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mPresenter.completeTask(mDoingExerciseTask);
+                mPresenter.completeTask(mDoingExerciseTaskWrapper);
             }
         });
 
-        mPresenter.getSportList(mDoingExerciseTask.getTask());
+        mPresenter.getSportList(mDoingExerciseTask);
+    }
+
+    @Override
+    public void doneBuildWrapper(DoingExerciseTaskWrapper taskWrapper) {
+        mDoingExerciseTaskWrapper = taskWrapper;
     }
 
     @Override

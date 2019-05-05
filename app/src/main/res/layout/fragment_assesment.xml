@@ -6,7 +6,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="16dp">
 
         <lecho.lib.hellocharts.view.LineChartView
             android:id="@+id/chart_original"
@@ -26,16 +27,26 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="24dp"
             android:gravity="center"
-            android:visibility="gone"
             android:text="@string/title_history_heat_outcome"
             android:textColor="@color/text_level1_color"
-            android:textSize="17dp" />
+            android:textSize="17dp"
+            android:visibility="gone" />
 
         <lecho.lib.hellocharts.view.LineChartView
             android:id="@+id/chart_outcome"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="240dp"
             android:visibility="gone" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="24dp"
+            android:gravity="center"
+            android:text="坚持锻炼, 身体健康!\n表现不错, 再接再厉哦~"
+            android:textColor="@color/text_level2_color"
+            android:textSize="14dp" />
     </LinearLayout>
 
 </ScrollView>
