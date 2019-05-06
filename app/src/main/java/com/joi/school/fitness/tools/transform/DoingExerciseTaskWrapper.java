@@ -5,7 +5,7 @@ import com.joi.school.fitness.tools.bean.DoingExerciseTask;
 /**
  * Description.
  *
- * @author 泽乾
+ * @author Joi
  * createAt 2019/5/5 0005 14:02
  */
 public class DoingExerciseTaskWrapper {

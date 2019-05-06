@@ -16,7 +16,7 @@ import cn.bmob.v3.exception.BmobException;
 /**
  * Description.
  *
- * @author 泽乾
+ * @author Joi
  * createAt 2019/5/4 0004 17:44
  */
 public class AssessmentPresenter implements IAssessmentContract.Presenter {

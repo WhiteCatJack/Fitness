@@ -18,7 +18,7 @@ import cn.bmob.v3.exception.BmobException;
 /**
  * Description.
  *
- * @author 泽乾
+ * @author Joi
  * createAt 2019/4/23 0023 16:22
  */
 public class DataManipulator {

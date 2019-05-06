@@ -15,7 +15,7 @@ import java.util.concurrent.ScheduledThreadPoolExecutor;
 /**
  * Description.
  *
- * @author 泽乾
+ * @author Joi
  * createAt 2019/5/4 0004 17:29
  */
 public class HomePresenter implements IHomeContract.Presenter {

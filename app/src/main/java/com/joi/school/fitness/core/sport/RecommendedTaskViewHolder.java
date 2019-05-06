@@ -13,7 +13,7 @@ import com.joi.school.fitness.tools.transform.SportRecommendWrapper;
 /**
  * Description.
  *
- * @author 泽乾
+ * @author Joi
  * createAt 2019/5/4 0004 21:23
  */
 class RecommendedTaskViewHolder extends RecyclerView.ViewHolder {

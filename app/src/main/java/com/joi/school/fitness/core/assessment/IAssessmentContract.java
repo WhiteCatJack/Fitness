@@ -3,7 +3,7 @@ package com.joi.school.fitness.core.assessment;
 /**
  * Description.
  *
- * @author 泽乾
+ * @author Joi
  * createAt 2019/5/4 0004 17:44
  */
 public interface IAssessmentContract {
