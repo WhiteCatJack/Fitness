@@ -6,6 +6,8 @@ import com.joi.school.fitness.tools.bean.ClientMailbox;
 import com.joi.school.fitness.tools.bean.DoingExerciseTask;
 import com.joi.school.fitness.tools.bean.ExerciseTask;
 import com.joi.school.fitness.tools.bean.HeatRecord;
+import com.joi.school.fitness.tools.bean.Meal;
+import com.joi.school.fitness.tools.bean.MealRecommend;
 import com.joi.school.fitness.tools.bean.Post;
 import com.joi.school.fitness.tools.bean.PostTag;
 import com.joi.school.fitness.tools.bean.ServerMailbox;
@@ -101,6 +103,20 @@ class SyncBmobQueryFindListenerFactory {
             return (FindListener<T>) new FindListener<SportRecommend>() {
                 @Override
                 public void done(List<SportRecommend> list, BmobException e) {
+                    reflect.done((List<T>) list, e);
+                }
+            };
+        } else if (classEquals(MealRecommend.class, clazz)) {
+            return (FindListener<T>) new FindListener<MealRecommend>() {
+                @Override
+                public void done(List<MealRecommend> list, BmobException e) {
+                    reflect.done((List<T>) list, e);
+                }
+            };
+        } else if (classEquals(Meal.class, clazz)) {
+            return (FindListener<T>) new FindListener<Meal>() {
+                @Override
+                public void done(List<Meal> list, BmobException e) {
                     reflect.done((List<T>) list, e);
                 }
             };
