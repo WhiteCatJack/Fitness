@@ -2,6 +2,7 @@ package com.joi.school.fitness;
 
 import android.Manifest;
 import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -36,9 +37,10 @@ public class HomeActivity extends BaseActivity implements IHomeContract.View {
     private static final int MEAL_SCAN_CAMERA_PHOTO_REQUEST_CODE = 2;
 
     private IHomeContract.Presenter mPresenter;
+    private int mRecongnitionType;
 
     @Override
-    public void mealRecognitionDone(Meal meal, String resultJson) {
+    public void mealRecognitionDone(final Meal meal, final int type) {
         dismissLoadingDialog();
         if (meal == null) {
             AndroidUtils.showUnknownErrorToast();
@@ -46,7 +48,13 @@ public class HomeActivity extends BaseActivity implements IHomeContract.View {
         }
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-        builder.setMessage(resultJson);
+        builder.setMessage("识别成功!识别的菜品是:" + meal.getMealName() + ", 请问正确吗?");
+        builder.setPositiveButton("正确", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                mPresenter.uploadMealHeatRecord(meal, type);
+            }
+        }).setNegativeButton("不", null);
         builder.create().show();
     }
 
@@ -59,7 +67,7 @@ public class HomeActivity extends BaseActivity implements IHomeContract.View {
                     Bitmap bitmap = AndroidUtils.readPhotoFromIntent(this, data);
                     if (bitmap != null) {
                         showLoadingDialog();
-                        mPresenter.doMealRecognition(bitmap);
+                        mPresenter.doMealRecognition(bitmap, mRecongnitionType);
                     } else {
                         AndroidUtils.showUnknownErrorToast();
                     }
@@ -147,9 +155,17 @@ public class HomeActivity extends BaseActivity implements IHomeContract.View {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.action_bar_meal_recognize) {
-            AndroidUtils.showPhotoChoiceDialog(this,
-                                               MEAL_SCAN_CAMERA_PHOTO_REQUEST_CODE, MEAL_SCAN_FILE_SYSTEM_PHOTO_REQUEST_CODE
-            );
+            AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+            builder.setItems(new String[]{"早餐", "中餐", "晚餐"}, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    mRecongnitionType = which + 1;
+                    AndroidUtils.showPhotoChoiceDialog(HomeActivity.this,
+                                                       MEAL_SCAN_CAMERA_PHOTO_REQUEST_CODE, MEAL_SCAN_FILE_SYSTEM_PHOTO_REQUEST_CODE
+                    );
+                }
+            });
+            builder.create().show();
             return true;
         }
 

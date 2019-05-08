@@ -12,10 +12,12 @@ import com.joi.school.fitness.tools.bean.Meal;
  */
 public interface IHomeContract {
     interface View {
-        void mealRecognitionDone(Meal meal, String resultJson);
+        void mealRecognitionDone(Meal meal, int type);
     }
 
     interface Presenter {
-        void doMealRecognition(Bitmap bitmap);
+        void doMealRecognition(Bitmap bitmap, int type);
+
+        void uploadMealHeatRecord(Meal meal, int type);
     }
 }
