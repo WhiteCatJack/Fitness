@@ -1,5 +1,7 @@
 package com.joi.school.fitness.home;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -17,7 +19,6 @@ import com.joi.school.fitness.tools.base.OnItemClickListener;
 import com.joi.school.fitness.tools.bean.Advertisement;
 import com.joi.school.fitness.tools.bean.Article;
 import com.joi.school.fitness.tools.constant.Constants;
-import com.joi.school.fitness.tools.util.AndroidUtils;
 import com.joi.school.fitness.tools.util.Navigation;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
@@ -76,7 +77,7 @@ public class NewsFragment extends Fragment implements IHomeContract.View {
         refresh();
     }
 
-    private void refresh(){
+    private void refresh() {
         mSwipeRefreshLayout.setRefreshing(true);
         mPresenter.getAllAdvertisement();
         mPresenter.getAllArticles();
@@ -135,6 +136,10 @@ public class NewsFragment extends Fragment implements IHomeContract.View {
 
     @Override
     public void reactClickBannerItem(Advertisement advertisement) {
-        AndroidUtils.showToast(advertisement.getLinkUrl());
+        Intent intent = new Intent();
+        intent.setAction(Intent.ACTION_VIEW);
+        String data = advertisement.getLinkUrl();
+        intent.setData(Uri.parse(data));
+        startActivity(intent);
     }
 }
