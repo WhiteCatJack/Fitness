@@ -31,6 +31,7 @@ public class DoingExerciseActivity extends BaseActivity implements IDoingExercis
     private View mCompleteButton;
 
     private List<Sport> mSportTaskList = new ArrayList<>();
+    private List<Integer> mTimeList = new ArrayList<>();
     private DoingExerciseListAdapter mAdapter;
     private DoingExerciseTask mDoingExerciseTask;
     private DoingExerciseTaskWrapper mDoingExerciseTaskWrapper;
@@ -53,7 +54,7 @@ public class DoingExerciseActivity extends BaseActivity implements IDoingExercis
         mSportListRecyclerView = findViewById(R.id.rv_list);
         mCompleteButton = findViewById(R.id.bt_complete_task);
 
-        mAdapter = new DoingExerciseListAdapter(mSportTaskList);
+        mAdapter = new DoingExerciseListAdapter(mSportTaskList, mTimeList);
         mSportListRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mSportListRecyclerView.setAdapter(mAdapter);
 
@@ -73,9 +74,11 @@ public class DoingExerciseActivity extends BaseActivity implements IDoingExercis
     }
 
     @Override
-    public void showSportList(List<Sport> sportList){
+    public void showSportList(List<Sport> sportList, List<Integer> timeList) {
         mSportTaskList.clear();
         mSportTaskList.addAll(sportList);
+        mTimeList.clear();
+        mTimeList.addAll(timeList);
         mAdapter.notifyDataSetChanged();
     }
 

@@ -18,10 +18,12 @@ import java.util.List;
  */
 public class DoingExerciseListAdapter extends RecyclerView.Adapter<DoingExerciseViewHolder> {
 
-    private List<Sport> mDataList;
+    private List<Sport> mSportList;
+    private List<Integer> mTimeList;
 
-    public DoingExerciseListAdapter(List<Sport> mDataList) {
-        this.mDataList = mDataList;
+    public DoingExerciseListAdapter(List<Sport> mSportList, List<Integer> mTimeList) {
+        this.mSportList = mSportList;
+        this.mTimeList = mTimeList;
     }
 
     @NonNull
@@ -35,13 +37,14 @@ public class DoingExerciseListAdapter extends RecyclerView.Adapter<DoingExercise
 
     @Override
     public void onBindViewHolder(@NonNull DoingExerciseViewHolder exerciseTaskViewHolder, int i) {
-        Sport exerciseTask = mDataList.get(i);
-        exerciseTaskViewHolder.build(exerciseTask);
+        Sport sport = mSportList.get(i);
+        int timeInMinute = mTimeList.get(i);
+        exerciseTaskViewHolder.build(sport, timeInMinute);
     }
 
     @Override
     public int getItemCount() {
-        return mDataList.size();
+        return mSportList.size();
     }
 
 }

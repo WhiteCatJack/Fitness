@@ -3,12 +3,14 @@ package com.joi.school.fitness.core.sport;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.joi.school.fitness.R;
 import com.joi.school.fitness.tools.base.OnItemClickListener;
 import com.joi.school.fitness.tools.bean.Sport;
 import com.joi.school.fitness.tools.transform.SportRecommendWrapper;
+import com.joi.school.fitness.tools.util.GlideUtils;
 
 /**
  * Description.
@@ -20,6 +22,7 @@ class RecommendedTaskViewHolder extends RecyclerView.ViewHolder {
 
     private View layout;
     private TextView contentTextView;
+    private ImageView coverImageView;
     private OnItemClickListener<SportRecommendWrapper> mOnItemClickListener;
 
     public RecommendedTaskViewHolder(@NonNull View itemView) {
@@ -31,6 +34,7 @@ class RecommendedTaskViewHolder extends RecyclerView.ViewHolder {
     private void bindLayout() {
         layout = itemView.findViewById(R.id.cv_layout);
         contentTextView = layout.findViewById(R.id.tv_content);
+        coverImageView = layout.findViewById(R.id.iv_cover_img);
     }
 
     public void build(final SportRecommendWrapper task) {
@@ -42,6 +46,7 @@ class RecommendedTaskViewHolder extends RecyclerView.ViewHolder {
                 }
             }
         });
+        String coverImageUrl = task.getSportList().get(0).getSportImageUrl();
         StringBuilder builder = new StringBuilder();
         for (int i = 0; i < task.getSportList().size(); i++) {
             Sport sport = task.getSportList().get(i);
@@ -53,6 +58,7 @@ class RecommendedTaskViewHolder extends RecyclerView.ViewHolder {
             }
         }
         contentTextView.setText(builder.toString());
+        GlideUtils.setImageUrl(coverImageView, coverImageUrl, true);
     }
 
     public void setOnItemClickListener(OnItemClickListener<SportRecommendWrapper> onItemClickListener) {

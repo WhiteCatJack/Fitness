@@ -15,7 +15,7 @@ import java.util.List;
 interface IDoingExerciseContract {
     interface View {
         void doneBuildWrapper(DoingExerciseTaskWrapper taskWrapper);
-        void showSportList(List<Sport> taskList);
+        void showSportList(List<Sport> taskList, List<Integer> timeList);
         void doneComplete();
     }
 

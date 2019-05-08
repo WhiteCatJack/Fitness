@@ -73,7 +73,8 @@ class DoingExercisePresenter implements IDoingExerciseContract.Presenter {
                         @Override
                         public void run() {
                             mView.doneBuildWrapper(doingExerciseTaskWrapper);
-                            mView.showSportList(sportList);
+                            mView.showSportList(doingExerciseTaskWrapper.getExerciseTaskWrapper().getSportList(),
+                                                doingExerciseTaskWrapper.getExerciseTaskWrapper().getTimeInMinuteList());
                         }
                     });
                 } catch (BmobException e) {

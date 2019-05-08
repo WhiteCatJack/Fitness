@@ -10,7 +10,7 @@
         android:layout_alignParentBottom="true"
         android:background="@color/colorPrimaryDark"
         android:padding="12dp"
-        android:text="完成"
+        android:text="完成啦！"
         android:textColor="@color/text_level1_color_inverse"
         android:textSize="17dp" />
 

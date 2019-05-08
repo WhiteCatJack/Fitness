@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.joi.school.fitness.R;
 import com.joi.school.fitness.tools.bean.Sport;
+import com.joi.school.fitness.tools.util.GlideUtils;
 
 /**
  * Description.
@@ -28,9 +29,12 @@ class DoingExerciseViewHolder extends RecyclerView.ViewHolder {
 
     private void bindLayout() {
         titleTextView = itemView.findViewById(R.id.tv_content);
+        coverImageView = itemView.findViewById(R.id.iv_cover_img);
     }
 
-    public void build(final Sport sport) {
-        titleTextView.setText(sport.getSportName());
+    public void build(Sport sport, int timeInMinute) {
+        String content = sport.getSportName() + " (" + String.valueOf(timeInMinute) + "min)";
+        titleTextView.setText(content);
+        GlideUtils.setImageUrl(coverImageView, sport.getSportImageUrl(), true);
     }
 }
