@@ -54,6 +54,7 @@ public class CommentActivity extends BaseActivity {
 
     private void getCommentList() {
         BmobQuery<Comment> query = new BmobQuery<>();
+        query.include("author");
         Post post = new Post();
         post.setObjectId(mPost.getObjectId());
         query.order("-createdAt");

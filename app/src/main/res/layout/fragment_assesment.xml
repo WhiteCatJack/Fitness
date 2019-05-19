@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -13,13 +13,13 @@
             android:id="@+id/chart_original"
             android:layout_width="match_parent"
             android:layout_height="200dp"
-            android:visibility="gone" />
+            android:visibility="gone"/>
 
         <lecho.lib.hellocharts.view.LineChartView
             android:id="@+id/chart_income"
             android:layout_width="match_parent"
             android:layout_height="200dp"
-            android:visibility="gone" />
+            android:visibility="gone"/>
 
         <TextView
             android:id="@+id/tv_title_outcome"
@@ -30,13 +30,14 @@
             android:text="@string/title_history_heat_outcome"
             android:textColor="@color/text_level1_color"
             android:textSize="17dp"
-            android:visibility="gone" />
+            android:visibility="gone"/>
 
         <lecho.lib.hellocharts.view.LineChartView
             android:id="@+id/chart_outcome"
             android:layout_width="match_parent"
             android:layout_height="240dp"
-            android:visibility="gone" />
+            android:background="@color/window_background_color"
+            android:visibility="gone"/>
 
         <TextView
             android:layout_width="match_parent"
@@ -44,9 +45,9 @@
             android:layout_marginTop="24dp"
             android:layout_marginBottom="24dp"
             android:gravity="center"
-            android:text="坚持锻炼, 身体健康!\n表现不错, 再接再厉哦~"
+            android:text="亲爱的小主好棒哦!\n您4月份运动了17天！\n您近期的运动消耗量不是很稳定哦！\n表现不错, 再接再厉哦~"
             android:textColor="@color/text_level2_color"
-            android:textSize="14dp" />
+            android:textSize="14dp"/>
     </LinearLayout>
 
 </ScrollView>
