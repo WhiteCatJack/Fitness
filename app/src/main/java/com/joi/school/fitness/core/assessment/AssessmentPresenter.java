@@ -51,8 +51,7 @@ public class AssessmentPresenter implements IAssessmentContract.Presenter {
                     mView.getActivity().runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            mView.showOutcome(transform(getOutcomeData(heatRecordList)));
-                            mView.showIncome(transform(getIncomeDataOnlyHeatChange(heatRecordList)));
+                            mView.showGraph(transform(getIncomeDataOnlyHeatChange(heatRecordList)), transform(getOutcomeData(heatRecordList)));
                         }
                     });
                 } catch (BmobException e) {

@@ -8,11 +8,7 @@ package com.joi.school.fitness.core.assessment;
  */
 public interface IAssessmentContract {
     interface View {
-        void showOriginalData(double[] heatRecordList);
-
-        void showIncome(double[] heatRecordList);
-
-        void showOutcome(double[] heatRecordList);
+        void showGraph(double[] incomeHeatRecordList, double[] outcomeHeatRecordList);
     }
 
     interface Presenter {

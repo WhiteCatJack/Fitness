@@ -32,25 +32,17 @@ public class AssessmentFragment extends BaseFragment implements IAssessmentContr
 
     private IAssessmentContract.Presenter mPresenter;
 
-    private LineChartView mOriginalChart;
-    private LineChartView mIncomeChart;
-    private TextView mOutcomeTitle;
-    private LineChartView mOutcomeChart;
+    private TextView mChartTitle;
+    private LineChartView mChart;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View layout = inflater.inflate(R.layout.fragment_assesment, container, false);
 
-        mOriginalChart = layout.findViewById(R.id.chart_original);
-        mIncomeChart = layout.findViewById(R.id.chart_income);
-        mOutcomeTitle = layout.findViewById(R.id.tv_title_outcome);
-        mOutcomeChart = layout.findViewById(R.id.chart_outcome);
-
-        mOriginalChart.setInteractive(false);
-        mIncomeChart.setInteractive(false);
-        mOutcomeChart.setInteractive(false);
-
+        mChartTitle = layout.findViewById(R.id.tv_chart_title);
+        mChart = layout.findViewById(R.id.chart);
+        mChart.setInteractive(false);
         return layout;
     }
 
@@ -62,41 +54,44 @@ public class AssessmentFragment extends BaseFragment implements IAssessmentContr
     }
 
     @Override
-    public void showOriginalData(double[] heatRecordList) {
-
-    }
-
-    @Override
-    public void showIncome(double[] heatRecordList) {
-        setChartData(mIncomeChart, heatRecordList);
-        mIncomeChart.setVisibility(View.VISIBLE);
-        mIncomeChart.setVisibility(View.VISIBLE);
-    }
-
-    @Override
-    public void showOutcome(double[] heatRecordList) {
-        for (int i = 0; i < heatRecordList.length; i++) {
-            if (heatRecordList[i] < 0) {
-                heatRecordList[i] = -heatRecordList[i];
+    public void showGraph(double[] incomeHeatRecordList, double[] outcomeHeatRecordList) {
+        for (int i = 0; i < outcomeHeatRecordList.length; i++) {
+            if (outcomeHeatRecordList[i] < 0) {
+                outcomeHeatRecordList[i] = -outcomeHeatRecordList[i];
             }
         }
-        setChartData(mOutcomeChart, heatRecordList);
-        mOutcomeChart.setVisibility(View.VISIBLE);
-        mOutcomeTitle.setVisibility(View.VISIBLE);
+
+        setChartData(mChart, incomeHeatRecordList, outcomeHeatRecordList);
+        mChart.setVisibility(View.VISIBLE);
+        mChartTitle.setVisibility(View.VISIBLE);
     }
 
-    private void setChartData(LineChartView chart, double[] array) {
+    private void setChartData(LineChartView chart, double[] income, double[] outCome) {
+        int minLength = Math.min(income.length, outCome.length);
+
         List<PointValue> values = new ArrayList<>();
-        for (int i = 0; i < array.length; i++) {
-            values.add(new PointValue(i, (float) array[i]));
+        for (int i = 1; i < minLength; i++) {
+            values.add(new PointValue(i, (float) outCome[i]));
         }
 
-        Line line = new Line(values).setColor(
+        Line lineOutCome = new Line(values).setColor(
                 AndroidUtils.getApplicationContext().getResources().getColor(R.color.colorPrimaryDark)
-        ).setCubic(true);
-        line.setStrokeWidth(3);
+        ).setCubic(false);
+        lineOutCome.setStrokeWidth(3);
+
+        values = new ArrayList<>();
+        for (int i = 1; i < minLength; i++) {
+            values.add(new PointValue(i, (float) income[i]));
+        }
+
+        Line lineInCome = new Line(values).setColor(
+                AndroidUtils.getApplicationContext().getResources().getColor(R.color.colorAccent)
+        ).setCubic(false);
+        lineInCome.setStrokeWidth(3);
+
         List<Line> lines = new ArrayList<>();
-        lines.add(line);
+        lines.add(lineOutCome);
+        lines.add(lineInCome);
 
         LineChartData data = new LineChartData();
         data.setLines(lines);
