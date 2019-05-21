@@ -51,6 +51,7 @@ public class AssessmentPresenter implements IAssessmentContract.Presenter {
                         @Override
                         public void run() {
                             mView.showOutcome(transform(getOutcomeData(heatRecordList)));
+                            mView.showIncome(transform(getIncomeDataOnlyHeatChange(heatRecordList)));
                         }
                     });
                 } catch (BmobException e) {
@@ -60,15 +61,40 @@ public class AssessmentPresenter implements IAssessmentContract.Presenter {
         });
     }
 
-    private List<HeatRecord> getOutcomeData(List<HeatRecord> heatRecordList) {
+    private List<HeatRecord> getTypedData(List<HeatRecord> heatRecordList, int type) {
         List<HeatRecord> ret = new ArrayList<>();
         for (HeatRecord heatRecord : heatRecordList) {
             if (heatRecord == null) {
                 continue;
             }
-            if (heatRecord.getType() == HeatRecord.Type.TYPE_EXERCISE) {
+            if (heatRecord.getType() == type) {
                 ret.add(heatRecord);
             }
+        }
+        return ret;
+    }
+
+    private List<HeatRecord> getOutcomeData(List<HeatRecord> heatRecordList) {
+        return getTypedData(heatRecordList, HeatRecord.Type.TYPE_EXERCISE);
+    }
+
+    /**
+     * 返回的HeatRecordItem只有heatChange值，没有时间等数据
+     */
+    @Deprecated
+    private List<HeatRecord> getIncomeDataOnlyHeatChange(List<HeatRecord> heatRecordList) {
+        List<HeatRecord> breakfast = getTypedData(heatRecordList, HeatRecord.Type.TYPE_BREAKFAST);
+        List<HeatRecord> lunch = getTypedData(heatRecordList, HeatRecord.Type.TYPE_LUNCH);
+        List<HeatRecord> dinner = getTypedData(heatRecordList, HeatRecord.Type.TYPE_DINNER);
+        int minSize = Math.min(Math.min(breakfast.size(), lunch.size()), dinner.size());
+        List<HeatRecord> ret = new ArrayList<>();
+        for (int i = minSize - 1; i >= 0; i--) {
+            HeatRecord breakfastItem = breakfast.get(i);
+            HeatRecord lunchItem = breakfast.get(i);
+            HeatRecord dinnerItem = breakfast.get(i);
+            HeatRecord sum = new HeatRecord();
+            sum.setHeatChange(breakfastItem.getHeatChange() + lunchItem.getHeatChange() + dinnerItem.getHeatChange());
+            ret.add(sum);
         }
         return ret;
     }

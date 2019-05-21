@@ -68,7 +68,9 @@ public class AssessmentFragment extends BaseFragment implements IAssessmentContr
 
     @Override
     public void showIncome(double[] heatRecordList) {
-
+        setChartData(mIncomeChart, heatRecordList);
+        mIncomeChart.setVisibility(View.VISIBLE);
+        mIncomeChart.setVisibility(View.VISIBLE);
     }
 
     @Override
