@@ -40,7 +40,8 @@ public class AssessmentPresenter implements IAssessmentContract.Presenter {
                 thirtyDaysBefore.set(Calendar.HOUR, 0);
                 thirtyDaysBefore.set(Calendar.MINUTE, 0);
                 thirtyDaysBefore.set(Calendar.SECOND, 0);
-                thirtyDaysBefore.add(Calendar.DATE, -30);
+                thirtyDaysBefore.set(Calendar.DATE, 1);
+                thirtyDaysBefore.add(Calendar.MONTH, -1);
                 query.addWhereGreaterThanOrEqualTo("time", new BmobDate(thirtyDaysBefore.getTime()));
 
                 query.groupby(new String[]{"time"});

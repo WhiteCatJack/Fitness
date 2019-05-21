@@ -179,7 +179,7 @@ public class HomeActivity extends BaseActivity implements IHomeContract.View {
                 if (mCoreFragment == null) {
                     mCoreFragment = new CoreFragment();
                 }
-                targetFragment = mCoreFragment;
+                 targetFragment = mCoreFragment;
                 break;
             case FRAGMENT_TAG_FORUM:
                 if (mForumFragment == null) {

@@ -103,8 +103,8 @@ public class AssessmentFragment extends BaseFragment implements IAssessmentContr
         Axis axis = new Axis();
         axis.setLineColor(AndroidUtils.getApplicationContext().getResources().getColor(R.color.colorPrimaryDark));
         axis.setTextColor(AndroidUtils.getApplicationContext().getResources().getColor(R.color.text_level1_color));
+        axis.setMaxLabelChars(4);
         data.setAxisYLeft(axis);
-        data.setAxisXBottom(axis);
 
         chart.setLineChartData(data);
     }

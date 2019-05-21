@@ -64,7 +64,7 @@ public class HomePresenter implements IHomeContract.Presenter {
     }
 
     @Override
-    public void uploadMealHeatRecord(Meal meal, int type) {
+    public void uploadMealHeatRecord(final Meal meal, int type) {
         HeatRecord heatRecord = new HeatRecord();
         heatRecord.setUser(UserEngine.getInstance().getCurrentUser());
         heatRecord.setType(type);
@@ -74,7 +74,7 @@ public class HomePresenter implements IHomeContract.Presenter {
             @Override
             public void done(String s, BmobException e) {
                 if (e == null) {
-                    AndroidUtils.showToast(R.string.hint_upload_meal_complete);
+                    AndroidUtils.showToast("你成功上传了一个菜品食用记录，热量值为：" + meal.getCalories() + " Kcal。");
                 } else {
                     AndroidUtils.showUnknownErrorToast();
                 }
